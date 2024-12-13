@@ -91,5 +91,9 @@ img {
 
 footer {
   background-color: #de823a;
-  height: 100px;
+  h1 {
+    font-family: 'Anton', Courier, monospace;
+    font-size: 100px;
+    color: #f2f0ed;
+  }
 }

@@ -3,6 +3,7 @@
 
 Colores
 - #de823a
+- #f2f0ed;
 - #ffffff
 
 Paquetes
