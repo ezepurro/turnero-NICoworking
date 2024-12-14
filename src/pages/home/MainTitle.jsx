@@ -1,4 +1,4 @@
-
+import '../../styles/components/mainTitle.css'
 const MainTitle = () => {
   return (
     <div className="row">

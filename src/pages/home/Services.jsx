@@ -1,5 +1,5 @@
 import Service from "./Service"
-
+import '../../styles/components/services.css'
 const Services = () => {
   return (
     <>

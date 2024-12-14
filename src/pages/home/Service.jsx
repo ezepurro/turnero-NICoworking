@@ -1,4 +1,4 @@
-
+import '../../styles/components/service.css'
 const Service = ({image_url, service, service_description}) => {
   return (
     <div className="service">

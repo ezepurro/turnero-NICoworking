@@ -1,0 +1,25 @@
+footer {
+    padding: 5%;
+    background-color: #de823a;
+    color: #f2f0ed;
+    font-family: 'Krona One', Courier, monospace;
+    h1 {
+      font-family: 'Anton', Courier, monospace;
+      font-size: 100px;
+    }
+    ul {
+      list-style: none;
+      padding: 0px;
+    }
+    button {
+      background-color: rgba(0, 0, 0, 0);
+      font-family: 'Krona One', Courier, monospace;
+      color: #f2f0ed;
+      border: #f2f0ed solid 0.5px;
+      padding: 1%;
+    }
+    span {
+      margin-top: 5px;
+    }
+  
+  }

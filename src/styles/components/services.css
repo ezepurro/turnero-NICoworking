@@ -1,0 +1,9 @@
+.subtitulo{
+    text-align: center;
+    padding: 3%;
+    p {
+      color: #de823a;
+      font-size: 40px;
+      font-family: 'Krona One', Courier, monospace;
+    }
+  }

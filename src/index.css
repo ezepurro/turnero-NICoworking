@@ -6,113 +6,12 @@
   margin: 0%;
 }
 
-.title {
-  padding: 0px;
-  .image-content {
-    position: relative;
-    img {
-      width: 100%;
-      height: 900px;
-      object-fit: cover;
-    }
-    .title-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #de813a42; 
-      .titulo {
-        color: #f2f0ed;
-        position: absolute;
-        top: 400px;
-        left: 300px;
-        h1 {
-          font-family: 'Anton', Courier, monospace;
-          font-size: 100px;
-        }
-        p {
-          font-size: 20px;
-          font-family: 'Krona One', Courier, monospace;
-        }
-      }
-    }
-  }
-}
 
 
 
-.subtitulo{
-  text-align: center;
-  padding: 3%;
-  p {
-    color: #de823a;
-    font-size: 40px;
-    font-family: 'Krona One', Courier, monospace;
-  }
-}
-
-.service {
-  position: relative;
-  img {
-    width: 100%; 
-    height: 300px; 
-    object-fit: cover; 
-  }
-  .service-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
-    .info {
-      padding: 3% 0% 0% 10%;
-      width: 50%;
-      h2 {
-        font-size: 47.8px;
-        font-family: 'Anton', Courier, monospace;
-        color: #f2f0ed;
-      }
-      p {
-        font-size: 19px;
-        font-family: 'Krona One', Courier, monospace;
-        color: #f2f0ed;
-      }
-      button {
-        background-color: rgba(0, 0, 0, 0);
-        font-family: 'Krona One', Courier, monospace;
-        color: #f2f0ed;
-        border: #f2f0ed solid 0.5px;
-        padding: 1%;
-      }
-    }
-  }
-}
 
 
-footer {
-  padding: 5%;
-  background-color: #de823a;
-  color: #f2f0ed;
-  font-family: 'Krona One', Courier, monospace;
-  h1 {
-    font-family: 'Anton', Courier, monospace;
-    font-size: 100px;
-  }
-  ul {
-    list-style: none;
-    padding: 0px;
-  }
-  button {
-    background-color: rgba(0, 0, 0, 0);
-    font-family: 'Krona One', Courier, monospace;
-    color: #f2f0ed;
-    border: #f2f0ed solid 0.5px;
-    padding: 1%;
-  }
-  span {
-    margin-top: 5px;
-  }
 
-}
+
+
+
