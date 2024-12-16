@@ -13,8 +13,8 @@
       height: 100%;
       background-color: rgba(0, 0, 0, 0.5); 
       .info {
-        padding: 3% 0% 0% 10%;
         width: 50%;
+        padding: 3% 0% 0% 10%;
         h2 {
           font-size: 47.8px;
           font-family: 'Anton', Courier, monospace;
@@ -33,6 +33,12 @@
           padding: 1%;
         }
       }
+      /* .izq {
+        padding: 3% 0% 0% 10%;
+      }
+      .der {
+        padding: 3% 0% 0% 60%;
+      } */
     }
   }
 

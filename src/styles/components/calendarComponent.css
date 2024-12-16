@@ -1,0 +1,18 @@
+.rbc-event {
+background-color: #de823a !important;
+color: white !important;
+}
+
+.rbc-toolbar {
+font-size: 16px;
+color: #333;
+}
+
+.rbc-active {
+    background-color: #de823a !important;
+    color: white !important;
+}
+
+.rbc-calendar {
+    margin-bottom: 5%;
+}

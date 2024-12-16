@@ -1,0 +1,21 @@
+
+
+.service-title-admin {
+    font-family: 'Montserrat', Courier, monospace;
+    color: #de823a;
+    padding: 10px 0px 10px 10px;
+    /* -webkit-text-stroke: 1px #de823a;  */
+    font-size: 150%;
+}
+
+.admin-title {
+    background-color: #f2f0ed;
+    color: #de823a;
+    font-family: 'Montserrat', Courier, monospace;
+    font-weight: 100;
+    font-size: 200%;
+    padding: 5%;
+    b {
+        font-weight: 600;
+    }
+}
