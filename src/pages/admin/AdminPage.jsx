@@ -5,7 +5,7 @@ import Calendars from "./Calendars"
 const AdminPage = () => {
   return (
     <>
-      <h1 className="admin-title text-center"><b>NUEVA IDENTIDAD COWORKING</b> Admin</h1>
+      <h1 className="admin-title text-center"><a href="/"><b>NUEVA IDENTIDAD COWORKING</b></a> Admin</h1>
       <Calendars />
       <Footer />
     </>
