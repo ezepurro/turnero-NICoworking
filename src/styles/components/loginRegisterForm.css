@@ -1,0 +1,49 @@
+
+.auth-form-container {
+    font-family: 'Montserrat';
+    padding: 0%;
+    width: 100%;
+    margin: 100px 0px 100px 0px;
+    .auth-form {
+        button {
+            background-color: #de823a;
+            padding: 15px;
+            margin: 0px 0px 15px 0px;
+        }
+        .btn-success {
+            background-color: #c97434;
+        }
+    }
+}
+
+
+/* Tablets and above */
+@media (min-width: 0px) {
+    .auth-form {
+        input {
+            padding: 5%;
+            margin: 15px 0px 15px 0px;
+
+        }
+    }
+}
+  
+/* Laptops and above */
+@media (min-width: 768px) {
+    .auth-form {
+        input {
+            padding: 3%;
+
+        }
+    }
+}
+
+/* Desktops and above */
+@media (min-width: 992px) {
+    .auth-form {
+        input {
+            padding: 2%;
+            margin: 3% 0% 3% 0%;
+        }
+    }
+}

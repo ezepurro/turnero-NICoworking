@@ -1,0 +1,16 @@
+
+
+.header-title {
+    background-color: #f2f0ed;
+    font-family: 'Montserrat', Courier, monospace;
+    font-weight: 100;
+    font-size: 200%;
+    padding: 5%;
+    b {
+        font-weight: 600;
+    }
+    a {
+        text-decoration: none;
+        color: #de823a;
+    }
+}
