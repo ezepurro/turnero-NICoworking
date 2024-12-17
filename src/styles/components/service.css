@@ -1,44 +1,74 @@
+
 .service {
-    position: relative;
-    img {
-      width: 100%; 
-      height: 300px; 
-      object-fit: cover; 
-    }
-    .service-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5); 
-      .info {
-        width: 50%;
-        padding: 3% 0% 0% 10%;
-        h2 {
-          font-size: 47.8px;
-          font-family: 'Anton', Courier, monospace;
-          color: #f2f0ed;
-        }
-        p {
-          font-size: 19px;
-          font-family: 'Krona One', Courier, monospace;
-          color: #f2f0ed;
-        }
-        button {
-          background-color: rgba(0, 0, 0, 0);
-          font-family: 'Krona One', Courier, monospace;
-          color: #f2f0ed;
-          border: #f2f0ed solid 0.5px;
-          padding: 1%;
-        }
+  position: relative;
+  img {
+    width: 100%; 
+    height: 300px; 
+    object-fit: cover; 
+  }
+  .service-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    .info {
+      width: 50%;
+      padding: 3% 0% 0% 10%;
+      h2 {
+        font-size: 47.8px;
+        font-family: 'Anton', Courier, monospace;
+        color: #f2f0ed;
       }
-      /* .izq {
-        padding: 3% 0% 0% 10%;
+      p {
+        font-size: 19px;
+        font-family: 'Krona One', Courier, monospace;
+        color: #f2f0ed;
       }
-      .der {
-        padding: 3% 0% 0% 60%;
-      } */
+      button {
+        background-color: rgba(0, 0, 0, 0);
+        font-family: 'Krona One', Courier, monospace;
+        color: #f2f0ed;
+        border: #f2f0ed solid 0.5px;
+        padding: 1%;
+      }
     }
   }
+}
+
+
+  /* Tablets and above */
+@media (min-width: 300px) {
+  .service .service-overlay .info p {
+    font-size: 13px;
+  }
+  .service .service-overlay .info h2 {
+    font-size: 40px;
+  }
+  .service .service-overlay .info button {
+    font-size: 13px;
+  }
+  .service .service-overlay .info {
+    margin-top: 30px;
+  }
+}
+
+
+
+/* Desktops and above */
+@media (min-width: 800px) {
+  .service .service-overlay .info p {
+    font-size: 19px;
+  }
+  .service .service-overlay .info h2 {
+    font-size: 47.8px;
+  }
+  .service .service-overlay .info button {
+    font-size: 20px;
+  }
+  .service .service-overlay .info {
+    margin-top: 0px;
+  }
+}
 

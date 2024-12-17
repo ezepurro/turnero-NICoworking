@@ -1,4 +1,6 @@
 import '../../styles/components/service.css'
+
+
 const Service = ({image_url, service, service_description, posicion}) => {
   return (
     <div className="service">
