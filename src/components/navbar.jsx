@@ -1,6 +1,8 @@
 import Logo from '../components/Logo';
+import '../styles/components/navbar.css';
+
 function Navbar(){
-    return 
+    return( 
     <div className="navbar__container">
         <div className="navbar__logo">
             <Logo/>
@@ -14,6 +16,7 @@ function Navbar(){
             </button>
         </div>
     </div>
+    )
 }
 
 export default Navbar;

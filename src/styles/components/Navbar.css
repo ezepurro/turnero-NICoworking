@@ -4,16 +4,28 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 130px;
+    height: 70px;
+    left:0;
     position: fixed;
     top: 0;
-    background-color: ;
-    color: white;
+    background: rgba(0, 0, 0, 0.3);
+    opacity: 0.7;
 }
 .navbar__options{
+    position: relative;
     display: flex;
     gap: 30px;
-    left: 15px;
+    left: 75px;
     justify-content: center;
     align-items: center;
+}
+
+button{
+    position: relative;
+    font-weight: bold;
+    font-size: 1rem;
+    opacity: 1;
+    border: none;
+    background: none;
+    color: white;
 }
