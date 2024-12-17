@@ -1,24 +1,62 @@
 footer {
-    padding: 5%;
-    background-color: #de823a;
-    color: #f2f0ed;
+  width: 100%;
+  padding: 5%;
+  background-color: #de823a;
+  color: #f2f0ed;
+  font-family: 'Krona One', Courier, monospace;
+  h1 {
+    font-family: 'Anton', Courier, monospace;
+  }
+  ul {
+    list-style: none;
+    padding: 0px;
+  }
+  button {
+    background-color: rgba(0, 0, 0, 0);
     font-family: 'Krona One', Courier, monospace;
+    color: #f2f0ed;
+    border: #f2f0ed solid 0.5px;
+    padding: 1%;
+  }
+  span {
+    margin-top: 5px;
+  }
+  .footer-button {
+    margin-bottom: 5%;
+  }
+}
+
+/* Tablets and above */
+@media (min-width: 0px) {
+  footer {
     h1 {
-      font-family: 'Anton', Courier, monospace;
-      font-size: 90px;
+      font-size: 60px;
+      text-align: center;
     }
-    ul {
-      list-style: none;
-      padding: 0px;
-    }
-    button {
-      background-color: rgba(0, 0, 0, 0);
-      font-family: 'Krona One', Courier, monospace;
-      color: #f2f0ed;
-      border: #f2f0ed solid 0.5px;
-      padding: 1%;
-    }
-    span {
-      margin-top: 5px;
+    .footer-button {
+      text-align: center;
     }
   }
+}
+
+/* Laptops and above */
+@media (min-width: 768px) {
+  footer {
+    h1 {
+    font-size: 80px;
+    text-align: left;
+    }
+    .footer-button {
+      text-align: left;
+    }
+  }
+}
+
+/* Desktops and above */
+@media (min-width: 992px) {
+  footer {
+    h1 {
+      font-size: 90px;
+    }
+  }
+}

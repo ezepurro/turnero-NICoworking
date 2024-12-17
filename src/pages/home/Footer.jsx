@@ -15,7 +15,9 @@ const Footer = () => {
               <li>FACEBOOK</li>
               <li>WHATSAPP</li>
             </ul>
-            <button>RESERVA UN TURNO</button>
+            <div className="footer-button">
+              <button>RESERVA UN TURNO</button> 
+            </div>
         </div>
         <hr />
         <div className="col-lg-12 text-center">

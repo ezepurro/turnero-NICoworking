@@ -39,7 +39,7 @@
 
 
   /* Tablets and above */
-@media (min-width: 300px) {
+@media (min-width: 0px) {
   .service .service-overlay .info p {
     font-size: 13px;
   }
