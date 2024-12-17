@@ -5,10 +5,14 @@
     width: 100%;
     margin: 100px 0px 100px 0px;
     .auth-form {
+        input {
+            border-radius: 100px;
+        }
         button {
             background-color: #de823a;
             padding: 15px;
             margin: 0px 0px 15px 0px;
+            border-radius: 100px;
         }
         .btn-success {
             background-color: #c97434;
