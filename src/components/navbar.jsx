@@ -1,4 +1,4 @@
-import Logo from '../components/Logo';
+import Logo from './Logo';
 import '../styles/components/navbar.css';
 
 function Navbar(){

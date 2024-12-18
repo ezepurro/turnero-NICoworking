@@ -1,0 +1,10 @@
+
+.appointment-form {
+    input {
+        width: 100%;
+    }
+    button {
+        background-color: #de823a;
+        color: white;
+    }
+}

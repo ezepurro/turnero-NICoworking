@@ -33,6 +33,7 @@
 /* Tablets and above */
 @media (min-width: 0px) {
   .title .image-content .title-overlay .titulo {
+    left: -10%;
     margin: 60% 20% 20% 20%;
     h1 {
       font-size: 70px; 

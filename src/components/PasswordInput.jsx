@@ -17,10 +17,10 @@ const PasswordInput = ({ placeholder, inputId }) => {
 
         if (passwordInput.type === "password") {
             passwordInput.type = "text";
-            setIcon(eyeOff);
+            setIcon(eye);
         } else {
             passwordInput.type = "password";
-            setIcon(eye);
+            setIcon(eyeOff);
         }
     }
 

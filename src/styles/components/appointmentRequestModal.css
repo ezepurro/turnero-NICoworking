@@ -1,0 +1,9 @@
+
+.modal-dialog .modal-content {
+    border-radius: 20px;
+    font-family: 'Montserrat';
+    
+    .modal-footer button {
+        background-color: #c53636;
+    }
+}
