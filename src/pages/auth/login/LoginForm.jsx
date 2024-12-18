@@ -1,3 +1,4 @@
+import PasswordInput from '../../../components/PasswordInput';
 import '../../../styles/components/loginRegisterForm.css';
 
 
@@ -13,11 +14,7 @@ const LoginForm = () => {
                         placeholder="Email"
                         className='form-control'
                     />
-                    <input
-                        type="password"  
-                        placeholder="Contraseña"
-                        className='form-control'
-                    />
+                    <PasswordInput placeholder="Contraseña" inputId="loginPassword" />
                     <button
                         type="submit"
                         className='btn btn-primary w-100'

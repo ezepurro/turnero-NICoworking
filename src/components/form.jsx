@@ -1,7 +1,7 @@
 const Form = ({route,mode}) => {
     return (
         <div className="form__container">
-            {mode === register?
+            {(mode === 'register') ?
             <div>
                 registrarse
             </div>
