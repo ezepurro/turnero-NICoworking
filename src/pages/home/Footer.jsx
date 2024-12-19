@@ -3,7 +3,7 @@ import '../../styles/components/footer.css';
 
 const Footer = ({ atp }) => {
   return (
-    <footer>
+    <footer className='py-3' >
       <div className="row">
         <div className="col-lg-6 col-sm-12 title">
             <h1>NUEVA IDENTIDAD <br/> COWORKING</h1>

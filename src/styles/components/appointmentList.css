@@ -1,0 +1,18 @@
+
+.appointments-container {
+    font-family: 'Montserrat', 'Courier New', Courier, monospace;
+    font-weight: 500;
+    min-height: calc(100vh - 297px); 
+    h3 {
+        margin: 120px 0px 40px 0px;
+    }
+    b {
+        color: #de823a;
+    }
+    .appoinment {
+        h4 {
+            font-size: 20px;
+        }
+    }
+}
+

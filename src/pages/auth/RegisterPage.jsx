@@ -1,12 +1,12 @@
-import Header from "../../components/Header"
+import Navbar from "../../components/navbar"
 import Footer from "../home/Footer"
 import RegisterForm from "./register/RegisterForm"
 
 const RegisterPage = () => {
   return (
     <>
-      <Header txt="Registro" br={true}/>
       <RegisterForm />
+      <Navbar />
       <Footer />
     </>
   )

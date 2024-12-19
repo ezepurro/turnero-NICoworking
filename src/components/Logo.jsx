@@ -1,8 +1,7 @@
+
 function Logo(){
     return (
-        <div>
-            <img src="../../public/favicon.svg" alt="" />
-        </div>
+        <a href="/*"><img src="../../favicon.svg" alt="NIC-logo" /></a>
     )
 }
 export default Logo

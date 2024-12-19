@@ -1,12 +1,12 @@
-import Header from "../../components/Header"
+import Navbar from "../../components/navbar"
 import Footer from "../home/Footer"
 import LoginForm from "./login/LoginForm"
 
 const LoginPage = () => {
   return (
     <>
-      <Header txt="Incio de Sesión" br={true} />
       <LoginForm />
+      <Navbar />
       <Footer />
     </>
   )
