@@ -1,5 +1,5 @@
 import Footer from "../home/Footer"
-import '../../styles/admin.css'
+import '../../styles/pages/admin.css'
 import Calendars from "./Calendars"
 import Header from "../../components/Header"
 

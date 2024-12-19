@@ -29,3 +29,9 @@ button{
     background: none;
     color: white;
 }
+
+@media (max-width: 767px) {
+    .navbar__container{
+        gap: 20px;
+    }
+}
