@@ -3,7 +3,18 @@
     border-radius: 20px;
     font-family: 'Montserrat';
     
-    .modal-footer button {
-        background-color: #c53636;
+    .modal-footer {
+        border-top: none;
+        button {
+            background-color: #c53636;
+        }
     }
+    .modal-header {
+        border-bottom: none;
+        .modal-title {
+            text-align: center;
+            width: 100%;
+        }
+    }
+
 }

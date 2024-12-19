@@ -10,7 +10,7 @@ const HomePage = () => {
       <MainTitle />
       <Navbar/>
       <Services />
-      <Footer />
+      <Footer atp={true} />
     </>
   )
 }

@@ -11,18 +11,20 @@ footer {
     list-style: none;
     padding: 0px;
   }
-  button {
-    background-color: rgba(0, 0, 0, 0);
-    font-family: 'Krona One', Courier, monospace;
-    color: #f2f0ed;
-    border: #f2f0ed solid 0.5px;
-    padding: 1%;
-  }
   span {
     margin-top: 5px;
   }
   .footer-button {
     margin-bottom: 5%;
+    a {
+      background-color: rgba(0, 0, 0, 0);
+      font-family: 'Krona One', Courier, monospace;
+      color: #f2f0ed;
+      border: #f2f0ed solid 0.5px;
+      padding: 1%;
+      text-decoration: none;
+
+    }
   }
 }
 

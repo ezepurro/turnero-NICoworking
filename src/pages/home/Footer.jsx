@@ -1,6 +1,7 @@
-import '../../styles/components/footer.css'
+import '../../styles/components/footer.css';
 
-const Footer = () => {
+
+const Footer = ({ atp }) => {
   return (
     <footer>
       <div className="row">
@@ -15,9 +16,11 @@ const Footer = () => {
               <li>FACEBOOK</li>
               <li>WHATSAPP</li>
             </ul>
-            <div className="footer-button">
-              <button>RESERVA UN TURNO</button> 
-            </div>
+            {
+              (atp)
+                ? <div className="footer-button"><a href='#services'>RESERVA UN TURNO</a></div>
+                : null
+            }
         </div>
         <hr />
         <div className="col-lg-12 text-center">

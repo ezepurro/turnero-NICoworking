@@ -8,7 +8,7 @@ const Services = () => {
             <p>Nuestros servicios</p>
             </div>
         </div>
-        <div className="">
+        <div className="" id="services">
             <div className=" service-container">
             <Service image_url="https://serapool.fra1.cdn.digitaloceanspaces.com/media/4752/1700134437065.png" service="SPA" service_description="Lorem ipsum dolor sit amet consectetur adipisicing elit." posicion="izq" />
             </div>
