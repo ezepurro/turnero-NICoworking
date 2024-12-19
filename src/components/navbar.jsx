@@ -8,12 +8,8 @@ function Navbar(){
             <Logo/>
         </div>
         <div className="navbar__options">
-            <button>
-                Iniciar Sesion
-            </button>
-            <button>
-                Registrarse
-            </button>
+            <a href="/auth/login">Iniciar Sesión</a>
+            <a href="/auth/register">Registrarse</a>
         </div>
     </div>
     )

@@ -1,8 +1,8 @@
-import Navbar from "../../components/navbar"
 import Footer from "./Footer"
 import MainTitle from "./MainTitle"
 import Services from "./Services"
 import '../../styles/pages/home.css'
+import Navbar from "../../components/Navbar"
 
 const HomePage = () => {
   return (

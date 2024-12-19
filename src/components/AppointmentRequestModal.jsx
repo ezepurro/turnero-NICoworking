@@ -9,7 +9,7 @@ import '../styles/components/appointmentRequestModal.css';
 
 const AppointmentRequestModal = ( {service, ...props}) => {
 
-    const user_authenticated = false;
+    const user_authenticated = true;
 
     return (
         <Modal
