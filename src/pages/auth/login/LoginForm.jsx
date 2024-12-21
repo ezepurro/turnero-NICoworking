@@ -1,10 +1,18 @@
 import PasswordInput from '../../../components/PasswordInput';
+import useAuthStore from '../../../store/useAuthStore';
 import '../../../styles/components/loginRegisterForm.css';
 
 
 const LoginForm = () => {
-  return (
-    
+
+    const { setAuthenticationState } = useAuthStore();
+
+    const logIn = () => {
+        // login
+        setAuthenticationState(true);
+    }
+
+    return (
     <div className="container d-flex justify-content-center">
         <div className="row">
             <div className="col-12 auth-form-container">
@@ -19,6 +27,7 @@ const LoginForm = () => {
                         type="submit"
                         className='btn btn-primary w-100'
                         id='muButton'
+                        onClick={ logIn }
                     >
                         Inciar Sesión
                     </button>
@@ -27,7 +36,7 @@ const LoginForm = () => {
             </div>
         </div>
     </div>
-  )
+    )
 }
 
 export default LoginForm

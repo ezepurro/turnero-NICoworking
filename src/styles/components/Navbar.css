@@ -9,7 +9,6 @@
     position: fixed;
     top: 0;
     background: rgba(0, 0, 0, 0.3);
-
     .navbar__options {
         position: relative;
         display: flex;
@@ -18,7 +17,6 @@
         justify-content: center;
         align-items: center;
     }
-    
     a {
         position: relative;
         font-weight: bold;
@@ -29,7 +27,16 @@
         text-decoration: none;
         font-family: 'Krona One', Courier, monospace;
     }
-
+    button {
+        position: relative;
+        font-weight: bold;
+        opacity: 1;
+        border: none;
+        background: none;
+        color: white;
+        text-decoration: none;
+        font-family: 'Krona One', Courier, monospace;
+    }
     .navbar__logo {
         img {
             width: 70px;

@@ -1,15 +1,13 @@
 import AppointmentRequestForm from './AppointmentRequestForm';
 import AuthenticationRedirect from './AuthenticationRedirect';
-
-// import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
 import '../styles/components/appointmentRequestModal.css';
+import useAuthStore from '../store/useAuthStore';
 
 
 const AppointmentRequestModal = ( {service, ...props}) => {
 
-    const user_authenticated = true;
+    const { isAuthenticated } = useAuthStore();
 
     return (
         <Modal
@@ -21,7 +19,7 @@ const AppointmentRequestModal = ( {service, ...props}) => {
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
               {
-              (user_authenticated)
+              (isAuthenticated)
                 ? `Sacar turno a ${service.toLowerCase()}`
                 : 'Ingresar a Nueva Identidad Coworking'
               }
@@ -29,7 +27,7 @@ const AppointmentRequestModal = ( {service, ...props}) => {
           </Modal.Header>
           <Modal.Body>
             {
-              (user_authenticated)
+              (isAuthenticated)
                 ? <AppointmentRequestForm />
                 : <AuthenticationRedirect />
             }
