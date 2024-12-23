@@ -27,7 +27,7 @@ const AppointmentRequestModal = ( {service, ...props}) => {
           </Modal.Header>
           <Modal.Body>
             {
-              (isAuthenticated)
+              ( isAuthenticated )
                 ? <AppointmentRequestForm />
                 : <AuthenticationRedirect />
             }

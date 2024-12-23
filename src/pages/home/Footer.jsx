@@ -24,7 +24,7 @@ const Footer = ({ atp }) => {
         </div>
         <hr />
         <div className="col-lg-12 text-center">
-          <span>SolidCat 2025 © Todos los derechos reservados</span>
+          <span>Nueva Identidad Coworking 2022 © Todos los derechos reservados</span>
         </div>
       </div>
     </footer>
