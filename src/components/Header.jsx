@@ -8,7 +8,7 @@ const Header = ({ txt, br }) => {
             <a href="/">
                 <b>NUEVA IDENTIDAD COWORKING</b>
             </a>
-            {(br === true)
+            {(br)
                 ? <br />
                 : null
             }{txt}

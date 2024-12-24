@@ -10,16 +10,7 @@ const Services = () => {
         </div>
         <div className="" id="services">
             <div className=" service-container">
-            <Service image_url="https://serapool.fra1.cdn.digitaloceanspaces.com/media/4752/1700134437065.png" service="SPA" service_description="Lorem ipsum dolor sit amet consectetur adipisicing elit." posicion="izq" />
-            </div>
-            <div className="service-container">
-            <Service image_url="https://www.designsystem.es/wp-content/uploads/2023/10/Tendencias-de-colores-y-materiales-para-el-mobiliario-de-tu-peluqueria.jpg" service="PELUQUERIA" service_description="Lorem ipsum dolor sit amet consectetur adipisicing elit." posicion="der" />
-            </div>
-            <div className=" service-container">
-            <Service image_url="https://serapool.fra1.cdn.digitaloceanspaces.com/media/4752/1700134437065.png" service="SPA" service_description="Lorem ipsum dolor sit amet consectetur adipisicing elit." posicion="izq" />
-            </div>
-            <div className="service-container">
-            <Service image_url="https://www.designsystem.es/wp-content/uploads/2023/10/Tendencias-de-colores-y-materiales-para-el-mobiliario-de-tu-peluqueria.jpg" service="PELUQUERIA" service_description="Lorem ipsum dolor sit amet consectetur adipisicing elit." posicion="der" />
+            <Service image_url="https://serapool.fra1.cdn.digitaloceanspaces.com/media/4752/1700134437065.png" service="DEPILACIÓN DEFINITIVA" service_description="Lorem ipsum dolor sit amet consectetur adipisicing elit." posicion="izq" />
             </div>
         </div>
       </>
