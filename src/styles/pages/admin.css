@@ -3,7 +3,8 @@
 .service-title-admin {
     font-family: 'Montserrat', Courier, monospace;
     color: #de823a;
-    padding: 10px 0px 10px 10px;
+    padding: 10px 0px 10px 0px;
+    margin: 10px 0px 10px 0px;
     /* -webkit-text-stroke: 1px #de823a;  */
     font-size: 150%;
 }

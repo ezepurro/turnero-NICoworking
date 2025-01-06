@@ -21,6 +21,7 @@ const CalendarComponent = ({events}) => {
   return (
     <div>
         <Calendar
+            culture='es'
             localizer={localizer}
             events={events}
             startAccessor="start"

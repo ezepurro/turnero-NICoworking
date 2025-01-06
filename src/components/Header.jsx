@@ -6,7 +6,7 @@ const Header = ({ txt, br }) => {
     <>
         <h1 className="header-title text-center">
             <a href="/">
-                <b>NUEVA IDENTIDAD COWORKING</b>
+                <b>BeautyCenter</b>
             </a>
             {(br)
                 ? <br />

@@ -5,24 +5,11 @@ import { events } from "./Events"
 const Calendars = () => {
   return (
     <>
-        {/* Peluqueria */}
-        <h3 className="service-title-admin text-center">Peluqueria</h3>
+      <div className="wax">
+        {/* Depilación */}
+        <h3 className="service-title-admin text-center">Turnos | Depilación definitiva</h3>
         <CalendarComponent events={events}/>
-        <hr />
-
-        {/* Spa */}
-        <h3 className="service-title-admin text-center">Spa</h3>
-        <CalendarComponent />
-        <hr />
-
-        {/* Peluqueria */}
-        <h3 className="service-title-admin text-center">Peluqueria</h3>
-        <CalendarComponent events={events}/>
-        <hr />
-
-        {/* Spa */}
-        <h3 className="service-title-admin text-center">Spa</h3>
-        <CalendarComponent />
+      </div>
     </>
   )
 }

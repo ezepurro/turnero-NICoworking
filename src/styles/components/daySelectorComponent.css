@@ -1,0 +1,52 @@
+.day-selector {
+    font-family: 'Montserrat', sans-serif;
+    .react-datepicker__month-container {
+        font-family: 'Montserrat', sans-serif;
+    }
+    button {
+        width: 50%;
+        margin: 0 auto; 
+        display: block; 
+        
+    }
+    button:hover {
+        background-color: #de823a;
+        color: white;
+    }
+
+    @media (min-width: 1400px) {
+        /* Sobrescribir el tamaño del calendario */
+        .react-datepicker {
+            font-size: 1rem; /* Cambia el tamaño del texto */
+            width: 64%; /* Ajusta el ancho del calendario */
+        }
+        
+        /* Ajustar tamaño de los días */
+        .react-datepicker__day {
+            width: 3rem; /* Ajusta el ancho de los días */
+            height: 3rem; /* Ajusta la altura de los días */
+            line-height: 3rem; /* Asegura que el texto esté centrado */
+        }
+        
+        .react-datepicker__day-name {
+            margin: 10px;
+        }
+        
+        /* Ajustar el encabezado */
+        .react-datepicker__header {
+            font-size: 1.5rem; /* Tamaño del texto del encabezado */
+            padding: 20px; /* Ajusta el espacio del encabezado */
+        }
+        
+        /* Ajustar botones de navegación */
+        .react-datepicker__navigation {
+            top: 20px; /* Ajusta la posición vertical */
+            width: 3rem; /* Ajusta el tamaño del botón */
+            height: 3rem;
+        }
+    }
+
+    @media (min-width: 0px) {
+
+    }
+}
