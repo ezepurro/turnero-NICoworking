@@ -32,6 +32,8 @@ const AppRouter = () => {
 
             {/* User Routes */}
             <Route path="/appointments" element={ <MyAppointments /> } />
+
+            {/* Admin Routes */}
             {user.isAdmin && ( 
               <Route path="/admin" element={<AdminPage />} />
             )}

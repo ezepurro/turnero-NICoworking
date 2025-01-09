@@ -28,6 +28,7 @@ const LoginForm = () => {
                             type="email"  
                             placeholder="Email"
                             className='form-control'
+                            required
                             name='email'
                             value={ email }
                             onChange={ onInputChange }

@@ -14,8 +14,13 @@ export const useAuthenticationStore = () => {
             localStorage.setItem('token-init-date', new Date().getTime());
             const user = {uid: data.uid, name: data.name, isAdmin: data.isAdmin};
             onLogin(user);
-
-            console.log({data});
+            Swal.fire({
+                icon: 'success',
+                title: 'Inicio de sesión exitoso',
+                text: `Bienvenida de vuelta, ${user.name}!`,
+                showConfirmButton: false, 
+                timer: 1500,             
+            });
         } catch (error) {
             const data = error.response.data;
             const errorMessage =
@@ -23,17 +28,57 @@ export const useAuthenticationStore = () => {
                 data.errors?.email?.msg || 
                 data.errors?.password?.msg || 
                 'Error desconocido';
-            Swal.fire('Error al iniciar sesión',  errorMessage, 'error');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al iniciar sesión',
+                text: errorMessage,
+                showConfirmButton: false, 
+                timer: 1500,             
+            });
         }
     }
 
     const logOut = () => {
         onLogout();
         clearErrorMessage();
+        // clear local storage
+    }
+
+    const register = async ({ email, password, name, contact }) => {
+        try {
+            const { data } = await handleApi.post('/auth/register', { email, password, name, contact });
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('token-init-date', new Date().getTime());
+            const user = {uid: data.uid, name: data.name, isAdmin: data.isAdmin};
+            onLogin(user);
+            Swal.fire({
+                icon: 'success',
+                title: 'Registro exitoso',
+                text: `Bienvenida ${user.name}!`,
+                showConfirmButton: false, 
+                timer: 1500,             
+            });
+        } catch (error) {
+            const data = error.response.data;
+            const errorMessage =
+                data.msg ||
+                data.errors?.email?.msg || 
+                data.errors?.password?.msg || 
+                data.errors?.name?.msg || 
+                'Error desconocido';
+            Swal.fire({
+                icon: 'success',
+                title: 'Error al registrarse',
+                text: errorMessage,
+                showConfirmButton: false, 
+                timer: 1500,             
+            });
+        }
     }
 
     return {
         logIn,
-        logOut
+        logOut,
+        register
     }
 }

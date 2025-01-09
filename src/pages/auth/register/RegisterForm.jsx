@@ -1,49 +1,35 @@
 import PasswordInput from "../../../components/PasswordInput";
+import { useAuthenticationStore } from '../../../hooks/useAuthenticationStore';
+import { useForm } from "../../../hooks/useForm";
+import Swal from 'sweetalert2';
+
+
+const registerFormFields = {
+    email: '',
+    password: '',
+    password2: '',
+    name: '',
+    contact: ''
+};
 
 const RegisterForm = () => {
-    const handleSubmit = (e) => {
-        e.preventDefault();
 
-        const formData = new FormData(e.currentTarget);
-        const password1 = formData.get('password1');
-        const password2 = formData.get('password2');
+    const { email, password, name, password2, contact, onInputChange } = useForm( registerFormFields );
+    const { register } = useAuthenticationStore();
 
-        // Validación básica
-        if (password1 !== password2) {
-            alert('Las contraseñas no coinciden');
+    const handleSubmit = ( event ) => {
+        event.preventDefault();
+        if (password !== password2) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al registrarse',
+                text: 'Las contraseñas no coinciden',
+                showConfirmButton: false, 
+                timer: 1500,             
+            });
             return;
         }
-
-        const userData = {
-            fullName: formData.get('fullName'),
-            email: formData.get('email'),
-            password: password1,
-            redirect: false,
-        };
-
-        fetch('/api/auth/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    return response.json().then((errorData) => {
-                        throw new Error(errorData.message || 'Error en el registro');
-                    });
-                }
-                return response.json();
-            })
-            .then((data) => {
-                console.log('Successfully registered:', data);
-                alert('Registro exitoso');
-            })
-            .catch((error) => {
-                console.error('Error al procesar el registro:', error);
-                alert(`Error: ${error.message}`);
-            });
+        register({ email, password, name, contact });
     };
 
     return (
@@ -53,29 +39,46 @@ const RegisterForm = () => {
                     <form onSubmit={handleSubmit} className="form-control auth-form p-5">
                         <input
                             type="text"
-                            name="fullName" // Agregado
                             placeholder="Nombre Completo"
                             className="form-control mb-3"
                             required
+                            name='name'
+                            value={ name }
+                            onChange={ onInputChange }
                         />
                         <input
                             type="email"
-                            name="email" // Agregado
                             placeholder="Email"
                             className="form-control mb-3"
                             required
+                            name='email'
+                            value={ email }
+                            onChange={ onInputChange }
+                        />
+                        <input
+                            type="text"
+                            placeholder="Celular"
+                            className="form-control mb-3"
+                            required
+                            name='contact'
+                            value={ contact }
+                            onChange={ onInputChange }
                         />
                         <PasswordInput
-                            name="password1" // Asegúrate de que el componente acepte `name`
+                            name="password" 
                             placeholder="Contraseña"
                             inputId="password1"
                             className="mb-3"
+                            value={ password }
+                            onChange={ onInputChange }
                         />
                         <PasswordInput
-                            name="password2" // Asegúrate de que el componente acepte `name`
+                            name="password2" 
                             placeholder="Repita la contraseña"
                             inputId="password2"
                             className="mb-3"
+                            value={ password2 }
+                            onChange={ onInputChange }
                         />
                         <button
                             type="submit"
@@ -85,7 +88,7 @@ const RegisterForm = () => {
                             Registrarse
                         </button>
                         <p className="mt-3 text-center">
-                            ¿Tienes una cuenta? <a href="/auth/login">Iniciar sesión</a>
+                            Tienes una cuenta? <a href="/auth/login">Iniciar sesión</a>
                         </p>
                     </form>
                 </div>
