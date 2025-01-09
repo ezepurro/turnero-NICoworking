@@ -4,23 +4,39 @@ import RegisterPage from "../pages/auth/RegisterPage"
 import AdminPage from "../pages/admin/AdminPage"
 import HomePage from "../pages/home/HomePage"
 import MyAppointments from "../pages/user/MyAppointments"
+import useAuthStore from "../store/useAuthStore"
 
 const AppRouter = () => {
+
+  const { isAuthenticated, user } = useAuthStore();
+
   return (
     <Routes>
-        {/* Auth Routes */}
-        <Route path="/auth/login" element={ <LoginPage /> } />
-        <Route path="/auth/register" element={ <RegisterPage /> } />
+      {
+        (!isAuthenticated)
+          ?
+          <>
+            {/* Auth Routes */}
+            <Route path="/auth/login" element={ <LoginPage /> } />
+            <Route path="/auth/register" element={ <RegisterPage /> } />
 
-        {/* Admin Routes */}
-        <Route path="/admin" element={ <AdminPage /> } />
+            {/* Home Routes */}
+            <Route path="/" element={ <HomePage /> } />
+            <Route path="/*" element={ <Navigate to="/" /> } />
+          </>
+          :
+          <>
+            {/* Home Routes */}
+            <Route path="/" element={ <HomePage /> } />
+            <Route path="/*" element={ <Navigate to="/" /> } />
 
-        {/* User Routes */}
-        <Route path="/appointments" element={ <MyAppointments /> } />
-
-        {/* Home Routes */}
-        <Route path="/" element={ <HomePage /> } />
-        <Route path="/*" element={ <Navigate to="/" /> } />
+            {/* User Routes */}
+            <Route path="/appointments" element={ <MyAppointments /> } />
+            {user.isAdmin && ( 
+              <Route path="/admin" element={<AdminPage />} />
+            )}
+          </>
+      }
     </Routes>
   )
 }

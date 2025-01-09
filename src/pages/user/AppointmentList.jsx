@@ -1,18 +1,25 @@
-import '../../styles/components/appointmentList.css'
-import Appointment from './Appointment'
+import { convertDateToDDMMYY, convertDateToHHMM } from '../../helpers/converters';
+import '../../styles/components/appointmentList.css';
+import Appointment from './Appointment';
 
 
-const AppointmentList = () => {
+const AppointmentList = ({ name, appointments }) => {
+
   return (
     <div className="container">
         <div className="row">
             <div className="col-12 appointments-container">
                 <h3 className='text-center'>Mis turnos</h3>
-
-                <Appointment service="SPA" date="25/12/24" hour="13:30" />
-                <Appointment service="Peluqueria" date="25/12/24" hour="13:30" />
-                <Appointment service="SPA" date="25/12/24" hour="13:30" />
-
+                <h5 className='text-center'>{name}</h5>
+                {
+                  appointments.map( appointment => {
+                    return <Appointment
+                      key={appointment.id}
+                      service={appointment.type}
+                      date={convertDateToDDMMYY(appointment.date)}
+                      hour={convertDateToHHMM(appointment.date)} />
+                  })
+                }
             </div>
         </div>
     </div>

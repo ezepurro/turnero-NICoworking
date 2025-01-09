@@ -1,6 +1,6 @@
 import handleApi from "../api/handleApi";
 import useAuthStore from "../store/useAuthStore";
-
+import Swal from 'sweetalert2';
 
 
 export const useAuthenticationStore = () => {
@@ -12,11 +12,18 @@ export const useAuthenticationStore = () => {
             const { data } = await handleApi.post('/auth/login', { email, password });
             localStorage.setItem('token', data.token);
             localStorage.setItem('token-init-date', new Date().getTime());
-            onLogin(data.user);
+            const user = {uid: data.uid, name: data.name, isAdmin: data.isAdmin};
+            onLogin(user);
 
             console.log({data});
         } catch (error) {
-            console.log(error.response.data);
+            const data = error.response.data;
+            const errorMessage =
+                data.msg ||
+                data.errors?.email?.msg || 
+                data.errors?.password?.msg || 
+                'Error desconocido';
+            Swal.fire('Error al iniciar sesión',  errorMessage, 'error');
         }
     }
 

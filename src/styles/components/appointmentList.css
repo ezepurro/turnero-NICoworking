@@ -4,7 +4,11 @@
     font-weight: 500;
     min-height: calc(100vh - 297px); 
     h3 {
-        margin: 120px 0px 40px 0px;
+        margin: 120px 0px 5px 0px;
+    }
+    h5 {
+        margin: 0px 0px 40px 0px;
+        color: rgb(105, 105, 105);
     }
     b {
         color: #de823a;

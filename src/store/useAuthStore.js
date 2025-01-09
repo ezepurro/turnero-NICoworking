@@ -10,7 +10,7 @@ const useAuthStore = create(persist(zukeeper(
         setAuthenticationState: ( value ) => set({ isAuthenticated: value }),
 
         // user
-        user: {},
+        user: null,
         setUser: ( value ) => set({ user: value }),
 
         // errorMessage
