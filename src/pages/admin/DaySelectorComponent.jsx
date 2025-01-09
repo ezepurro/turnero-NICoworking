@@ -7,8 +7,9 @@ const DaySelectorComponent = () => {
     const [startDate, setStartDate] = useState();
     
     return (
-        <form className="form-control text-center day-selector"> 
+        <form className="text-center day-selector"> 
             <div className="form-container">
+                <br /><br />
                 <DatePicker
                     selected={ startDate }
                     placeholderText='Seleccione una fecha y hora'
@@ -23,6 +24,7 @@ const DaySelectorComponent = () => {
                 />
                 <br />
                 <button type="submit" className="form-control">Habilitar dia</button>
+                <br /><br />
             </div>
         </form>
     )

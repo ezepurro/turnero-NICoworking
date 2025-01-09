@@ -7,7 +7,7 @@ import {eye} from 'react-icons-kit/feather/eye';
 import '../styles/components/passwordInput.css'
 
 
-const PasswordInput = ({ placeholder, inputId }) => {
+const PasswordInput = ({ placeholder, inputId, name, value, onChange }) => {
 
     const [icon, setIcon] = useState(eyeOff);
 
@@ -31,6 +31,9 @@ const PasswordInput = ({ placeholder, inputId }) => {
                 placeholder={ placeholder }
                 className='form-control'
                 id={ inputId }
+                name={ name }
+                value={ value }
+                onChange={ onChange }
             />
             <span className="eye-icon" onClick={togglePassword}>
                 <Icon className="absolute mr-10" icon={icon} size={20}/>
