@@ -4,14 +4,25 @@ import es from 'date-fns/locale/es'
 
 import '../styles/components/appointmentRequestForm.css';
 import "react-datepicker/dist/react-datepicker.css";
+import { useForm } from '../hooks/useForm';
+import { useAppointments } from '../hooks/useAppointments';
+import useAuthStore from '../store/useAuthStore';
 
 registerLocale('es', es);
 
-const AppointmentRequestForm = () => {
+const appointmentFormFields = {
+    contact: '',
+    sessionZones: '',
+    date: '',
+};
+
+const AppointmentRequestForm = ({ type }) => {
 
     const [startDate, setStartDate] = useState();
-
     const [selectedOption, setSelectedOption] = useState('');
+    const { contact, date, onInputChange } = useForm( appointmentFormFields );
+    const { addAppointment } = useAppointments();
+    const { user } = useAuthStore();
 
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
@@ -38,13 +49,35 @@ const AppointmentRequestForm = () => {
         };
     }, []);
 
+    const handleSubmit = ( event ) => {
+        event.preventDefault();
+        const sessionLength = null;
+        const sessionZones = parseInt(selectedOption);
+        addAppointment({ contact, sessionZones, date:startDate, userId:user.uid, type, sessionLength });
+    }
+
     return (
     <div className='container text-center'>
         <div className="row">
             <div className="col-12">
-                <form action="" className='appointment-form'>
-                    <input type="text" placeholder='Número de contacto' className='form-control' />
-                    <select id="options" value={selectedOption} onChange={handleChange} className='form-control'>
+                <form className='appointment-form' onSubmit={ handleSubmit }>
+                    <input
+                        type="text"
+                        placeholder='Número de contacto'
+                        className='form-control'
+                        name='contact'
+                        value={ contact }
+                        onChange={ onInputChange }
+                        required
+                    />
+                    <select
+                        id="options"
+                        value={selectedOption}
+                        onChange={handleChange}
+                        className='form-control'
+                        name='sessionZones'
+                        required
+                    >
                         <option value="" disabled>Seleccione la cantidad de zonas</option>
                         <option value="1">1 Zona</option>
                         <option value="3">3 Zonas</option>
@@ -65,6 +98,8 @@ const AppointmentRequestForm = () => {
                         includeDates={ excludeDates }
                         filterTime={ filterTime } 
                         timeIntervals={ 15 }
+                        name='date'
+                        required
                     />
                     <button type='submit' className='form-control'>Reservar turno</button>
                 </form>

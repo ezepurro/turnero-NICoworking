@@ -3,7 +3,7 @@ import '../../styles/components/service.css'
 import AppointmentRequestModal from '../../components/AppointmentRequestModal';
 
 
-const Service = ({image_url, service, service_description, posicion}) => {
+const Service = ({image_url, service, service_description, posicion, type}) => {
 
   const [modalShow, setModalShow] = useState(false);
 
@@ -17,7 +17,7 @@ const Service = ({image_url, service, service_description, posicion}) => {
                 <h2>{service}</h2>
                 <p>{service_description}</p>
                 <button onClick={() => setModalShow(true)}>RESERVAR TURNO</button>
-                <AppointmentRequestModal show={modalShow} onHide={() => setModalShow(false)} service={service} />
+                <AppointmentRequestModal show={modalShow} onHide={() => setModalShow(false)} service={service} type={type} />
             </div>
         </div>
     </div>

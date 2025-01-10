@@ -16,6 +16,7 @@ const RegisterForm = () => {
 
     const { email, password, name, password2, contact, onInputChange } = useForm( registerFormFields );
     const { register } = useAuthenticationStore();
+    
 
     const handleSubmit = ( event ) => {
         event.preventDefault();

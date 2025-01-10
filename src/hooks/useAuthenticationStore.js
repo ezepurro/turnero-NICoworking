@@ -67,7 +67,7 @@ export const useAuthenticationStore = () => {
                 data.errors?.name?.msg || 
                 'Error desconocido';
             Swal.fire({
-                icon: 'success',
+                icon: 'error',
                 title: 'Error al registrarse',
                 text: errorMessage,
                 showConfirmButton: false, 
