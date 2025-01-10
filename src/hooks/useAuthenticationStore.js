@@ -76,7 +76,27 @@ export const useAuthenticationStore = () => {
         }
     }
 
+    const getUserById = async ( clientId ) => {
+        try {
+            const { data } = await handleApi.get(`/auth/users/${clientId}`);
+            return data.user;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getAllUsers = async () => {
+        try {
+            const { data } = await handleApi.get('/auth/users');
+            return data.users;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return {
+        getAllUsers,
+        getUserById,
         logIn,
         logOut,
         register

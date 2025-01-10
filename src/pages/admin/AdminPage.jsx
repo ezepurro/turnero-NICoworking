@@ -1,6 +1,3 @@
-// import { useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
-// import useAuthStore from "../../store/useAuthStore";
 import Footer from "../home/Footer";
 import Calendars from "./Calendars";
 import Header from "../../components/Header";
@@ -8,19 +5,6 @@ import DaysSelectors from "./DaysSelectors";
 import '../../styles/pages/admin.css';
 
 const AdminPage = () => {
-  
-  // const { isAdmin } = useAuthStore();
-
-  // const navigate = useNavigate();
-
-  // const isAuthorized = useEffect(() => {
-  //   navigate('/');
-  // }, [navigate]);
-  
-  // if (!isAdmin) {
-  //   return isAuthorized;
-  // }
-
 
   return (
     <>

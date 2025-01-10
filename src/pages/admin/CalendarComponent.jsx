@@ -18,6 +18,7 @@ const localizer = dateFnsLocalizer({
 })
 
 const CalendarComponent = ({events}) => {
+  console.log(events);
   return (
     <div>
         <Calendar
@@ -27,6 +28,11 @@ const CalendarComponent = ({events}) => {
             startAccessor="start"
             endAccessor="end"
             style={{ height: 500 }}
+            messages={{
+              date: 'Fecha',
+              time: 'Hora',
+              event: 'Cliente'
+            }}
             />
     </div>
   )

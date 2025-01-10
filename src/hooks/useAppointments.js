@@ -51,8 +51,18 @@ export const useAppointments = () => {
         }
     }
 
+    const getWaxAppointments = async () => {
+        try {
+            const { data } = await handleApi.get('/appointments/waxing');
+            return data.waxAppointments;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return {
         getUserAppointments,
+        getWaxAppointments,
         addAppointment
     }
 }
