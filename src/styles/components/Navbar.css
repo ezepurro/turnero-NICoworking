@@ -53,6 +53,9 @@
         a {
             font-size: 85%;
         }
+        button {
+            font-size: 85%;
+        }
 
         .navbar__logo  {
             width: -10px;

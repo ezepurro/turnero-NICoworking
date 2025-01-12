@@ -6,7 +6,7 @@ import { useAuthenticationStore } from '../hooks/useAuthenticationStore';
 
 function Navbar(){
 
-    const { isAuthenticated } = useAuthStore();
+    const { isAuthenticated, user } = useAuthStore();
 
     const { logOut } = useAuthenticationStore();
 
@@ -21,6 +21,11 @@ function Navbar(){
                     ? 
                         <>
                             <a href="/appointments">Mis turnos</a>
+                            {
+                                ( user.isAdmin )
+                                    ? <a href="/admin">Admin</a>
+                                    : null
+                            }
                             <button onClick={ logOut }>Cerrar Sesión</button>
                         </>
                     : 

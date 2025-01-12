@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'react';
 import DatePicker, {registerLocale} from "react-datepicker";
 import es from 'date-fns/locale/es'
-
-import '../styles/components/appointmentRequestForm.css';
-import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from '../hooks/useForm';
 import { useAppointments } from '../hooks/useAppointments';
 import useAuthStore from '../store/useAuthStore';
+import useCalendarSettingsStore from '../store/useCalendarSettingsStore';
+import "react-datepicker/dist/react-datepicker.css";
+import '../styles/components/appointmentRequestForm.css';
+
 
 registerLocale('es', es);
 
@@ -23,29 +24,38 @@ const AppointmentRequestForm = ({ type }) => {
     const { contact, date, onInputChange } = useForm( appointmentFormFields );
     const { addAppointment } = useAppointments();
     const { user } = useAuthStore();
-
+    const { calendarDays, reservedTimes } = useCalendarSettingsStore();
+    
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
     };
   
-    const excludeDates = useMemo(() => {
-        const dates = [];
-        const enabledDates = 5;
-        const currentDate = new Date();
-        while (currentDate.getDay() !== enabledDates) {
-            currentDate.setDate(currentDate.getDate() + 1);
-        }
-        for (let i = 0; i < 5; i++) {
-            dates.push(new Date(currentDate)); 
-            currentDate.setDate(currentDate.getDate() + 7); 
-        }
-        return dates;
-    }, []); 
+
+    // const filterTime = useMemo(() => {
+    //     return (time) => {
+    //         const hour = time.getHours();
+    //         return hour >= 9 && hour < 17;
+    //     };
+    // }, []);
+    
+    console.log(reservedTimes.wax);
 
     const filterTime = useMemo(() => {
         return (time) => {
             const hour = time.getHours();
-            return hour >= 9 && hour < 17;
+            const minutes = time.getMinutes();
+
+            const blockedDates = reservedTimes.wax;
+                
+            const blockedTimes = blockedDates.map(dateStr => {
+                const date = new Date(dateStr);
+                return { hour: date.getHours(), minutes: date.getMinutes() };
+            });
+            const isWithinWorkingHours = hour >= 9 && hour < 17;
+            const isBlockedTime = blockedTimes.some(
+                blocked => blocked.hour === hour && blocked.minutes === minutes
+            );
+            return isWithinWorkingHours && !isBlockedTime;
         };
     }, []);
 
@@ -95,7 +105,7 @@ const AppointmentRequestForm = ({ type }) => {
                         timeCaption="Hora"
                         onKeyDown={ (e) => { e.preventDefault() } }
                         minDate={ new Date() }
-                        includeDates={ excludeDates }
+                        includeDates={ calendarDays.waxDays }
                         filterTime={ filterTime } 
                         timeIntervals={ 15 }
                         name='date'

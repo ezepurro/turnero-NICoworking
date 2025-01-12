@@ -35,12 +35,7 @@ export const useAppointments = () => {
         } catch (error) {
             console.log(error);
             const data = error.response.data;
-            const errorMessage =
-                data.msg ||
-                data.errors?.email?.msg || 
-                data.errors?.password?.msg || 
-                data.errors?.name?.msg || 
-                'Error desconocido';
+            const errorMessage = data.msg || 'Error desconocido';
             Swal.fire({
                 icon: 'error',
                 title: 'Error al registrarse',

@@ -1,13 +1,21 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker"
 import "../../styles/components/DaySelectorComponent.css"
+import { useCalendarSettings } from "../../hooks/useCalendarSettings";
 
 const DaySelectorComponent = () => {
 
     const [startDate, setStartDate] = useState();
+    const { addWaxDate } = useCalendarSettings();
+
+    const handleSubmit = ( event ) => {
+        event.preventDefault();
+        const waxDate = [startDate];
+        addWaxDate({waxDate});
+    }
     
     return (
-        <form className="text-center day-selector"> 
+        <form className="text-center day-selector" onSubmit={ handleSubmit }> 
             <div className="form-container">
                 <br /><br />
                 <DatePicker

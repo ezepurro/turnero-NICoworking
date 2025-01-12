@@ -17,7 +17,12 @@ const Service = ({image_url, service, service_description, posicion, type}) => {
                 <h2>{service}</h2>
                 <p>{service_description}</p>
                 <button onClick={() => setModalShow(true)}>RESERVAR TURNO</button>
-                <AppointmentRequestModal show={modalShow} onHide={() => setModalShow(false)} service={service} type={type} />
+                <AppointmentRequestModal
+                  show={ modalShow }
+                  onHide={() => setModalShow(false)}
+                  service={ service }
+                  type={ type }
+                />
             </div>
         </div>
     </div>

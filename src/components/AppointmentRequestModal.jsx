@@ -1,12 +1,12 @@
 import AppointmentRequestForm from './AppointmentRequestForm';
 import AuthenticationRedirect from './AuthenticationRedirect';
 import Modal from 'react-bootstrap/Modal';
-import '../styles/components/appointmentRequestModal.css';
 import useAuthStore from '../store/useAuthStore';
+import '../styles/components/appointmentRequestModal.css';
 
 
 const AppointmentRequestModal = ( {service, type, ...props}) => {
-
+  
     const { isAuthenticated } = useAuthStore();
 
     return (
