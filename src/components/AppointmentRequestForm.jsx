@@ -29,6 +29,8 @@ const AppointmentRequestForm = ({ type }) => {
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
     };
+
+    console.log(reservedTimes);
   
 
     // const filterTime = useMemo(() => {

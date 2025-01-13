@@ -8,7 +8,6 @@ const AdminPage = () => {
 
   return (
     <>
-      <Navbar />
       <div className="container admin-container">
         <div className="row">
           <div className="col-sm-12 col-lg-6">
@@ -19,6 +18,7 @@ const AdminPage = () => {
           </div>
         </div>
       </div>
+      <Navbar />
       <Footer />
     </>
   )

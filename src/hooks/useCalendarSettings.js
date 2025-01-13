@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 export const useCalendarSettings = () => {
 
     const addWaxDate = async ({ waxDate }) => {
-        console.log(waxDate);
         try {
             const { data } = await handleApi.put('/settings/wax', { newDates: waxDate })
             console.log({data});

@@ -42,6 +42,17 @@ const Calendars = () => {
         <h3 className="service-title-admin text-center">Turnos | Depilación definitiva</h3>
         <CalendarComponent events={ waxAppointments }/>
       </div>
+
+      <div className="wax">
+        {/* Depilación */}
+        <h3 className="service-title-admin text-center">Turnos | Depilación definitiva</h3>
+        <CalendarComponent events={ waxAppointments }/>
+      </div>
+      <div className="wax">
+        {/* Depilación */}
+        <h3 className="service-title-admin text-center">Turnos | Depilación definitiva</h3>
+        <CalendarComponent events={ waxAppointments }/>
+      </div>
     </>
   )
 }
