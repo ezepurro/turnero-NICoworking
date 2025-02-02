@@ -36,30 +36,49 @@ const AppointmentRequestForm = ({ type }) => {
     // const filterTime = useMemo(() => {
     //     return (time) => {
     //         const hour = time.getHours();
-    //         return hour >= 9 && hour < 17;
+    //         eturn hour >= 9 && hour < 17;
     //     };
     // }, []);
     
-    console.log(reservedTimes.wax);
+    console.log('reservedTimes.wax: ', reservedTimes.wax);
+
+    // const filterTime = useMemo(() => {
+    //     return (time) => {
+    //         const hour = time.getHours();
+    //         const minutes = time.getMinutes();
+
+    //         const blockedDates = reservedTimes.wax;
+                
+    //         const blockedTimes = blockedDates.map(dateStr => {
+    //             const date = new Date(dateStr);
+    //             return { hour: date.getHours(), minutes: date.getMinutes() };
+    //         });
+    //         const isWithinWorkingHours = hour >= 9 && hour < 17;
+    //         const isBlockedTime = blockedTimes.some(
+    //             blocked => blocked.hour === hour && blocked.minutes === minutes
+    //         );
+    //         return isWithinWorkingHours && !isBlockedTime;
+    //     };
+    // }, []);
 
     const filterTime = useMemo(() => {
         return (time) => {
-            const hour = time.getHours();
-            const minutes = time.getMinutes();
-
-            const blockedDates = reservedTimes.wax;
-                
-            const blockedTimes = blockedDates.map(dateStr => {
-                const date = new Date(dateStr);
-                return { hour: date.getHours(), minutes: date.getMinutes() };
-            });
-            const isWithinWorkingHours = hour >= 9 && hour < 17;
-            const isBlockedTime = blockedTimes.some(
-                blocked => blocked.hour === hour && blocked.minutes === minutes
-            );
-            return isWithinWorkingHours && !isBlockedTime;
+            if (!startDate || !reservedTimes.wax) return true; // Si no hay fecha seleccionada, permitir todo
+    
+            const selectedDate = startDate.toDateString(); // Convertir la fecha seleccionada a string (YYYY-MM-DD)
+            const timeHour = time.getHours();
+            const timeMinutes = time.getMinutes();
+    
+            // Filtrar solo los horarios reservados del mismo día seleccionado
+            const blockedTimes = reservedTimes.wax
+                .map(dateStr => new Date(dateStr))
+                .filter(date => date.toDateString() === selectedDate) // Solo del mismo día
+                .map(date => ({ hour: date.getHours(), minutes: date.getMinutes() }));
+    
+            // Revisar si el horario está bloqueado
+            return !blockedTimes.some(blocked => blocked.hour === timeHour && blocked.minutes === timeMinutes);
         };
-    }, []);
+    }, [startDate, reservedTimes.wax]);
 
     const handleSubmit = ( event ) => {
         event.preventDefault();
