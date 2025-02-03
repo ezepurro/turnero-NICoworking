@@ -7,6 +7,7 @@ import useAuthStore from '../store/useAuthStore';
 import useCalendarSettingsStore from '../store/useCalendarSettingsStore';
 import "react-datepicker/dist/react-datepicker.css";
 import '../styles/components/appointmentRequestForm.css';
+import { setHours, setMinutes } from 'date-fns';
 
 
 registerLocale('es', es);
@@ -21,7 +22,7 @@ const AppointmentRequestForm = ({ type }) => {
 
     const [startDate, setStartDate] = useState();
     const [selectedOption, setSelectedOption] = useState('');
-    const { contact, date, onInputChange } = useForm( appointmentFormFields );
+    const { contact, onInputChange } = useForm( appointmentFormFields );
     const { addAppointment } = useAppointments();
     const { user } = useAuthStore();
     const { calendarDays, reservedTimes } = useCalendarSettingsStore();
@@ -30,55 +31,18 @@ const AppointmentRequestForm = ({ type }) => {
         setSelectedOption(event.target.value);
     };
 
-    console.log(reservedTimes);
-  
-
-    // const filterTime = useMemo(() => {
-    //     return (time) => {
-    //         const hour = time.getHours();
-    //         eturn hour >= 9 && hour < 17;
-    //     };
-    // }, []);
     
-    console.log('reservedTimes.wax: ', reservedTimes.wax);
-
-    // const filterTime = useMemo(() => {
-    //     return (time) => {
-    //         const hour = time.getHours();
-    //         const minutes = time.getMinutes();
-
-    //         const blockedDates = reservedTimes.wax;
-                
-    //         const blockedTimes = blockedDates.map(dateStr => {
-    //             const date = new Date(dateStr);
-    //             return { hour: date.getHours(), minutes: date.getMinutes() };
-    //         });
-    //         const isWithinWorkingHours = hour >= 9 && hour < 17;
-    //         const isBlockedTime = blockedTimes.some(
-    //             blocked => blocked.hour === hour && blocked.minutes === minutes
-    //         );
-    //         return isWithinWorkingHours && !isBlockedTime;
-    //     };
-    // }, []);
-
-    const filterTime = useMemo(() => {
-        return (time) => {
-            if (!startDate || !reservedTimes.wax) return true; // Si no hay fecha seleccionada, permitir todo
-    
-            const selectedDate = startDate.toDateString(); // Convertir la fecha seleccionada a string (YYYY-MM-DD)
-            const timeHour = time.getHours();
-            const timeMinutes = time.getMinutes();
-    
-            // Filtrar solo los horarios reservados del mismo día seleccionado
-            const blockedTimes = reservedTimes.wax
-                .map(dateStr => new Date(dateStr))
-                .filter(date => date.toDateString() === selectedDate) // Solo del mismo día
-                .map(date => ({ hour: date.getHours(), minutes: date.getMinutes() }));
-    
-            // Revisar si el horario está bloqueado
-            return !blockedTimes.some(blocked => blocked.hour === timeHour && blocked.minutes === timeMinutes);
-        };
+    const getExcludedTimes = useMemo(() => {
+        if (!startDate || !reservedTimes.wax) return []; 
+        const selectedDate = startDate.toDateString(); 
+        const excludedTimes = reservedTimes.wax
+            .map(dateStr => new Date(dateStr)) 
+            .filter(date => date.toDateString() === selectedDate) 
+            .map(date => new Date(date.getTime())); 
+        return excludedTimes;
     }, [startDate, reservedTimes.wax]);
+
+
 
     const handleSubmit = ( event ) => {
         event.preventDefault();
@@ -127,10 +91,13 @@ const AppointmentRequestForm = ({ type }) => {
                         onKeyDown={ (e) => { e.preventDefault() } }
                         minDate={ new Date() }
                         includeDates={ calendarDays.waxDays }
-                        filterTime={ filterTime } 
                         timeIntervals={ 15 }
                         name='date'
                         required
+                        excludeTimes={ getExcludedTimes } 
+                        withPortal
+                        minTime={setHours(setMinutes(new Date(), 0), 9)}
+                        maxTime={setHours(setMinutes(new Date(), 30), 17)}
                     />
                     <button type='submit' className='form-control'>Reservar turno</button>
                 </form>
