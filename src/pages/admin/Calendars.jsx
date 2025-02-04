@@ -24,6 +24,8 @@ const Calendars = () => {
             notes: appointment.type,
             start: new Date(appointment.date),
             end: addMinutes(new Date(appointment.date), appointment.sessionLength),
+            contact: appointment.contact,
+            sessionZones: appointment.sessionZones
           };
         });
         setwaxAppointments(appointmentsWithNames);

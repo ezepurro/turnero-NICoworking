@@ -24,7 +24,6 @@ export const useAppointments = () => {
         console.log({ contact, sessionZones, date:isoDate, userId, type, sessionLength });
         try {
             const { data } = await handleApi.post('/appointments', { date:isoDate, userId, contact, sessionZones, type, sessionLength });
-            console.log({data});
             Swal.fire({
                 icon: 'success',
                 title: 'Cita agendada!',

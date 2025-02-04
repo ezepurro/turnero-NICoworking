@@ -17,3 +17,12 @@ color: #333;
     margin-bottom: 5%;
     font-family: 'Montserrat', Courier;
 }
+
+.rbc-toolbar-label {
+    margin: 0;
+    padding: 0;
+}
+
+.rbc-agenda-event-cell p {
+    margin: 0;
+}

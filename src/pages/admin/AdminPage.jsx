@@ -8,22 +8,6 @@ const AdminPage = () => {
 
   const [selectedOption, setSelectedOption] = useState(undefined);
 
-  // return (
-  //   <>
-  //     <div className="container admin-container">
-  //       <div className="row">
-  //         <div className="col-sm-12 col-lg-6">
-  //           <Calendars /> 
-  //         </div>
-  //         <div className="col-sm-12 col-lg-6">
-  //           <DaysSelectors /> 
-  //         </div>
-  //       </div>
-  //     </div>
-  //     <Navbar />
-  //     <Footer />
-  //   </>
-  // )
   return (
     <>
       <div className="row">

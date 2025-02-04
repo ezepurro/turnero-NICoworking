@@ -45,4 +45,12 @@
     @media (min-width: 0px) {
 
     }
+
+    .enabled-day {
+        background-color: #ffec9e !important; /* Amarillo */
+        color: rgb(129, 129, 129) !important;
+        border-radius: 30px;
+      }
 }
+
+
