@@ -12,3 +12,48 @@
 .admin-container {
     margin-top: 120px;
 }
+
+.admin-navbar {
+    font-family: 'Montserrat', Courier, monospace;
+    background-color: #de823a;
+    color: white;
+    height: 100vh;
+    text-align: center;
+
+    h3 {
+        margin: 20px 0px 10px 0px;
+        font-weight: 500;
+        span {
+            font-weight: 200;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+        }
+    }
+
+    .admin-options {
+        margin-top: 20%;
+        button {
+            text-align: left;
+            border: 0;
+            background-color: rgba(0,0,0,0);
+            color: white;
+        }
+    }
+}
+
+.admin-content {
+    font-family: 'Montserrat', Courier, monospace;
+    height: 100vh;
+    .calendars {
+        margin: 30px 0px 0px 0px;  
+        .calendar-admin-container {
+            width: 50%;
+        }
+    }
+    .dayselectors {
+        margin: 30px 0px 0px 0px;  
+    }
+
+}

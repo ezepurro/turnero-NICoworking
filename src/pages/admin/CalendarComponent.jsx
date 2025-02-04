@@ -31,7 +31,15 @@ const CalendarComponent = ({events}) => {
             messages={{
               date: 'Fecha',
               time: 'Hora',
-              event: 'Cliente'
+              event: 'Cliente',
+              today: "Hoy",
+              previous: "Anterior",
+              next: "Siguiente",
+              month: "Mes",
+              week: "Semana",
+              day: "Día",
+              agenda: "Agenda",
+              noEventsInRange: "No hay citas agendadas en este rango.",
             }}
             />
     </div>

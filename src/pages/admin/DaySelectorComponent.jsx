@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker"
-import "../../styles/components/DaySelectorComponent.css"
 import { useCalendarSettings } from "../../hooks/useCalendarSettings";
+import "../../styles/components/DaySelectorComponent.css"
 
 const DaySelectorComponent = () => {
 
@@ -31,7 +31,7 @@ const DaySelectorComponent = () => {
                     inline
                 />
                 <br />
-                <button type="submit" className="form-control">Habilitar dia</button>
+                <button type="submit" className="form-control form-button">Habilitar dia</button>
                 <br /><br />
             </div>
         </form>

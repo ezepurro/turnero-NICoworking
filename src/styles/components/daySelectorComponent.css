@@ -1,25 +1,23 @@
 .day-selector {
-    font-family: 'Montserrat', sans-serif;
-    border: none;
-
     .react-datepicker__month-container {
         font-family: 'Montserrat', sans-serif;
     }
-    button {
-        width: 50%;
+    .form-button {
+        width: 25%;
         margin: 0 auto; 
         display: block; 
-        
-    }
-    button:hover {
         background-color: #de823a;
+        color: white;
+    }
+    
+    .form-button:hover {
+        background-color: #c77435;
         color: white;
     }
 
     @media (min-width: 1400px) {
         .react-datepicker {
             font-size: 1rem;
-            width: 64%;
         }
         
         .react-datepicker__day {

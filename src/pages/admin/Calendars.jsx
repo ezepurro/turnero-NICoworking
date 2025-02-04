@@ -37,22 +37,18 @@ const Calendars = () => {
 
   return (
     <>
+    <div className="calendars">
       <div className="wax">
         {/* Depilación */}
         <h3 className="service-title-admin text-center">Turnos | Depilación definitiva</h3>
-        <CalendarComponent events={ waxAppointments }/>
+        <div className="calendar-admin-container w-50 mx-auto">
+          <CalendarComponent events={ waxAppointments }/>
+        </div>
       </div>
+      <div className="nails">
 
-      <div className="wax">
-        {/* Depilación */}
-        <h3 className="service-title-admin text-center">Turnos | Depilación definitiva</h3>
-        <CalendarComponent events={ waxAppointments }/>
       </div>
-      <div className="wax">
-        {/* Depilación */}
-        <h3 className="service-title-admin text-center">Turnos | Depilación definitiva</h3>
-        <CalendarComponent events={ waxAppointments }/>
-      </div>
+    </div>
     </>
   )
 }
