@@ -18,5 +18,10 @@
             font-size: 20px;
         }
     }
+    button {
+        background-color: #de823a;
+        color: white;
+    }
+
 }
 
