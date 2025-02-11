@@ -40,7 +40,6 @@ const DaysSelectors = () => {
               ))}
             </ul>
 
-            {/* Oculta la paginación si solo hay una página */}
             {totalPages > 1 && (
               <div className="pagination-controls text-center">
                 <button

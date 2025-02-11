@@ -12,15 +12,18 @@ const DaySelectorComponent = () => {
     const { calendarDays, setCalendarDays } = useCalendarSettingsStore();
 
     useEffect(() => {
-      setEnabledDates(calendarDays.waxDays);
-    }, []);
+      const formattedDates = calendarDays.waxDays.map(date => new Date(date));
+      setEnabledDates(formattedDates);
+    }, [calendarDays.waxDays]);
     
 
     const handleSubmit = ( event ) => {
         event.preventDefault();
-        const waxDate = [startDate];
-        addWaxDate({waxDate});
-        setCalendarDays({'waxDays': [...calendarDays.waxDays, waxDate]})
+        if (startDate) {
+            const waxDate = new Date(startDate); 
+            addWaxDate({ waxDate: [waxDate.toISOString()] }); 
+            setCalendarDays({ waxDays: [...calendarDays.waxDays, waxDate] });
+        }
     }
 
     const highlightDates = (date) => {
