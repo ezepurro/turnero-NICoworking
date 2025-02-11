@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { useAppointments } from "../../hooks/useAppointments";
 import { useAuthenticationStore } from "../../hooks/useAuthenticationStore";
 import { addMinutes } from "date-fns";
+import { useCalendarSettings } from "../../hooks/useCalendarSettings";
 import useAppointmentsStore from "../../store/useAppointmentsStore";
+import useCalendarSettingsStore from "../../store/useCalendarSettingsStore";
 import Calendars from "./Calendars";
 import DaysSelectors from "./DaysSelectors";
 import NoOptionSelected from "./NoOptionSelected";
@@ -16,8 +18,11 @@ const AdminPage = () => {
   const { getWaxAppointments } = useAppointments();
   const { getAllUsers } = useAuthenticationStore();
   const { waxAppointments, setWaxAppointments } = useAppointmentsStore();
+  const { setCalendarDays } = useCalendarSettingsStore();
+  const { getCalendarSettings } = useCalendarSettings();
+  
 
-
+  // Traer las citas al admin
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
@@ -42,6 +47,22 @@ const AdminPage = () => {
     };
     fetchAppointments();
   }, []);
+
+
+  // Traer los dias habilitados al admin
+  useEffect(() => {
+    const fetchCalendarSettings = async () => {
+        try {
+            const data = await getCalendarSettings();
+            const formattedDates = data.calendarSettings.waxDays.map(dateStr => new Date(dateStr));
+            setCalendarDays({'waxDays': formattedDates});
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    fetchCalendarSettings();
+}, []);
 
   return (
     <>

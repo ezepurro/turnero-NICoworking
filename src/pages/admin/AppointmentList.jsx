@@ -29,7 +29,6 @@ const AppointmentList = ({ waxAppointments }) => {
         <div className="delete-appointment">
             <h3 className="service-title-admin text-center">Eliminar turnos</h3>
 
-            {/* Input de búsqueda */}
             <div className="search-container text-center">
                 <div className="input-wrapper">
                     <svg 
@@ -53,7 +52,6 @@ const AppointmentList = ({ waxAppointments }) => {
                 </div>
             </div>
 
-            {/* Tabla de turnos */}
             {hasAppointments && (
                 <div className="container">
                     <div className="row">
@@ -87,7 +85,6 @@ const AppointmentList = ({ waxAppointments }) => {
                 )}
             </div>
 
-            {/* Paginación */}
             {hasAppointments && (
                 <div className="pagination-buttons text-center">
                     <button 
