@@ -18,6 +18,8 @@
     background-color: #de823a;
     color: white;
     height: 100vh;
+    box-sizing: border-box;   
+    overflow-y: auto;
     text-align: center;
 
     h3 {
@@ -47,6 +49,8 @@
 .admin-content {
     font-family: 'Montserrat', Courier, monospace;
     height: 100vh;
+    box-sizing: border-box;
+    overflow-y: auto;
     .calendars {
         margin: 30px 0px 0px 0px;  
         .calendar-admin-container {
