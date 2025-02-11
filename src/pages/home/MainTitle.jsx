@@ -6,7 +6,7 @@ const MainTitle = () => {
     <div className="">
         <div className="title">
           <div className="image-content">
-            <img src="https://www.designsystem.es/wp-content/uploads/2024/07/organizacion_salon_belleza.jpg" />
+            <img src="https://posbrava.com/wp-content/uploads/2024/01/Tecnologia-en-salones-de-belleza.jpg" />
             <div className="title-overlay">
             <div className="titulo">
                 <h1>BEAUTY CENTER</h1>

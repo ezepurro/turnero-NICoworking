@@ -22,10 +22,8 @@ const Services = () => {
   
   return (
     <>
-      <div className="">
-          <div className=" subtitulo">
-          <p>Nuestros servicios</p>
-          </div>
+      <div className="subtitulo">
+        <p>Nuestros servicios</p>
       </div>
       <div id="services">
           <div className=" service-container">

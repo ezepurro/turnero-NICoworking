@@ -36,7 +36,7 @@ const AppointmentList = ({ name, appointments }) => {
               />
             ))
           ) : (
-            <NoAppointments />
+            <NoAppointments admin={false} />
           )}
 
           <button

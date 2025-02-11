@@ -1,9 +1,9 @@
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar'
-import { format, parse, startOfWeek, getDay } from "date-fns"
-import esES from 'date-fns/locale/es'
-import 'react-big-calendar/lib/css/react-big-calendar.css'
-import '../../styles/components/calendarComponent.css'
-
+import { useEffect, useState } from 'react';
+import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
+import { format, parse, startOfWeek, getDay } from "date-fns";
+import esES from 'date-fns/locale/es';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import '../../styles/components/calendarComponent.css';
 
 const locales = {
   'es': esES,
@@ -55,15 +55,33 @@ const CustomToolbar = ({ label, view, onView, onNavigate }) => {
 };
 
 const CalendarComponent = ({events}) => {
+  const [calendarHeight, setCalendarHeight] = useState(0);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      const windowHeight = window.innerHeight;
+      const toolbarHeight = document.querySelector('.rbc-toolbar')?.offsetHeight || 0;
+      const newHeight = windowHeight - toolbarHeight - 100; // Ajusta el 100 según tu layout
+      setCalendarHeight(newHeight);
+    };
+
+    updateHeight();
+    window.addEventListener('resize', updateHeight);
+
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
+
   return (
-    <div>
-        <Calendar
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-12">
+          <Calendar
             culture='es'
             localizer={localizer}
             events={events}
             startAccessor="start"
             endAccessor="end"
-            style={{ height: 500 }}
+            style={{ height: calendarHeight }}
             messages={{
               date: 'Fecha',
               time: 'Hora',
@@ -83,10 +101,11 @@ const CalendarComponent = ({events}) => {
               },
               toolbar: CustomToolbar,
             }}
-            />
+          />
+        </div>
+      </div>
     </div>
   )
 }
 
-export default CalendarComponent
-
+export default CalendarComponent;

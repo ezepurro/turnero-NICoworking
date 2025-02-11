@@ -20,6 +20,7 @@
     height: 100vh;
     box-sizing: border-box;   
     overflow-y: auto;
+    overflow-x: hidden;
     text-align: center;
 
     h3 {
@@ -51,14 +52,18 @@
     height: 100vh;
     box-sizing: border-box;
     overflow-y: auto;
-    .calendars {
-        margin: 30px 0px 0px 0px;  
-        .calendar-admin-container {
-            width: 50%;
-        }
-    }
     .dayselectors {
         margin: 30px 0px 0px 0px;  
     }
 
+}
+
+@media (max-width: 767px) {
+    .admin-navbar {
+        height: auto;
+        .admin-options {
+            margin-top: 0;
+        }
+    }
+    
 }

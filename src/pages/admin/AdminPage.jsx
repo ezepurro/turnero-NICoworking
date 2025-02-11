@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
+import { useAppointments } from "../../hooks/useAppointments";
+import { useAuthenticationStore } from "../../hooks/useAuthenticationStore";
+import { addMinutes } from "date-fns";
+import useAppointmentsStore from "../../store/useAppointmentsStore";
 import Calendars from "./Calendars";
 import DaysSelectors from "./DaysSelectors";
 import NoOptionSelected from "./NoOptionSelected";
 import AppointmentList from "./AppointmentList";
-import { useAppointments } from "../../hooks/useAppointments";
-import { useAuthenticationStore } from "../../hooks/useAuthenticationStore";
-import { addMinutes } from "date-fns";
 import '../../styles/pages/admin.css';
-import useAppointmentsStore from "../../store/useAppointmentsStore";
 
 const AdminPage = () => {
 

@@ -1,0 +1,39 @@
+
+.location {
+    margin: 50px;
+    font-family: 'Montserrat';
+    .subtitulo {
+        text-align: left;
+        padding: 0;
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+    li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+    svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        margin-bottom: 20px;
+    }
+}
+
+
+
+@media (max-width: 600px) {
+    .location {
+        margin: 20px 0px 20px 0px;
+        .subtitulo {
+            text-align: center;
+        }
+        .info {
+            margin: 20px;
+        }
+    }
+}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { convertDateToDDMMYY, convertDateToHHMM } from "../../helpers/converters";
 import AppointmentWithDeleteButton from "./AppointmentWithDeleteButton";
+import NoAppointments from "../user/NoAppointments";
 
 const ITEMS_PER_PAGE = 9;
 
@@ -9,7 +10,7 @@ const AppointmentList = ({ waxAppointments }) => {
     const [searchTerm, setSearchTerm] = useState("");
 
     const sortedAppointments = Array.isArray(waxAppointments)
-        ? waxAppointments.slice().sort((a, b) => new Date(a.start) - new Date(b.start))
+        ? [...waxAppointments].sort((a, b) => new Date(a.start) - new Date(b.start))
         : [];
 
     const filteredAppointments = sortedAppointments.filter(appointment =>
@@ -17,17 +18,18 @@ const AppointmentList = ({ waxAppointments }) => {
     );
 
     const totalPages = Math.ceil(filteredAppointments.length / ITEMS_PER_PAGE);
-
     const paginatedAppointments = filteredAppointments.slice(
         (currentPage - 1) * ITEMS_PER_PAGE,
         currentPage * ITEMS_PER_PAGE
     );
 
+    const hasAppointments = paginatedAppointments.length > 0;
+
     return (
         <div className="delete-appointment">
             <h3 className="service-title-admin text-center">Eliminar turnos</h3>
 
-            {/* Input con icono de brújula */}
+            {/* Input de búsqueda */}
             <div className="search-container text-center">
                 <div className="input-wrapper">
                     <svg 
@@ -50,27 +52,22 @@ const AppointmentList = ({ waxAppointments }) => {
                     />
                 </div>
             </div>
-            
-            <div className="container">
-                <div className="row">
-                    <div className="col-3">
-                        <p>Cliente y número de contacto</p>
+
+            {/* Tabla de turnos */}
+            {hasAppointments && (
+                <div className="container">
+                    <div className="row">
+                        <div className="col-3"><p>Cliente y número de contacto</p></div>
+                        <div className="col-3"><p>Tipo de turno</p></div>
+                        <div className="col-3"><p>Fecha y hora</p></div>
+                        <div className="col-3"><p>Eliminar turno</p></div>
+                        <hr />
                     </div>
-                    <div className="col-3">
-                        <p>Tipo de turno</p>
-                    </div>
-                    <div className="col-3">
-                        <p>Fecha y hora</p>
-                    </div>
-                    <div className="col-3">
-                        <p>Eliminar turno</p>
-                    </div>
-                    <hr />
                 </div>
-            </div>
+            )}
 
             <div className="container">
-                {paginatedAppointments.length > 0 ? (
+                {hasAppointments ? (
                     paginatedAppointments.map((appointment) => (
                         <AppointmentWithDeleteButton 
                             key={appointment.id} 
@@ -83,28 +80,33 @@ const AppointmentList = ({ waxAppointments }) => {
                         />
                     ))
                 ) : (
-                    <p>No hay turnos disponibles.</p>
+                    <>
+                        <br />
+                        <NoAppointments admin={true} />
+                    </>
                 )}
             </div>
 
             {/* Paginación */}
-            <div className="pagination-buttons text-center">
-                <button 
-                    onClick={() => setCurrentPage(currentPage - 1)} 
-                    disabled={currentPage === 1}
-                    className="btn btn-pag"
-                >
-                    Anterior
-                </button>
-                <span> Página {currentPage} de {totalPages} </span>
-                <button 
-                    onClick={() => setCurrentPage(currentPage + 1)} 
-                    disabled={currentPage === totalPages}
-                    className="btn btn-pag"
-                >
-                    Siguiente
-                </button>
-            </div>
+            {hasAppointments && (
+                <div className="pagination-buttons text-center">
+                    <button 
+                        onClick={() => setCurrentPage(currentPage - 1)} 
+                        disabled={currentPage === 1}
+                        className="btn btn-pag"
+                    >
+                        Anterior
+                    </button>
+                    <span> Página {currentPage} de {totalPages} </span>
+                    <button 
+                        onClick={() => setCurrentPage(currentPage + 1)} 
+                        disabled={currentPage === totalPages}
+                        className="btn btn-pag"
+                    >
+                        Siguiente
+                    </button>
+                </div>
+            )}
         </div>
     );
 }

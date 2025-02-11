@@ -1,7 +1,10 @@
 import '../../styles/components/footer.css';
 
 
-const Footer = ({ atp }) => {
+const Footer = () => {
+
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className='py-3' >
       <div className="row">
@@ -16,15 +19,10 @@ const Footer = ({ atp }) => {
               <li>FACEBOOK</li>
               <li>WHATSAPP</li>
             </ul>
-            {
-              (atp)
-                ? <div className="footer-button"><a href='#services'>RESERVA UN TURNO</a></div>
-                : null
-            }
         </div>
         <hr />
         <div className="col-lg-12 text-center">
-          <span>Nueva Identidad Coworking 2022 © Todos los derechos reservados</span>
+          <span>Nueva Identidad Coworking {currentYear} © Todos los derechos reservados</span>
         </div>
       </div>
     </footer>

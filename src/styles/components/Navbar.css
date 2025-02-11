@@ -8,7 +8,7 @@
     left:0;
     position: fixed;
     top: 0;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.25);
     .navbar__options {
         position: relative;
         display: flex;
