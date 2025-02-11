@@ -54,9 +54,33 @@ export const useAppointments = () => {
         }
     }
 
+    const deleteWaxAppointment = async ( id ) => {
+        try {
+            await handleApi.delete(`/appointments/${id}`);
+            Swal.fire({
+                icon: 'success',
+                title: 'Se ha eliminado el turno',
+                showConfirmButton: false, 
+                timer: 1500,             
+            });
+        } catch (error) {
+            console.log(error);
+            const data = error.response.data;
+            const errorMessage = data.msg || 'Error desconocido';
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al eliminar turno',
+                text: errorMessage,
+                showConfirmButton: false, 
+                timer: 1500,             
+            });
+        }
+    }
+
     return {
         getUserAppointments,
         getWaxAppointments,
-        addAppointment
+        addAppointment,
+        deleteWaxAppointment
     }
 }

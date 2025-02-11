@@ -42,7 +42,7 @@ const LoginForm = () => {
                         />
                         <button
                             type="submit"
-                            className='btn btn-primary w-100'
+                            className='btn w-100'
                             id='muButton'
                         >
                             Inciar Sesión

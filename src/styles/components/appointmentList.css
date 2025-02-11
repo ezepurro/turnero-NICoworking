@@ -25,3 +25,18 @@
 
 }
 
+.delete-appointment {
+    button {
+        border: 1px red solid;
+        color: rgb(179, 59, 59)
+    }
+    button:hover {
+        background-color: rgb(179, 59, 59);
+        color: white
+    }
+    h3 {
+        margin: 30px;
+    }
+
+}
+
