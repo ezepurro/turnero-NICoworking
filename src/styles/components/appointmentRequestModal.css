@@ -1,7 +1,7 @@
 
 .modal-dialog .modal-content {
     border-radius: 20px;
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     
     .modal-footer {
         border-top: none;

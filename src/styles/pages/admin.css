@@ -1,11 +1,10 @@
 
 
 .service-title-admin {
-    font-family: 'Montserrat', Courier, monospace;
-    color: #de823a;
+    font-family: var(--font-primary);
+    color: var(--background-color);
     padding: 10px 0px 10px 0px;
     margin: 10px 0px 10px 0px;
-    /* -webkit-text-stroke: 1px #de823a;  */
     font-size: 150%;
 }
 
@@ -14,8 +13,8 @@
 }
 
 .admin-navbar {
-    font-family: 'Montserrat', Courier, monospace;
-    background-color: #de823a;
+    font-family: var(--font-primary);
+    background-color: var(--background-color);
     color: white;
     height: 100vh;
     box-sizing: border-box;   
@@ -48,7 +47,7 @@
 }
 
 .admin-content {
-    font-family: 'Montserrat', Courier, monospace;
+    font-family: var(--font-primary);
     height: 100vh;
     box-sizing: border-box;
     overflow-y: auto;

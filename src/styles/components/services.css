@@ -2,9 +2,9 @@
     text-align: center;
     padding: 3%;
     p {
-      color: #de823a;
+      color: var(--background-color);
       font-size: 40px;
-      font-family: 'Krona One', Courier, monospace;
+      font-family: var(--font-secondary);
     }
   }
 

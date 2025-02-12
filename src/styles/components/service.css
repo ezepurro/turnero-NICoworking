@@ -19,18 +19,18 @@
       h2 {
         font-size: 47.8px;
         font-family: 'Anton', Courier, monospace;
-        color: #f2f0ed;
+        color: var(--backgroud-text-color);
       }
       p {
         font-size: 19px;
-        font-family: 'Krona One', Courier, monospace;
-        color: #f2f0ed;
+        font-family: var(--font-secondary);
+        color: var(--backgroud-text-color);
       }
       button {
         background-color: rgba(0, 0, 0, 0);
-        font-family: 'Krona One', Courier, monospace;
-        color: #f2f0ed;
-        border: #f2f0ed solid 0.5px;
+        font-family: var(--font-secondary);
+        color: var(--backgroud-text-color);
+        border: var(--backgroud-text-color) solid 0.5px;
         padding: 1%;
       }
     }

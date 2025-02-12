@@ -7,7 +7,7 @@
     }
 
     .pag-btn {
-        background-color: #de823a;
+        background-color: var(--background-color);
         color: white;
     }
 
@@ -26,15 +26,15 @@
 
     .day-selector {
         .react-datepicker__month-container {
-            font-family: 'Montserrat', sans-serif;
+            font-family: var(--font-primary);
         }
         .form-button {
-            background-color: #de823a;
+            background-color: var(--background-color);
             color: white;
             width: 390px;
         }
         .form-button:hover {
-            background-color: #c77435;
+            background-color: var(--background-color-hover);
             color: white;
         }
         

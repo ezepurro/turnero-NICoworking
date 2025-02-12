@@ -1,6 +1,6 @@
 
 .appointments-container {
-    font-family: 'Montserrat', 'Courier New', Courier, monospace;
+    font-family: var(--font-primary);
     font-weight: 500;
     min-height: calc(100vh - 297px); 
     h3 {
@@ -11,7 +11,7 @@
         color: rgb(105, 105, 105);
     }
     b {
-        color: #de823a;
+        color: var(--background-color);
     }
     .appoinment {
         h4 {
@@ -19,7 +19,7 @@
         }
     }
     button {
-        background-color: #de823a;
+        background-color: var(--background-color);
         color: white;
         margin-bottom: 25px;
     }
@@ -44,22 +44,14 @@
         color: rgb(119, 119, 119);
     }
     .btn-pag {
-        background-color: #de823a;
+        background-color: var(--background-color);
         color: white;
     }
     .btn-pag:hover {
-        background-color: #ac632c;
+        background-color: var(--background-color-hover);
         color: white;
     }
 
-    /* .search-input {
-        width: 100%;
-        max-width: 300px;
-        padding: 5px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    } */
     .search-container {
         display: flex;
         justify-content: center;
@@ -76,7 +68,7 @@
     
     .search-input {
         width: 100%;
-        padding: 10px 10px 10px 35px; /* Espacio a la izquierda para el icono */
+        padding: 10px 10px 10px 35px;
         border: 1px solid #ccc;
         border-radius: 5px;
         font-size: 16px;

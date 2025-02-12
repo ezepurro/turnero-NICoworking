@@ -1,8 +1,8 @@
 
 
 .header-title {
-    background-color: #f2f0ed;
-    font-family: 'Montserrat', Courier, monospace;
+    background-color: var(--backgroud-text-color);
+    font-family: var(--font-primary);
     font-weight: 100;
     font-size: 200%;
     padding: 3%;
@@ -11,6 +11,6 @@
     }
     a {
         text-decoration: none;
-        color: #de823a;
+        color: var(--background-color);
     }
 }

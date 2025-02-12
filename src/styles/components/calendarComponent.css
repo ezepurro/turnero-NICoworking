@@ -1,5 +1,5 @@
 .rbc-event {
-background-color: #de823a !important;
+background-color: var(--background-color) !important;
 color: white !important;
 }
 
@@ -9,13 +9,13 @@ color: #333;
 }
 
 .rbc-active {
-    background-color: #de823a !important;
+    background-color: var(--background-color) !important;
     color: white !important;
 }
 
 .rbc-calendar {
     margin-bottom: 5%;
-    font-family: 'Montserrat', Courier;
+    font-family: var(--font-primary);
 }
 
 .rbc-toolbar-label {

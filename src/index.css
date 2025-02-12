@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Krona+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
+:root {
+  --background-color: #de823a;
+  --background-color-hover: #bb6e33;
+  --backgroud-text-color: #f2f0ed;
+  --font-primary: 'Montserrat', sans-serif;
+  --font-secondary: 'Krona One', Courier, monospace;
+}
+
 html, body {
   padding: 0;
   margin: 0;
@@ -8,7 +16,7 @@ html, body {
   .swal2-modal {
     font-family: 'Montserrat', sans-serif;
     button {
-      background-color: #de823a;
+      background-color: var(--background-color);
     }
   }
 }

@@ -1,9 +1,9 @@
 footer {
   width: 100%;
   padding: 3%;
-  background-color: #de823a;
-  color: #f2f0ed;
-  font-family: 'Krona One', Courier, monospace;
+  background-color: var(--background-color);
+  color: var(--backgroud-text-color);
+  font-family: var(--font-secondary);
 
   h1 {
     font-family: 'Anton', Courier, monospace;
@@ -14,7 +14,7 @@ footer {
     li {
       margin-bottom: 8px;
       a {
-        color: #f2f0ed;
+        color: var(--backgroud-text-color);
         text-decoration: none;
       }
     }
@@ -26,9 +26,9 @@ footer {
     margin-bottom: 5%;
     a {
       background-color: rgba(0, 0, 0, 0);
-      font-family: 'Krona One', Courier, monospace;
-      color: #f2f0ed;
-      border: #f2f0ed solid 0.5px;
+      font-family: var(--font-secondary);
+      color: var(--backgroud-text-color);
+      border: var(--backgroud-text-color) solid 0.5px;
       padding: 1%;
       text-decoration: none;
 

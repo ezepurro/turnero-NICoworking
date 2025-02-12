@@ -25,7 +25,7 @@
         background: none;
         color: white;
         text-decoration: none;
-        font-family: 'Krona One', Courier, monospace;
+        font-family: var(--font-secondary);
     }
     button {
         position: relative;
@@ -35,7 +35,7 @@
         background: none;
         color: white;
         text-decoration: none;
-        font-family: 'Krona One', Courier, monospace;
+        font-family: var(--font-secondary);
     }
     .navbar__logo {
         img {

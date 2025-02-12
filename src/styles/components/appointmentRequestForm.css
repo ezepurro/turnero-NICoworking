@@ -5,7 +5,7 @@
         margin: 10px 0px 10px 0px;
     }
     button {
-        background-color: #de823a;
+        background-color: var(--background-color);
         color: white;
         margin-top: 10px;
     }
@@ -13,7 +13,7 @@
         width: 100%;
     }
     .react-datepicker{
-        font-family: 'Montserrat', sans-serif;
+        font-family: var(--font-primary);
         .react-datepicker__time-list-item--disabled{
             display: none;
         }

@@ -1,7 +1,7 @@
 
 .location {
     margin: 50px;
-    font-family: 'Montserrat';
+    font-family: var(--font-primary);
     .subtitulo {
         text-align: left;
         padding: 0;
