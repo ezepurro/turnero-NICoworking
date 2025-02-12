@@ -2,8 +2,9 @@ import { useState } from "react";
 import { convertDateToDDMMYY, convertDateToHHMM } from "../../helpers/converters";
 import AppointmentWithDeleteButton from "./AppointmentWithDeleteButton";
 import NoAppointments from "../user/NoAppointments";
+import Search from "../../components/icons/Search";
 
-const ITEMS_PER_PAGE = 9;
+const ITEMS_PER_PAGE = 6;
 
 const AppointmentList = ({ waxAppointments }) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -31,14 +32,7 @@ const AppointmentList = ({ waxAppointments }) => {
 
             <div className="search-container text-center">
                 <div className="input-wrapper">
-                    <svg 
-                        xmlns="http://www.w3.org/2000/svg" 
-                        viewBox="0 0 24 24" 
-                        fill="currentColor" 
-                        className="search-icon"
-                    >
-                        <path d="M10 2a8 8 0 105.29 14.71l4.71 4.7a1 1 0 001.42-1.42l-4.7-4.71A8 8 0 0010 2zm0 2a6 6 0 014.69 9.69l-.15.15-.15.14A6 6 0 1110 4z"/>
-                    </svg>
+                    <Search classname="search-icon" color="currentColor" />
                     <input
                         type="text"
                         placeholder="Buscar por cliente..."

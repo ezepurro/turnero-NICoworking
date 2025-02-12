@@ -11,6 +11,13 @@ footer {
   ul {
     list-style: none;
     padding: 0px;
+    li {
+      margin-bottom: 8px;
+      a {
+        color: #f2f0ed;
+        text-decoration: none;
+      }
+    }
   }
   span {
     margin-top: 5px;
