@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { useCalendarSettings } from "../../hooks/useCalendarSettings";
-import "../../styles/components/DaySelectorComponent.css";
 import useCalendarSettingsStore from "../../store/useCalendarSettingsStore";
+import "../../styles/components/DaySelectorComponent.css";
 
 const DaySelectorComponent = () => {
 
@@ -22,7 +22,9 @@ const DaySelectorComponent = () => {
         if (startDate) {
             const waxDate = new Date(startDate); 
             addWaxDate({ waxDate: [waxDate.toISOString()] }); 
-            setCalendarDays({ waxDays: [...calendarDays.waxDays, waxDate] });
+            setCalendarDays({
+                'waxDays': [...calendarDays.waxDays, waxDate],
+            });
         }
     }
 
@@ -48,7 +50,8 @@ const DaySelectorComponent = () => {
                 dayClassName={highlightDates}
                 excludeDates={enabledDates}
             />
-            <button type="submit" className="btn form-button">Habilitar dia</button>
+            <br />
+            <button type="submit" className="btn form-button">Habilitar fecha</button>
         </form>
     )
 }

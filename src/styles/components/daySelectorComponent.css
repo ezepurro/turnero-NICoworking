@@ -11,6 +11,19 @@
         color: white;
     }
 
+    .date-item {
+        button {
+            border: 1px red solid;
+            color: rgb(179, 59, 59);
+            margin: 0px 0px 10px 0px;
+        }
+        button:hover {
+            background-color: rgb(179, 59, 59);
+            color: white;
+            border: 1px rgba(0,0,0,0) solid;
+        }
+    }
+
     .day-selector {
         .react-datepicker__month-container {
             font-family: 'Montserrat', sans-serif;
@@ -18,8 +31,7 @@
         .form-button {
             background-color: #de823a;
             color: white;
-            width: 62%;
-            margin-left: 20%;
+            width: 390px;
         }
         .form-button:hover {
             background-color: #c77435;
@@ -29,8 +41,22 @@
         .react-datepicker {
             margin-left: 20%;
         }
+
+        @media (min-width: 300px) {
+            .form-button {
+                width: 245px;
+                margin-left: 20%;
+            }
+        }
         
         @media (min-width: 1242px) {
+
+            .form-button {
+                width: 390px;
+                margin-left: 20%;
+            }
+        
+
             .react-datepicker {
                 font-size: 1rem;
             }

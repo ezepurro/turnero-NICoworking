@@ -34,7 +34,8 @@
     }
     .delete:hover {
         background-color: rgb(179, 59, 59);
-        color: white
+        color: white;
+        border: 1px rgba(0,0,0,0) solid;
     }
     h3 {
         margin: 30px 0px 10px 0px;

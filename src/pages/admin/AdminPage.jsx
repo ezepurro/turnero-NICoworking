@@ -55,7 +55,9 @@ const AdminPage = () => {
         try {
             const data = await getCalendarSettings();
             const formattedDates = data.calendarSettings.waxDays.map(dateStr => new Date(dateStr));
-            setCalendarDays({'waxDays': formattedDates});
+            setCalendarDays({
+              'waxDays': formattedDates,
+            });
         } catch (error) {
             console.error(error);
         }
@@ -73,7 +75,7 @@ const AdminPage = () => {
           <div className="admin-options">
             <button onClick={ () => setSelectedOption('appointments-calendars') } >Ver turnos</button>
             <hr />
-            <button onClick={ () => setSelectedOption('appointments-days') } >Habilitar dias para turnos</button>
+            <button onClick={ () => setSelectedOption('appointments-days') } >Administrar fechas para turnos</button>
             <hr />
             <button onClick={ () => setSelectedOption('delete-appointment') } >Eliminar turno</button>
           </div>

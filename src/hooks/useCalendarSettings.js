@@ -7,8 +7,7 @@ export const useCalendarSettings = () => {
 
     const addWaxDate = async ({ waxDate }) => {
         try {
-            const { data } = await handleApi.put('/settings/wax', { newDates: waxDate })
-            console.log({data});
+            await handleApi.put('/settings/wax', { newDates: waxDate })
             Swal.fire({
                 icon: 'success',
                 title: 'Dia habilitado!',
@@ -51,11 +50,35 @@ export const useCalendarSettings = () => {
         }
     }
 
+    const removeWaxDateFromCalendarSettings = async ( date ) => {
+        try {
+            await handleApi.delete(`/settings/wax?date=${date}`);
+            Swal.fire({
+                icon: 'success',
+                title: 'Dia deshabilitado correctamente',
+                showConfirmButton: false, 
+                timer: 1500,             
+            });
+        } catch (error) {
+            console.log(error);
+            const data = error.response.data;
+            const errorMessage = data.msg || 'Error desconocido';
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al deshabilitar la fecha',
+                text: errorMessage,
+                showConfirmButton: false, 
+                timer: 1500,             
+            });
+        }
+    }
+
 
     return {
         addWaxDate,
         getCalendarSettings,
-        getReservedTimes
+        getReservedTimes,
+        removeWaxDateFromCalendarSettings
     }
 }
 
