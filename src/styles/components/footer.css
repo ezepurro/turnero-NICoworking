@@ -6,7 +6,7 @@ footer {
   font-family: var(--font-secondary);
 
   h1 {
-    font-family: 'Anton', Courier, monospace;
+    font-family: var(--font-title);
   }
   ul {
     list-style: none;
@@ -56,17 +56,24 @@ footer {
     font-size: 80px;
     text-align: left;
     }
-    .footer-button {
-      text-align: left;
+  }
+}
+
+/* Desktops and above */
+@media (min-width: 900px) {
+  footer {
+    h1 {
+      font-size: 100px;
     }
   }
 }
 
 /* Desktops and above */
-@media (min-width: 992px) {
+@media (min-width: 1488px) {
   footer {
     h1 {
-      font-size: 90px;
+      font-size: 110px;
+      margin-top: 20px;
     }
   }
 }

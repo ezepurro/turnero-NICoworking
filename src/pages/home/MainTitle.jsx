@@ -6,10 +6,10 @@ const MainTitle = () => {
     <div className="">
         <div className="title">
           <div className="image-content">
-            <img src="https://posbrava.com/wp-content/uploads/2024/01/Tecnologia-en-salones-de-belleza.jpg" />
+            <img src="https://images.unsplash.com/photo-1594734415578-00fc9540929b?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
             <div className="title-overlay">
             <div className="titulo">
-                <h1>BEAUTY CENTER</h1>
+                <h1>Beauty Center</h1>
                 <p>by Nueva Identidad Coworking</p>
               </div>
             </div>

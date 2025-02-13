@@ -97,7 +97,7 @@ const AppointmentRequestForm = ({ type }) => {
                         excludeTimes={ getExcludedTimes } 
                         withPortal
                         minTime={setHours(setMinutes(new Date(), 0), 9)}
-                        maxTime={setHours(setMinutes(new Date(), 30), 17)}
+                        maxTime={setHours(setMinutes(new Date(), 0), 20)}
                     />
                     <button type='submit' className='form-control'>Reservar turno</button>
                 </form>

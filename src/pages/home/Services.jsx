@@ -27,7 +27,7 @@ const Services = () => {
       </div>
       <div id="services">
           <div className=" service-container">
-          <Service image_url="https://serapool.fra1.cdn.digitaloceanspaces.com/media/4752/1700134437065.png" service="DEPILACIÓN DEFINITIVA" service_description="Lorem ipsum dolor sit amet consectetur adipisicing elit." posicion="izq" type="Depilación" />
+          <Service image_url="https://drjulioferreira.com/wp-content/uploads/2018/07/cf_20_agosto_ipl.png" service="DEPILACIÓN DEFINITIVA" service_description="Resultados permanentes, sin dolor, en pocas sesiones. ¡Reserva ahora!" posicion="izq" type="Depilación" />
           </div>
       </div>
     </>

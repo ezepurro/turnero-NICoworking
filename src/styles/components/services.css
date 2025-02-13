@@ -3,8 +3,9 @@
     padding: 3%;
     p {
       color: var(--background-color);
-      font-size: 40px;
-      font-family: var(--font-secondary);
+      font-size: 50px;
+      font-family: var(--font-primary);
+      font-weight: 600;
     }
   }
 
