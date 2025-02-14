@@ -19,7 +19,7 @@
         color: var(--backgroud-text-color);
         position: absolute;
         h1 {
-          font-family: var(--font-title);
+          font-family: var(--font-brand);
         }
         p {
           font-size: 20px;

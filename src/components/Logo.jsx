@@ -2,8 +2,8 @@
 function Logo(){
     return (
         <a href="/*">
-            {/* <img src="../../favicon.svg" alt="NIC-logo" /> */}
-            <span>B</span>
+            <img src="../../logo.svg" alt="BC-logo" />
+            {/* <span>B</span> */}
         </a>
     )
 }
