@@ -8,8 +8,7 @@ import useCalendarSettingsStore from '../store/useCalendarSettingsStore';
 import "react-datepicker/dist/react-datepicker.css";
 import '../styles/components/appointmentRequestForm.css';
 import { setHours, setMinutes } from 'date-fns';
-
-
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 registerLocale('es', es);
 
 const appointmentFormFields = {
@@ -18,8 +17,34 @@ const appointmentFormFields = {
     date: '',
 };
 
-const AppointmentRequestForm = ({ type }) => {
+const createPreference = async (precio,horario,duracion,cantZonas) => {
+    const appointmentPreference = {
+        precio : precio,
+        horario : horario,
+        duracion : duracion,
+        cantZonas : cantZonas
+    }
+    try {
+        const response = await fetch('/create_preference', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body : JSON.stringify(appointmentPreference)
+        })
+        if (!response.ok) {
+            throw new Error(`Error HTTP : ${response.status}`)
+        }
+        const data = await response.json()
+        return data.id
+    }
+    catch(err){
+        console.log(err);
+    }
+}
 
+const AppointmentRequestForm = ({ type }) => {
+    initMercadoPago('YOUR_PUBLIC_KEY',{
+        locale: 'es-AR'
+    });
     const [startDate, setStartDate] = useState();
     const [selectedOption, setSelectedOption] = useState('');
     const { contact, onInputChange } = useForm( appointmentFormFields );
@@ -100,11 +125,12 @@ const AppointmentRequestForm = ({ type }) => {
                         maxTime={setHours(setMinutes(new Date(), 0), 20)}
                     />
                     <button type='submit' className='form-control'>Reservar turno</button>
+                    <Wallet initialization={{ preferenceId: '<PREFERENCE_ID>' }} customization={{ texts:{ valueProp: 'smart_option'}}} />
                 </form>
             </div>
         </div>
     </div>
-  )
+    )
 }
 
 export default AppointmentRequestForm
