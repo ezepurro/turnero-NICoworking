@@ -10,6 +10,7 @@ import '../styles/components/appointmentRequestForm.css';
 import { setHours, setMinutes } from 'date-fns';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 registerLocale('es', es);
+import { useState } from 'react';
 
 const appointmentFormFields = {
     contact: '',
@@ -17,31 +18,43 @@ const appointmentFormFields = {
     date: '',
 };
 
-const createPreference = async (precio,horario,duracion,cantZonas) => {
-    const appointmentPreference = {
-        precio : precio,
-        horario : horario,
-        duracion : duracion,
-        cantZonas : cantZonas
-    }
-    try {
-        const response = await fetch('/create_preference', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body : JSON.stringify(appointmentPreference)
-        })
-        if (!response.ok) {
-            throw new Error(`Error HTTP : ${response.status}`)
-        }
-        const data = await response.json()
-        return data.id
-    }
-    catch(err){
-        console.log(err);
-    }
-}
+
+
+
 
 const AppointmentRequestForm = ({ type }) => {
+    const createPreference = async (precio,horario,duracion,cantZonas) => {
+        const appointmentPreference = {
+            precio : precio,
+            horario : horario,
+            duracion : duracion,
+            cantZonas : cantZonas
+        }
+        try {
+            const response = await fetch('/create_preference', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body : JSON.stringify(appointmentPreference)
+            })
+            if (!response.ok) {
+                throw new Error(`Error HTTP : ${response.status}`)
+            }
+            const data = await response.json()
+            return data.id
+        }
+        catch(err){
+            console.log(err);
+        }
+    }
+    
+
+    const handleBuy = async () => {
+        const id = await createPreference();
+        if (id) {
+            setPreferenceId(id)
+        }
+    }
+    const [preferenceId,setPreferenceId] = useState(null)
     initMercadoPago('YOUR_PUBLIC_KEY',{
         locale: 'es-AR'
     });
@@ -124,8 +137,8 @@ const AppointmentRequestForm = ({ type }) => {
                         minTime={setHours(setMinutes(new Date(), 0), 9)}
                         maxTime={setHours(setMinutes(new Date(), 0), 20)}
                     />
-                    <button type='submit' className='form-control'>Reservar turno</button>
-                    <Wallet initialization={{ preferenceId: '<PREFERENCE_ID>' }} customization={{ texts:{ valueProp: 'smart_option'}}} />
+                    <button onClick={handleBuy} type='submit' className='form-control'>Reservar turno</button>
+                    {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}}} />}
                 </form>
             </div>
         </div>
