@@ -8,9 +8,9 @@ import useCalendarSettingsStore from '../store/useCalendarSettingsStore';
 import "react-datepicker/dist/react-datepicker.css";
 import '../styles/components/appointmentRequestForm.css';
 import { setHours, setMinutes } from 'date-fns';
-
-
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 registerLocale('es', es);
+
 
 const appointmentFormFields = {
     contact: '',
@@ -18,8 +18,61 @@ const appointmentFormFields = {
     date: '',
 };
 
-const AppointmentRequestForm = ({ type }) => {
 
+const AppointmentRequestForm = ({ type }) => {
+    initMercadoPago('APP_USR-6f82d2ec-8f10-48b9-982e-0056c17b4917',{
+        locale: 'es-AR'
+    });
+    const createPreference = async (price,schedule,duration,zonesAmmount) => {
+        const appointmentPreference = {
+            price : price,
+            schedule : schedule,
+            duration : duration,
+            zonesAmmount : zonesAmmount
+        }
+        try {
+            const response = await fetch('http://localhost:4000/api/mercadopago/create_preference', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body : JSON.stringify(appointmentPreference)
+            })
+            if (!response.ok) {
+                throw new Error(`Error HTTP : ${response.status}`)
+            }
+            const data = await response.json()
+            return data.id
+        }
+        catch(err){
+            console.log(err);
+            alert(err.message)
+        }
+    }
+    const handleBuy = async () => {
+        if (!contact || !startDate || !selectedOption) {
+            alert('Por favor, completa todos los campos antes de continuar.');
+            return;
+        }
+        const pricePerZone = 1000; 
+        const durationPerZone = 5; 
+        const zonesAmmount = parseInt(selectedOption); 
+        const price = zonesAmmount * pricePerZone;
+        const duration = zonesAmmount * durationPerZone;
+        const schedule = startDate;
+    
+        console.log('Enviando a MercadoPago:', { price, schedule, duration, zonesAmmount });
+    
+        const id = await createPreference(price, schedule, duration, zonesAmmount);
+        if (id) {
+            setPreferenceId(id);
+        } else {
+            alert('Error al procesar el pago. Inténtalo de nuevo.');
+        }
+    };
+    
+
+
+    const [preferenceId,setPreferenceId] = useState(null)
+  
     const [startDate, setStartDate] = useState();
     const [selectedOption, setSelectedOption] = useState('');
     const { contact, onInputChange } = useForm( appointmentFormFields );
@@ -41,7 +94,6 @@ const AppointmentRequestForm = ({ type }) => {
             .map(date => new Date(date.getTime())); 
         return excludedTimes;
     }, [startDate, reservedTimes.wax]);
-
 
 
     const handleSubmit = ( event ) => {
@@ -99,12 +151,13 @@ const AppointmentRequestForm = ({ type }) => {
                         minTime={setHours(setMinutes(new Date(), 0), 9)}
                         maxTime={setHours(setMinutes(new Date(), 0), 20)}
                     />
-                    <button type='submit' className='form-control'>Reservar turno</button>
+                    <button onClick={handleBuy} type='button' className='form-control'>Reservar turno</button>
+                    {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}}} />}
                 </form>
             </div>
         </div>
     </div>
-  )
+    )
 }
 
 export default AppointmentRequestForm
