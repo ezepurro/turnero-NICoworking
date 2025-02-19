@@ -132,7 +132,7 @@ const AppointmentRequestForm = ({ type }) => {
                         onKeyDown={ (e) => { e.preventDefault() } }
                         minDate={ new Date() }
                         includeDates={ calendarDays.waxDays }
-                        timeIntervals={ 15 }
+                        timeIntervals={ 5 }
                         name='date'
                         required
                         excludeTimes={ getExcludedTimes } 
