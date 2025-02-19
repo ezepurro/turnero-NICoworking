@@ -1,16 +1,19 @@
 import { useMemo, useState } from 'react';
-import DatePicker, {registerLocale} from "react-datepicker";
-import es from 'date-fns/locale/es'
 import { useForm } from '../hooks/useForm';
 import { useAppointments } from '../hooks/useAppointments';
+import { useMercadoPago } from '../hooks/useMercadoPago';
+import { setHours, setMinutes } from 'date-fns';
+import { getEnvVariables } from '../helpers/getEnvVariables';
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+import DatePicker, {registerLocale} from "react-datepicker";
 import useAuthStore from '../store/useAuthStore';
 import useCalendarSettingsStore from '../store/useCalendarSettingsStore';
+import es from 'date-fns/locale/es';
+import Swal from "sweetalert2";
 import "react-datepicker/dist/react-datepicker.css";
 import '../styles/components/appointmentRequestForm.css';
-import { setHours, setMinutes } from 'date-fns';
-import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
-registerLocale('es', es);
 
+registerLocale('es', es);
 
 const appointmentFormFields = {
     contact: '',
@@ -20,70 +23,52 @@ const appointmentFormFields = {
 
 
 const AppointmentRequestForm = ({ type }) => {
-    initMercadoPago('APP_USR-6f82d2ec-8f10-48b9-982e-0056c17b4917',{
-        locale: 'es-AR'
-    });
-    const createPreference = async (price,schedule,duration,zonesAmmount) => {
-        const appointmentPreference = {
-            price : price,
-            schedule : schedule,
-            duration : duration,
-            zonesAmmount : zonesAmmount
-        }
-        try {
-            const response = await fetch('http://localhost:4000/api/mercadopago/create_preference', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body : JSON.stringify(appointmentPreference)
-            })
-            if (!response.ok) {
-                throw new Error(`Error HTTP : ${response.status}`)
-            }
-            const data = await response.json()
-            return data.id
-        }
-        catch(err){
-            console.log(err);
-            alert(err.message)
-        }
-    }
-    const handleBuy = async () => {
-        if (!contact || !startDate || !selectedOption) {
-            alert('Por favor, completa todos los campos antes de continuar.');
-            return;
-        }
-        const pricePerZone = 1000; 
-        const durationPerZone = 5; 
-        const zonesAmmount = parseInt(selectedOption); 
-        const price = zonesAmmount * pricePerZone;
-        const duration = zonesAmmount * durationPerZone;
-        const schedule = startDate;
-    
-        console.log('Enviando a MercadoPago:', { price, schedule, duration, zonesAmmount });
-    
-        const id = await createPreference(price, schedule, duration, zonesAmmount);
-        if (id) {
-            setPreferenceId(id);
-        } else {
-            alert('Error al procesar el pago. Inténtalo de nuevo.');
-        }
-    };
-    
-
 
     const [preferenceId,setPreferenceId] = useState(null)
-  
     const [startDate, setStartDate] = useState();
     const [selectedOption, setSelectedOption] = useState('');
     const { contact, onInputChange } = useForm( appointmentFormFields );
     const { addAppointment } = useAppointments();
     const { user } = useAuthStore();
     const { calendarDays, reservedTimes } = useCalendarSettingsStore();
-    
-    const handleChange = (event) => {
-        setSelectedOption(event.target.value);
-    };
+    const { createPreference } = useMercadoPago();
+    const { VITE_MP_PUBLIC_KEY } = getEnvVariables();
 
+    initMercadoPago(VITE_MP_PUBLIC_KEY, {
+        locale: 'es-AR'
+    });
+
+    const handleBuy = async () => {
+
+        if (!contact || !startDate || !selectedOption) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Por favor, completa todos los campos antes de continuar',
+                showConfirmButton: false, 
+                timer: 1500,             
+            });
+            return;
+        }
+
+        const zonesAmmount = ( parseInt(selectedOption) === 10 ) ? 'Full-Body' : parseInt(selectedOption);
+        const price = 7000;
+        const schedule = startDate;
+        
+        const id = await createPreference(price, schedule, zonesAmmount);
+
+        if (id) {
+            setPreferenceId(id);
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Error al procesar el pago. Inténtalo de nuevo',
+                showConfirmButton: false, 
+                timer: 1500,             
+            });
+        }
+    };
     
     const getExcludedTimes = useMemo(() => {
         if (!startDate || !reservedTimes.wax) return []; 
@@ -98,10 +83,14 @@ const AppointmentRequestForm = ({ type }) => {
 
     const handleSubmit = ( event ) => {
         event.preventDefault();
-        const sessionLength = null;
-        const sessionZones = parseInt(selectedOption);
-        addAppointment({ contact, sessionZones, date:startDate, userId:user.uid, type, sessionLength });
+        // const sessionLength = null;
+        // const sessionZones = parseInt(selectedOption);
+        // addAppointment({ contact, sessionZones, date:startDate, userId:user.uid, type, sessionLength });
     }
+
+    const handleChange = (event) => {
+        setSelectedOption(event.target.value);
+    };
 
     return (
     <div className='container text-center'>
@@ -151,7 +140,7 @@ const AppointmentRequestForm = ({ type }) => {
                         minTime={setHours(setMinutes(new Date(), 0), 9)}
                         maxTime={setHours(setMinutes(new Date(), 0), 20)}
                     />
-                    <button onClick={handleBuy} type='button' className='form-control'>Reservar turno</button>
+                    <button onClick={ handleBuy } type='button' className='form-control'>Reservar turno</button>
                     {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}}} />}
                 </form>
             </div>
