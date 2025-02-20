@@ -17,13 +17,21 @@ export const useAppointments = () => {
     }
 
     const addAppointment = async ({ contact, sessionZones, date, userId, type, sessionLength }) => {
+        
+        // Para números de contacto argentinos
+        let normalizedContact = contact.replace(/\s/g, '');
+        if (normalizedContact.startsWith("+54") && !normalizedContact.startsWith("+54 9") && !normalizedContact.startsWith("+549")) {
+            normalizedContact = "+54 9" + normalizedContact.slice(3);
+        }
+
         const isoDate = date.toISOString();
+
         (type === "Depilación")
             ? sessionLength = getSessionLength( sessionZones )
             : sessionLength = null
-        console.log({ contact, sessionZones, date:isoDate, userId, type, sessionLength });
+
         try {
-            const { data } = await handleApi.post('/appointments', { date:isoDate, userId, contact, sessionZones, type, sessionLength });
+            await handleApi.post('/appointments', { date:isoDate, userId, contact: normalizedContact, sessionZones, type, sessionLength });
             Swal.fire({
                 icon: 'success',
                 title: 'Cita agendada!',

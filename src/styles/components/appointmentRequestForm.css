@@ -22,4 +22,22 @@
             display: none;
         }
     }
+
+
+    .phone-input-container {
+        width: 100%;
+        margin: 10px 0px 10px 0px;
+        font-family: var(--font-primary);
+    }
+    
+    .phone-input-container .form-control {
+        width: 100%;
+        padding-left: 50px !important; 
+    }
+    
+    .phone-input-flag-button {
+        background: transparent !important;
+        border: none !important;
+        padding: 5px;
+    }
 }

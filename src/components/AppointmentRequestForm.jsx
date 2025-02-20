@@ -10,6 +10,8 @@ import useAuthStore from '../store/useAuthStore';
 import useCalendarSettingsStore from '../store/useCalendarSettingsStore';
 import es from 'date-fns/locale/es';
 import Swal from "sweetalert2";
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 import "react-datepicker/dist/react-datepicker.css";
 import '../styles/components/appointmentRequestForm.css';
 
@@ -97,14 +99,26 @@ const AppointmentRequestForm = ({ type }) => {
         <div className="row">
             <div className="col-12">
                 <form className='appointment-form' onSubmit={ handleSubmit }>
-                    <input
-                        type="text"
+                    <PhoneInput
+                        country={'ar'}
+                        value={contact}
+                        onChange={(value) => onInputChange({ target: { name: 'contact', value } })}
+                        inputProps={{
+                            name: 'contact',
+                            required: true,
+                        }}
                         placeholder='Número de contacto'
-                        className='form-control'
-                        name='contact'
-                        value={ contact }
-                        onChange={ onInputChange }
-                        required
+                        enableSearch={true}
+                        autoFormat={false} 
+                        isValid={(value, country) => {
+                            if (country.countryCode === "ar") {
+                                return value.length >= 12; 
+                            }
+                            return true;
+                        }}
+                        containerClass="phone-input-container"
+                        inputClass="form-control"
+                        buttonClass="phone-input-flag-button"
                     />
                     <select
                         id="options"
