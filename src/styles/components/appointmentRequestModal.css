@@ -2,6 +2,10 @@
 .modal-dialog .modal-content {
     border-radius: 20px;
     font-family: var(--font-primary);
+
+    .title {
+        font-family: var(--font-brand);
+    }
     
     .modal-footer {
         border-top: none;

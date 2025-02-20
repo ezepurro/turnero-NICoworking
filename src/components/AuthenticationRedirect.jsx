@@ -7,9 +7,9 @@ const AuthenticationRedirect = () => {
         <div className="row">
             <div className="col-12 text-center authentication-redirect">
                 <p>Es necesario acceder para poder reservar un turno</p>
-                <div className="links">
-                    <a href="/auth/login">Iniciar Sesión</a>|
-                    <a href="/auth/register">Registrarse</a>
+                <div className="row links">
+                  <div className="col-6"><a href="/auth/login">Iniciar Sesión</a></div>
+                  <div className="col-6"><a href="/auth/register">Registrarse</a></div>
                 </div>
             </div>
         </div>

@@ -21,7 +21,7 @@ const AppointmentRequestModal = ( {service, type, ...props}) => {
               {
               (isAuthenticated)
                 ? `Sacar turno a ${service.toLowerCase()}`
-                : 'Ingresar a Nueva Identidad Coworking'
+                : <>Ingresar a <span className='title'>Beauty Center</span></>
               }
             </Modal.Title>
           </Modal.Header>
