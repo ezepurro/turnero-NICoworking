@@ -163,4 +163,4 @@ const AppointmentRequestForm = ({ type }) => {
     )
 }
 
-export default AppointmentRequestForm
+export default AppointmentRequestForm;

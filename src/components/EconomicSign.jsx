@@ -1,7 +1,12 @@
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
+import { useState } from 'react'
+import { getEnvVariables } from '../helpers/getEnvVariables';
 
 const EconomicSign = ({}) => {
-    const createPreference = async (price,schedule,duration,zonesAmmount) => {
+
+    const { VITE_MP_PUBLIC_KEY } = getEnvVariables();
+
+    const createPreference = async ( price, schedule, duration, zonesAmmount ) => {
             const appointmentPreference = {
                 price : price,
                 schedule : schedule,
@@ -32,10 +37,12 @@ const EconomicSign = ({}) => {
                 setPreferenceId(id)
             }
         }
-        const [preferenceId,setPreferenceId] = useState(null)
-        initMercadoPago('TEST-880b6b82-c1fd-4378-82e0-158317b585da',{
+
+        const [preferenceId, setPreferenceId] = useState(null);
+        initMercadoPago(VITE_MP_PUBLIC_KEY, {
             locale: 'es-AR'
         });
+
     return (
         <div>
             <button onClick={handleBuy}>Abonar seña</button>
@@ -45,4 +52,4 @@ const EconomicSign = ({}) => {
 }
 
 
-export default EconomicSign
+export default EconomicSign;
