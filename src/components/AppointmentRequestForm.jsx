@@ -26,7 +26,7 @@ const appointmentFormFields = {
 
 const AppointmentRequestForm = ({ type }) => {
 
-    const [preferenceId,setPreferenceId] = useState(null)
+    const [preferenceId, setPreferenceId] = useState(null);
     const [startDate, setStartDate] = useState();
     const [selectedOption, setSelectedOption] = useState('');
     const { contact, onInputChange } = useForm( appointmentFormFields );

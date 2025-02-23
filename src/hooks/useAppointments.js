@@ -1,7 +1,8 @@
-import { getSessionLength } from "../helpers/getSessionLength";
-import handleApi from "../api/handleApi";
 import Swal from "sweetalert2";
 import useAuthStore from "../store/useAuthStore";
+import handleApi from "../api/handleApi";
+import { getSessionLength } from "../helpers/getSessionLength";
+import { formatPhoneNumber } from "../helpers/formatPhoneNumber";
 
 export const useAppointments = () => {
 
@@ -18,11 +19,7 @@ export const useAppointments = () => {
 
     const addAppointment = async ({ contact, sessionZones, date, userId, type, sessionLength }) => {
         
-        // Para números de contacto argentinos
-        let normalizedContact = contact.replace(/\s/g, '');
-        if (normalizedContact.startsWith("+54") && !normalizedContact.startsWith("+54 9") && !normalizedContact.startsWith("+549")) {
-            normalizedContact = "+54 9" + normalizedContact.slice(3);
-        }
+        const normalizedContact = formatPhoneNumber(contact);
 
         const isoDate = date.toISOString();
 

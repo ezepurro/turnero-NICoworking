@@ -12,6 +12,7 @@ export const useMercadoPago = () => {
             }
             try {
                 const response = await handleApi.post('/mercadopago/create_preference', appointmentPreference);
+                console.log(response.data.id);
                 return response.data.id;
             }
             catch(error){
