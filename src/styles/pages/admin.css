@@ -12,7 +12,7 @@
     margin-top: 120px;
 }
 
-.admin-navbar {
+/* .admin-navbar {
     font-family: var(--font-primary);
     background-color: var(--background-color);
     color: white;
@@ -45,6 +45,52 @@
             color: white;
         }
     }
+} */
+
+.admin-navbar {
+    font-family: var(--font-primary);
+    background-color: var(--background-color);
+    color: white;
+    height: 100vh;
+    box-sizing: border-box;   
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-align: center;
+
+    h3 {
+        margin: 20px 0px 10px 0px;
+        font-weight: 500;
+        font-size: 150%;
+        span {
+            font-weight: 200;
+        }
+        a {
+            font-family: var(--font-brand);
+            text-decoration: none;
+            color: white;
+        }
+    }
+
+    .admin-options {
+        margin-top: 20%;
+        margin-left: 20px;
+        display: flex; 
+        flex-direction: column; 
+        height: calc(100% - 20%); 
+        justify-content: space-between; 
+
+        button {
+            text-align: left;
+            border: 0;
+            background-color: rgba(0,0,0,0);
+            color: white;
+        }
+
+
+        button:last-child {
+            margin-top: auto; 
+        }
+    }
 }
 
 .admin-content {
@@ -52,8 +98,19 @@
     height: 100vh;
     box-sizing: border-box;
     overflow-y: auto;
+
     .dayselectors {
         margin: 30px 0px 0px 0px;  
+    }
+
+    .status-paid {
+        font-weight: bold;
+        color: rgb(40, 117, 40);
+    }
+
+    .status-pending {
+        font-weight: bold;
+        color: rgb(151, 134, 36);
     }
 
 }

@@ -78,7 +78,6 @@ const AppointmentRequestForm = ({ type }) => {
         const preferenceId = await createPreference(price, schedule, zonesAmmount, id);
 
         if (preferenceId) {
-            console.log('Created preference')
             setPreferenceId(preferenceId);
         } else {
             Swal.fire({
@@ -159,8 +158,8 @@ const AppointmentRequestForm = ({ type }) => {
                         maxTime={setHours(setMinutes(new Date(), 0), 20)}
                     />
                     <button type='submit' className='form-control'>Reservar turno</button>
-                    {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}}} />}
                 </form>
+                {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}}} />}
             </div>
         </div>
     </div>

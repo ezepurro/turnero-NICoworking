@@ -49,10 +49,11 @@ const AppointmentList = ({ waxAppointments }) => {
             {hasAppointments && (
                 <div className="container">
                     <div className="row">
-                        <div className="col-3"><p>Cliente y número de contacto</p></div>
-                        <div className="col-3"><p>Tipo de turno</p></div>
-                        <div className="col-3"><p>Fecha y hora</p></div>
-                        <div className="col-3"><p>Eliminar turno</p></div>
+                        <div className="col-md-3"><p>Cliente y número de contacto</p></div>
+                        <div className="col-md-2"><p>Tipo de turno</p></div>
+                        <div className="col-md-2"><p>Fecha y hora</p></div>
+                        <div className="col-md-3"><p>Estado del turno</p></div>
+                        <div className="col-md-2"><p>Eliminar turno</p></div>
                         <hr />
                     </div>
                 </div>
@@ -69,6 +70,7 @@ const AppointmentList = ({ waxAppointments }) => {
                             hour={convertDateToHHMM(appointment.start)}
                             type={appointment.notes}
                             contact={appointment.contact}
+                            status={appointment.status}
                         />
                     ))
                 ) : (

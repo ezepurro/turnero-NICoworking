@@ -11,7 +11,7 @@ export const useAppointments = () => {
     const getUserAppointments = async ( uid ) => {
         try {
             const { data } = await handleApi.get(`/appointments/users/${uid}`);
-            return data.appointments;
+            return data.appointments.filter(appointment => appointment.status === "paid");
         } catch (error) {
             console.log(error);
         }
@@ -29,15 +29,14 @@ export const useAppointments = () => {
 
         try {
             const { data } = await handleApi.post('/appointments', { date:isoDate, userId, contact: normalizedContact, sessionZones, type, sessionLength, status });
-            
-            Swal.fire({
-                icon: 'success',
-                title: 'Cita agendada!',
-                text: `Te esperamos, ${user.name}!`,
-                showConfirmButton: false, 
-                timer: 1500,             
-            });
             return data.appointment.id;
+            // Swal.fire({
+            //     icon: 'success',
+            //     title: 'Cita agendada!',
+            //     text: `Te esperamos, ${user.name}!`,
+            //     showConfirmButton: false, 
+            //     timer: 1500,             
+            // });
         } catch (error) {
             console.log(error);
             const data = error.response.data;

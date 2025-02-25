@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react"
-import Navbar from "../../components/navbar"
-import { useAppointments } from "../../hooks/useAppointments"
-import useAuthStore from "../../store/useAuthStore"
-import Footer from "../home/Footer"
-import AppointmentList from "./AppointmentList"
+import { useEffect, useState } from "react";
+import { useAppointments } from "../../hooks/useAppointments";
+import useAuthStore from "../../store/useAuthStore";
+import AppointmentList from "./AppointmentList";
+import Navbar from "../../components/navbar";
+import Footer from "../home/Footer";
 
 const MyAppointments = () => {
 
@@ -22,11 +22,11 @@ const MyAppointments = () => {
 
   return (
     <>
-        <AppointmentList name={user.name}  appointments={ appointments } />
-        <Navbar />
-        <Footer />
+      <AppointmentList name={user.name}  appointments={ appointments } />
+      <Navbar />
+      <Footer />
     </>
   )
 }
 
-export default MyAppointments
+export default MyAppointments;
