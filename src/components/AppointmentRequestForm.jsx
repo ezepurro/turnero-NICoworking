@@ -85,9 +85,9 @@ const AppointmentRequestForm = ({ type }) => {
 
     const handleSubmit = ( event ) => {
         event.preventDefault();
-        // const sessionLength = null;
-        // const sessionZones = parseInt(selectedOption);
-        // addAppointment({ contact, sessionZones, date:startDate, userId:user.uid, type, sessionLength });
+        const sessionLength = null;
+        const sessionZones = parseInt(selectedOption);
+        addAppointment({ contact, sessionZones, date:startDate, userId:user.uid, type, sessionLength });
     }
 
     const handleChange = (event) => {
@@ -164,3 +164,5 @@ const AppointmentRequestForm = ({ type }) => {
 }
 
 export default AppointmentRequestForm;
+
+
