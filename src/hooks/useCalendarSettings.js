@@ -54,7 +54,7 @@ export const useCalendarSettings = () => {
         try {
             await handleApi.delete(`/settings/wax?date=${date}`);
             Swal.fire({
-                icon: 'success',
+                icon: 'warning',
                 title: 'Dia deshabilitado correctamente',
                 showConfirmButton: false, 
                 timer: 1500,             
