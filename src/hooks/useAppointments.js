@@ -17,7 +17,7 @@ export const useAppointments = () => {
         }
     }
 
-    const addAppointment = async ({ contact, sessionZones, date, userId, type, sessionLength }) => {
+    const addAppointment = async ({ contact, sessionZones, date, userId, type, sessionLength, status }) => {
         
         const normalizedContact = formatPhoneNumber(contact);
 
@@ -28,7 +28,8 @@ export const useAppointments = () => {
             : sessionLength = null
 
         try {
-            await handleApi.post('/appointments', { date:isoDate, userId, contact: normalizedContact, sessionZones, type, sessionLength });
+            const { data } = await handleApi.post('/appointments', { date:isoDate, userId, contact: normalizedContact, sessionZones, type, sessionLength, status });
+            
             Swal.fire({
                 icon: 'success',
                 title: 'Cita agendada!',
@@ -36,6 +37,7 @@ export const useAppointments = () => {
                 showConfirmButton: false, 
                 timer: 1500,             
             });
+            return data.appointment.id;
         } catch (error) {
             console.log(error);
             const data = error.response.data;

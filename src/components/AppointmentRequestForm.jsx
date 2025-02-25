@@ -25,7 +25,6 @@ const appointmentFormFields = {
 
 
 const AppointmentRequestForm = ({ type }) => {
-
     const [preferenceId, setPreferenceId] = useState(null);
     const [startDate, setStartDate] = useState();
     const [selectedOption, setSelectedOption] = useState('');
@@ -40,7 +39,26 @@ const AppointmentRequestForm = ({ type }) => {
         locale: 'es-AR'
     });
 
-    const handleBuy = async () => {
+    // const handleBuy = async () => {
+
+    // };
+    
+    const getExcludedTimes = useMemo(() => {
+        if (!startDate || !reservedTimes.wax) return []; 
+        const selectedDate = startDate.toDateString(); 
+        const excludedTimes = reservedTimes.wax
+            .map(dateStr => new Date(dateStr)) 
+            .filter(date => date.toDateString() === selectedDate) 
+            .map(date => new Date(date.getTime())); 
+        return excludedTimes;
+    }, [startDate, reservedTimes.wax]);
+
+
+    const handleSubmit = async ( event ) => {
+        event.preventDefault();
+        const sessionLength = null;
+        const sessionZones = parseInt(selectedOption);
+        const id = await addAppointment({ contact, sessionZones, date:startDate, userId:user.uid, type, sessionLength, status: 'pending'});
 
         if (!contact || !startDate || !selectedOption) {
             Swal.fire({
@@ -57,10 +75,11 @@ const AppointmentRequestForm = ({ type }) => {
         const price = 7000;
         const schedule = startDate;
         
-        const id = await createPreference(price, schedule, zonesAmmount);
+        const preferenceId = await createPreference(price, schedule, zonesAmmount, id);
 
-        if (id) {
-            setPreferenceId(id);
+        if (preferenceId) {
+            console.log('Created preference')
+            setPreferenceId(preferenceId);
         } else {
             Swal.fire({
                 icon: 'error',
@@ -70,25 +89,10 @@ const AppointmentRequestForm = ({ type }) => {
                 timer: 1500,             
             });
         }
-    };
     
-    const getExcludedTimes = useMemo(() => {
-        if (!startDate || !reservedTimes.wax) return []; 
-        const selectedDate = startDate.toDateString(); 
-        const excludedTimes = reservedTimes.wax
-            .map(dateStr => new Date(dateStr)) 
-            .filter(date => date.toDateString() === selectedDate) 
-            .map(date => new Date(date.getTime())); 
-        return excludedTimes;
-    }, [startDate, reservedTimes.wax]);
-
-
-    const handleSubmit = ( event ) => {
-        event.preventDefault();
-        const sessionLength = null;
-        const sessionZones = parseInt(selectedOption);
-        addAppointment({ contact, sessionZones, date:startDate, userId:user.uid, type, sessionLength });
     }
+
+
 
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
@@ -138,7 +142,7 @@ const AppointmentRequestForm = ({ type }) => {
                         selected={ startDate }
                         placeholderText='Seleccione una fecha y hora'
                         className="form-control"
-                        onChange={ (date) => setStartDate(date) }
+                        onChange={(date) => setStartDate(date) }
                         dateFormat="Pp"
                         showTimeSelect
                         locale="es"
@@ -154,7 +158,7 @@ const AppointmentRequestForm = ({ type }) => {
                         minTime={setHours(setMinutes(new Date(), 0), 9)}
                         maxTime={setHours(setMinutes(new Date(), 0), 20)}
                     />
-                    <button onClick={ handleBuy } type='button' className='form-control'>Reservar turno</button>
+                    <button type='submit' className='form-control'>Reservar turno</button>
                     {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}}} />}
                 </form>
             </div>
@@ -164,5 +168,6 @@ const AppointmentRequestForm = ({ type }) => {
 }
 
 export default AppointmentRequestForm;
+
 
 

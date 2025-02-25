@@ -4,15 +4,16 @@ import Swal from "sweetalert2";
 
 export const useMercadoPago = () => {
 
-    const createPreference = async ( price, schedule, zonesAmmount ) => {
+    const createPreference = async ( price, schedule, zonesAmmount, appointmentId ) => {
             const appointmentPreference = {
                 price : price,
                 schedule : schedule,
-                zonesAmmount : zonesAmmount
+                zonesAmmount : zonesAmmount,
+                appointmentId : appointmentId
             }
             try {
                 const response = await handleApi.post('/mercadopago/create_preference', appointmentPreference);
-                console.log(response.data.id);
+                console.log(response);
                 return response.data.id;
             }
             catch(error){
