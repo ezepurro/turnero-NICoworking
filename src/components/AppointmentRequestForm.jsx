@@ -5,6 +5,7 @@ import { useMercadoPago } from '../hooks/useMercadoPago';
 import { setHours, setMinutes } from 'date-fns';
 import { getEnvVariables } from '../helpers/getEnvVariables';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 import DatePicker, {registerLocale} from "react-datepicker";
 import useAuthStore from '../store/useAuthStore';
 import useCalendarSettingsStore from '../store/useCalendarSettingsStore';
@@ -23,8 +24,8 @@ const appointmentFormFields = {
     date: '',
 };
 
-
 const AppointmentRequestForm = ({ type }) => {
+
     const [preferenceId, setPreferenceId] = useState(null);
     const [startDate, setStartDate] = useState();
     const [selectedOption, setSelectedOption] = useState('');
@@ -38,10 +39,6 @@ const AppointmentRequestForm = ({ type }) => {
     initMercadoPago(VITE_MP_PUBLIC_KEY, {
         locale: 'es-AR'
     });
-
-    // const handleBuy = async () => {
-
-    // };
     
     const getExcludedTimes = useMemo(() => {
         if (!startDate || !reservedTimes.wax) return []; 
@@ -53,24 +50,46 @@ const AppointmentRequestForm = ({ type }) => {
         return excludedTimes;
     }, [startDate, reservedTimes.wax]);
 
+    const validateForm = (contact, startDate, selectedOption) => {
+        if (!contact || !startDate || !selectedOption) {
+            return { valid: false, message: "Por favor, completa todos los campos antes de continuar" };
+        }
+    
+        const selected = new Date(startDate);
+        const selectedFormatted = selected.toISOString().split("T")[0];
+    
+        const isValidDate = calendarDays.waxDays.some(day => day.split("T")[0] === selectedFormatted);
+    
+        if (!isValidDate) {
+            return { valid: false, message: "La fecha seleccionada no está disponible para reservar turnos" };
+        }
+        const phone = parsePhoneNumberFromString(contact.startsWith("+") ? contact : `+${contact}`);
+        if (!phone || !phone.isValid()) {
+            return { valid: false, message: "Número de teléfono inválido, usa el formato correcto" };
+        }
+    
+        return { valid: true };
+    };
 
     const handleSubmit = async ( event ) => {
         event.preventDefault();
-        const sessionLength = null;
-        const sessionZones = parseInt(selectedOption);
-        const id = await addAppointment({ contact, sessionZones, date:startDate, userId:user.uid, type, sessionLength, status: 'pending'});
 
-        if (!contact || !startDate || !selectedOption) {
+        const validation = validateForm(contact, startDate, selectedOption);
+        if (!validation.valid) {
             Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'Por favor, completa todos los campos antes de continuar',
-                showConfirmButton: false, 
-                timer: 1500,             
+                icon: "error",
+                title: "Error al reservar turno",
+                text: validation.message,
+                showConfirmButton: false,
+                timer: 1500,
             });
             return;
         }
 
+        const sessionZones = parseInt(selectedOption);
+        const id = await addAppointment({ contact, sessionZones, date:startDate, userId:user.uid, type, sessionLength: null, status: 'pending'});
+
+        // Mercado Pago
         const zonesAmmount = ( parseInt(selectedOption) === 10 ) ? 'Full-Body' : parseInt(selectedOption);
         const price = 7000;
         const schedule = startDate;
@@ -82,16 +101,14 @@ const AppointmentRequestForm = ({ type }) => {
         } else {
             Swal.fire({
                 icon: 'error',
-                title: 'Error',
-                text: 'Error al procesar el pago. Inténtalo de nuevo',
+                title: 'Error al procesar el pago',
+                text: 'Intente nuevamente. Sí el problema persiste, comuniquelo',
                 showConfirmButton: false, 
                 timer: 1500,             
             });
         }
     
     }
-
-
 
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
@@ -112,12 +129,10 @@ const AppointmentRequestForm = ({ type }) => {
                         }}
                         placeholder='Número de contacto'
                         enableSearch={true}
-                        autoFormat={false} 
-                        isValid={(value, country) => {
-                            if (country.countryCode === "ar") {
-                                return value.length >= 12; 
-                            }
-                            return true;
+                        autoFormat={false}
+                        isValid={(value) => {
+                            const phone = parsePhoneNumberFromString(value);
+                            return phone?.isValid() || false;
                         }}
                         containerClass="phone-input-container"
                         inputClass="form-control"
@@ -129,7 +144,6 @@ const AppointmentRequestForm = ({ type }) => {
                         onChange={handleChange}
                         className='form-control'
                         name='sessionZones'
-                        required
                     >
                         <option value="" disabled>Seleccione la cantidad de zonas</option>
                         <option value="1">1 Zona</option>
@@ -151,7 +165,6 @@ const AppointmentRequestForm = ({ type }) => {
                         includeDates={ calendarDays.waxDays }
                         timeIntervals={ 5 }
                         name='date'
-                        required
                         excludeTimes={ getExcludedTimes } 
                         withPortal
                         minTime={setHours(setMinutes(new Date(), 0), 9)}

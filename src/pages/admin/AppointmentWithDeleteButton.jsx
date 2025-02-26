@@ -19,7 +19,7 @@ const AppointmentWithDeleteButton = ({ id, name, date, hour, type, contact, stat
     return (
         <div className="row">
             <div className="col-md-3 col-sm-12">
-                <p><b>{name}</b> - {contact}</p>
+                <p><b>{name}</b> - +{contact}</p>
             </div>
             <div className="col-md-2 col-sm-12">
                 <p>{type}</p>
@@ -30,8 +30,8 @@ const AppointmentWithDeleteButton = ({ id, name, date, hour, type, contact, stat
             <div className="col-md-3 col-sm-12">
                 {
                     (status === "pending")
-                        ? <p className="status-pending">En proceso de pago <Tooltip info={pendingInfo} /></p>
-                        : <p className="status-paid">Seña pagada</p>
+                        ? <div className="status-pending">En proceso de pago <Tooltip info={pendingInfo} /></div>
+                        : <div className="status-paid">Seña pagada</div>
                 }
             </div>
             <div className="col-md-2 col-sm-12">

@@ -40,4 +40,8 @@
         border: none !important;
         padding: 5px;
     }
+
+    .country-list {
+        overflow-x: hidden;
+    }
 }
