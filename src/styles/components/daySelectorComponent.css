@@ -89,9 +89,9 @@
         }
     
         .enabled-day {
-            background-color: #fff1b8 !important; 
-            color: rgb(129, 129, 129) !important;
-            border-radius: 30px;
+            background-color: var(--background-color) !important; 
+            color: rgb(255, 255, 255) !important;
+            border-radius: 8px;
         }
     
     

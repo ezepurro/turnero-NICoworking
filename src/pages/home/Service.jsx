@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import '../../styles/components/service.css'
 import AppointmentRequestModal from '../../components/AppointmentRequestModal';
+import '../../styles/components/service.css';
 
 
 const Service = ({image_url, service, service_description, posicion, type}) => {

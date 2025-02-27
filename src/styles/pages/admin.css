@@ -12,40 +12,6 @@
     margin-top: 120px;
 }
 
-/* .admin-navbar {
-    font-family: var(--font-primary);
-    background-color: var(--background-color);
-    color: white;
-    height: 100vh;
-    box-sizing: border-box;   
-    overflow-y: auto;
-    overflow-x: hidden;
-    text-align: center;
-
-    h3 {
-        margin: 20px 0px 10px 0px;
-        font-weight: 500;
-        font-size: 150%;
-        span {
-            font-weight: 200;
-        }
-        a {
-            font-family: var(--font-brand);
-            text-decoration: none;
-            color: white;
-        }
-    }
-
-    .admin-options {
-        margin-top: 20%;
-        button {
-            text-align: left;
-            border: 0;
-            background-color: rgba(0,0,0,0);
-            color: white;
-        }
-    }
-} */
 
 .admin-navbar {
     font-family: var(--font-primary);
@@ -86,6 +52,12 @@
             color: white;
         }
 
+        button:hover {
+            color: rgb(231, 231, 231);
+            svg {
+                filter: drop-shadow(0 0 10px rgba(204, 204, 204, 0.747));
+            }
+        }
 
         button:last-child {
             margin-top: auto; 

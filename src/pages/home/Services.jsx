@@ -1,6 +1,6 @@
-import useCalendarSettingsStore from "../../store/useCalendarSettingsStore";
 import { useEffect } from "react";
 import { useCalendarSettings } from "../../hooks/useCalendarSettings";
+import useCalendarSettingsStore from "../../store/useCalendarSettingsStore";
 import Service from "./Service";
 import '../../styles/components/services.css';
 

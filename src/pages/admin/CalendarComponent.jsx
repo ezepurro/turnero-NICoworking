@@ -19,13 +19,16 @@ const localizer = dateFnsLocalizer({
 
 const CustomAgendaEvent = ({ event }) => (
   <span>
-    <strong>{event.title}</strong>
-    <p>Número de contacto: {event.contact}</p>
-    <p>Cantidad de zonas: {
-        (event.sessionZones === 10)
+    <div className="row">
+      <div className="col-md-4"><strong>{event.title}</strong></div>
+      <div className="col-md-4"><p>+{event.contact}</p></div>
+      <div className="col-md-4"><p>
+      {(event.sessionZones === 10)
           ? 'Full-body'
-          : event.sessionZones
-      }</p>
+          : `${event.sessionZones} zonas`}
+    </p></div>
+      
+    </div>
   </span>
 );
 
@@ -61,7 +64,7 @@ const CalendarComponent = ({events}) => {
     const updateHeight = () => {
       const windowHeight = window.innerHeight;
       const toolbarHeight = document.querySelector('.rbc-toolbar')?.offsetHeight || 0;
-      const newHeight = windowHeight - toolbarHeight - 100; // Ajusta el 100 según tu layout
+      const newHeight = windowHeight - toolbarHeight - 100;
       setCalendarHeight(newHeight);
     };
 
@@ -71,6 +74,8 @@ const CalendarComponent = ({events}) => {
     return () => window.removeEventListener('resize', updateHeight);
   }, []);
 
+  const filteredEvents = events.filter(event => event.status === "paid");
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -78,7 +83,7 @@ const CalendarComponent = ({events}) => {
           <Calendar
             culture='es'
             localizer={localizer}
-            events={events}
+            events={filteredEvents}
             startAccessor="start"
             endAccessor="end"
             style={{ height: calendarHeight }}

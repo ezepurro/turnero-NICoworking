@@ -57,7 +57,7 @@ const AdminPage = () => {
     refreshData();
     Swal.fire({
       title: `Bienvenida ${user.name}`,
-      text: 'a la página de administración de Beauty Center!',
+      text: 'Cargando la información necesaria',
       showConfirmButton: false, 
       timer: 1500,         
       timerProgressBar: true    
@@ -71,7 +71,6 @@ const AdminPage = () => {
       title: 'Información actualizada exitosamente',
       showConfirmButton: false, 
       timer: 1500,   
-      timerProgressBar: true          
     });
   }
 

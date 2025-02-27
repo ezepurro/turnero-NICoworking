@@ -1,11 +1,12 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useForm } from '../hooks/useForm';
 import { useAppointments } from '../hooks/useAppointments';
 import { useMercadoPago } from '../hooks/useMercadoPago';
-import { setHours, setMinutes } from 'date-fns';
-import { getEnvVariables } from '../helpers/getEnvVariables';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+import { setHours, setMinutes } from 'date-fns';
 import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { getEnvVariables } from '../helpers/getEnvVariables';
+import { validateAppointmentForm } from '../helpers/validators';
 import DatePicker, {registerLocale} from "react-datepicker";
 import useAuthStore from '../store/useAuthStore';
 import useCalendarSettingsStore from '../store/useCalendarSettingsStore';
@@ -26,19 +27,23 @@ const appointmentFormFields = {
 
 const AppointmentRequestForm = ({ type }) => {
 
-    const [preferenceId, setPreferenceId] = useState(null);
-    const [startDate, setStartDate] = useState();
-    const [selectedOption, setSelectedOption] = useState('');
+    const [ preferenceId, setPreferenceId ] = useState(null);
+    const [ selectedOption, setSelectedOption ] = useState('');
     const { contact, onInputChange } = useForm( appointmentFormFields );
     const { addAppointment } = useAppointments();
     const { user } = useAuthStore();
     const { calendarDays, reservedTimes } = useCalendarSettingsStore();
+    const [ startDate, setStartDate ] = useState();
     const { createPreference } = useMercadoPago();
     const { VITE_MP_PUBLIC_KEY } = getEnvVariables();
 
-    initMercadoPago(VITE_MP_PUBLIC_KEY, {
-        locale: 'es-AR'
-    });
+    initMercadoPago(VITE_MP_PUBLIC_KEY, { locale: 'es-AR' });
+
+    useEffect(() => {
+        if (calendarDays.waxDays.length > 0) {
+            setStartDate(new Date(calendarDays.waxDays[0]));
+        }
+    }, [calendarDays.waxDays]);
     
     const getExcludedTimes = useMemo(() => {
         if (!startDate || !reservedTimes.wax) return []; 
@@ -50,31 +55,10 @@ const AppointmentRequestForm = ({ type }) => {
         return excludedTimes;
     }, [startDate, reservedTimes.wax]);
 
-    const validateForm = (contact, startDate, selectedOption) => {
-        if (!contact || !startDate || !selectedOption) {
-            return { valid: false, message: "Por favor, completa todos los campos antes de continuar" };
-        }
-    
-        const selected = new Date(startDate);
-        const selectedFormatted = selected.toISOString().split("T")[0];
-    
-        const isValidDate = calendarDays.waxDays.some(day => day.split("T")[0] === selectedFormatted);
-    
-        if (!isValidDate) {
-            return { valid: false, message: "La fecha seleccionada no está disponible para reservar turnos" };
-        }
-        const phone = parsePhoneNumberFromString(contact.startsWith("+") ? contact : `+${contact}`);
-        if (!phone || !phone.isValid()) {
-            return { valid: false, message: "Número de teléfono inválido, usa el formato correcto" };
-        }
-    
-        return { valid: true };
-    };
-
     const handleSubmit = async ( event ) => {
         event.preventDefault();
 
-        const validation = validateForm(contact, startDate, selectedOption);
+        const validation = validateAppointmentForm(contact, startDate, selectedOption, calendarDays);
         if (!validation.valid) {
             Swal.fire({
                 icon: "error",
@@ -86,8 +70,15 @@ const AppointmentRequestForm = ({ type }) => {
             return;
         }
 
-        const sessionZones = parseInt(selectedOption);
-        const id = await addAppointment({ contact, sessionZones, date:startDate, userId:user.uid, type, sessionLength: null, status: 'pending'});
+        const id = await addAppointment({
+            contact, 
+            sessionZones: parseInt(selectedOption),
+            date:startDate,
+            userId:user.uid,
+            type,
+            sessionLength: null,
+            status: 'pending'
+        });
 
         // Mercado Pago
         const zonesAmmount = ( parseInt(selectedOption) === 10 ) ? 'Full-Body' : parseInt(selectedOption);
@@ -102,7 +93,7 @@ const AppointmentRequestForm = ({ type }) => {
             Swal.fire({
                 icon: 'error',
                 title: 'Error al procesar el pago',
-                text: 'Intente nuevamente. Sí el problema persiste, comuniquelo',
+                text: 'Inténtelo nuevamente. Si el problema persiste, contáctenos',
                 showConfirmButton: false, 
                 timer: 1500,             
             });
@@ -131,7 +122,7 @@ const AppointmentRequestForm = ({ type }) => {
                         enableSearch={true}
                         autoFormat={false}
                         isValid={(value) => {
-                            const phone = parsePhoneNumberFromString(value);
+                            const phone = parsePhoneNumberFromString(value.startsWith("+") ? value : `+${value}`);
                             return phone?.isValid() || false;
                         }}
                         containerClass="phone-input-container"

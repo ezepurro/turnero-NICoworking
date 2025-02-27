@@ -46,8 +46,9 @@ const DaysSelectors = () => {
           </div>
           <div className="col-lg-6 col-md-12">
             <div className="row">
-              <div className="col-6 text-center"><p>Fecha</p><hr /></div>
-              <div className="col-6 text-center"><p>Deshabilitar fecha</p><hr /></div>
+              <div className="col-6 text-center"><p>Fecha</p></div>
+              <div className="col-6 text-center"><p>Deshabilitar fecha</p></div>
+              <hr />
             </div>
             <ul className="text-center">
               {

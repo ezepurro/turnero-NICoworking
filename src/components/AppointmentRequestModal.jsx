@@ -32,9 +32,7 @@ const AppointmentRequestModal = ( {service, type, ...props}) => {
                 : <AuthenticationRedirect />
             }
           </Modal.Body>
-          <Modal.Footer>
-            {/* <Button onClick={props.onHide}>Cerrar</Button> */}
-          </Modal.Footer>
+          <Modal.Footer></Modal.Footer>
         </Modal>
       );
 }

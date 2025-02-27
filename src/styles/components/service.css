@@ -33,6 +33,9 @@
         border: var(--backgroud-text-color) solid 0.5px;
         padding: 1%;
       }
+      button:hover {
+        scale: 1.01;
+      }
     }
   }
 }

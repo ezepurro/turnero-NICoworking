@@ -26,3 +26,7 @@ color: #333;
 .rbc-agenda-event-cell p {
     margin: 0;
 }
+
+.rbc-agenda-view {
+    overflow-x: hidden;
+}

@@ -19,7 +19,7 @@ const AppointmentWithDeleteButton = ({ id, name, date, hour, type, contact, stat
     return (
         <div className="row">
             <div className="col-md-3 col-sm-12">
-                <p><b>{name}</b> - +{contact}</p>
+                <p><b>{name}</b> - {contact.startsWith("+") ? contact : `+${contact}`}</p>
             </div>
             <div className="col-md-2 col-sm-12">
                 <p>{type}</p>
