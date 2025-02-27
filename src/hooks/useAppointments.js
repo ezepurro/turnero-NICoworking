@@ -71,9 +71,9 @@ export const useAppointments = () => {
     }
 
     return {
+        addAppointment,
+        deleteWaxAppointment,
         getUserAppointments,
         getWaxAppointments,
-        addAppointment,
-        deleteWaxAppointment
     }
 }

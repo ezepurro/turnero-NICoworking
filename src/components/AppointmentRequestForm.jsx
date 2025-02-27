@@ -58,7 +58,7 @@ const AppointmentRequestForm = ({ type }) => {
     const handleSubmit = async ( event ) => {
         event.preventDefault();
 
-        const validation = validateAppointmentForm(contact, startDate, selectedOption, calendarDays);
+        const validation = await validateAppointmentForm(contact, startDate, selectedOption, calendarDays, type);
         if (!validation.valid) {
             Swal.fire({
                 icon: "error",
