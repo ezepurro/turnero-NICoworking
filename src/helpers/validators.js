@@ -2,7 +2,6 @@ import parsePhoneNumberFromString from "libphonenumber-js";
 import { checkAvailability } from "./checkAvailability";
 
 
-
 export const validateAppointmentForm = async ( contact, startDate, selectedOption, calendarDays, type ) => {
     // Validación de que esten todos los campos completados
     if (!contact || !startDate || !selectedOption) {
@@ -39,3 +38,25 @@ export const validateAppointmentForm = async ( contact, startDate, selectedOptio
 
     return { valid: true };
 };
+
+
+export const validateRegisterForm = ( email, password, password2, name ) => {
+    if (!email || !password || !password2 || !name) {
+        return { valid: false, message: "Por favor, completa los campos necesarios antes de continuar" }
+    }
+
+    if (password !== password2) {
+        return { valid: false, message: "Las contraseñas ingresadas no coinciden" }
+    }
+
+    return { valid: true };
+}
+
+
+export const validateLoginForm = ( email, password ) => {
+    if (!email || !password) {
+        return { valid: false, message: "Por favor, completa los campos necesarios antes de continuar" }
+    }
+    
+    return { valid: true };
+}

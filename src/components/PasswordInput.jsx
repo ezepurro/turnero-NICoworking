@@ -30,7 +30,6 @@ const PasswordInput = ({ placeholder, inputId, name, value, onChange }) => {
                 type="password"  
                 placeholder={ placeholder }
                 className='form-control'
-                required
                 id={ inputId }
                 name={ name }
                 value={ value }

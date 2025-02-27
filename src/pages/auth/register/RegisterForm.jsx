@@ -1,8 +1,8 @@
-import PasswordInput from "../../../components/PasswordInput";
-import { useAuthenticationStore } from '../../../hooks/useAuthenticationStore';
 import { useForm } from "../../../hooks/useForm";
+import { useAuthenticationStore } from '../../../hooks/useAuthenticationStore';
+import { validateRegisterForm } from '../../../helpers/validators';
+import PasswordInput from "../../../components/PasswordInput";
 import Swal from 'sweetalert2';
-
 
 const registerFormFields = {
     email: '',
@@ -16,20 +16,21 @@ const RegisterForm = () => {
 
     const { email, password, name, password2, contact, onInputChange } = useForm( registerFormFields );
     const { register } = useAuthenticationStore();
-    
 
     const handleSubmit = ( event ) => {
         event.preventDefault();
-        if (password !== password2) {
+        const isValid = validateRegisterForm(email, password, password2, name);
+        if(!isValid.valid) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error al registrarse',
-                text: 'Las contraseñas no coinciden',
+                text: isValid.message,
                 showConfirmButton: false, 
                 timer: 1500,             
             });
             return;
         }
+
         register({ email, password, name, contact });
     };
 
@@ -38,11 +39,14 @@ const RegisterForm = () => {
             <div className="row">
                 <div className="col-12 auth-form-container">
                     <form onSubmit={handleSubmit} className="form-control auth-form p-5">
+                        <div className="form-title">
+                            <p>Bienvenida a</p>
+                            <span>Beauty Center</span>
+                        </div>
                         <input
                             type="text"
                             placeholder="Nombre Completo"
                             className="form-control mb-3"
-                            required
                             name='name'
                             value={ name }
                             onChange={ onInputChange }
@@ -51,7 +55,6 @@ const RegisterForm = () => {
                             type="email"
                             placeholder="Email"
                             className="form-control mb-3"
-                            required
                             name='email'
                             value={ email }
                             onChange={ onInputChange }
@@ -60,7 +63,6 @@ const RegisterForm = () => {
                             type="text"
                             placeholder="Celular"
                             className="form-control mb-3"
-                            required
                             name='contact'
                             value={ contact }
                             onChange={ onInputChange }

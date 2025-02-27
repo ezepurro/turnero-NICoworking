@@ -20,8 +20,12 @@
     }
     button {
         background-color: var(--background-color);
-        color: white;
+        color: var(--backgroud-text-color);
         margin-bottom: 25px;
+    }
+    button:hover {
+        background-color: var(--background-color-hover);
+        color: var(--backgroud-text-color);
     }
 
 }

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useForm } from '../hooks/useForm';
 import { useAppointments } from '../hooks/useAppointments';
 import { useMercadoPago } from '../hooks/useMercadoPago';
@@ -29,21 +29,16 @@ const AppointmentRequestForm = ({ type }) => {
 
     const [ preferenceId, setPreferenceId ] = useState(null);
     const [ selectedOption, setSelectedOption ] = useState('');
+    const [ startDate, setStartDate ] = useState(null);
+    const [isTouched, setIsTouched] = useState(false);
+    const { calendarDays, reservedTimes } = useCalendarSettingsStore();
     const { contact, onInputChange } = useForm( appointmentFormFields );
     const { addAppointment } = useAppointments();
-    const { user } = useAuthStore();
-    const { calendarDays, reservedTimes } = useCalendarSettingsStore();
-    const [ startDate, setStartDate ] = useState();
     const { createPreference } = useMercadoPago();
+    const { user } = useAuthStore();
     const { VITE_MP_PUBLIC_KEY } = getEnvVariables();
 
     initMercadoPago(VITE_MP_PUBLIC_KEY, { locale: 'es-AR' });
-
-    useEffect(() => {
-        if (calendarDays.waxDays.length > 0) {
-            setStartDate(new Date(calendarDays.waxDays[0]));
-        }
-    }, [calendarDays.waxDays]);
     
     const getExcludedTimes = useMemo(() => {
         if (!startDate || !reservedTimes.wax) return []; 
@@ -113,6 +108,7 @@ const AppointmentRequestForm = ({ type }) => {
                     <PhoneInput
                         country={'ar'}
                         value={contact}
+                        onBlur={() => setIsTouched(true)}
                         onChange={(value) => onInputChange({ target: { name: 'contact', value } })}
                         inputProps={{
                             name: 'contact',
@@ -122,6 +118,7 @@ const AppointmentRequestForm = ({ type }) => {
                         enableSearch={true}
                         autoFormat={false}
                         isValid={(value) => {
+                            if (!isTouched) return true;
                             const phone = parsePhoneNumberFromString(value.startsWith("+") ? value : `+${value}`);
                             return phone?.isValid() || false;
                         }}
@@ -129,19 +126,22 @@ const AppointmentRequestForm = ({ type }) => {
                         inputClass="form-control"
                         buttonClass="phone-input-flag-button"
                     />
-                    <select
-                        id="options"
-                        value={selectedOption}
-                        onChange={handleChange}
-                        className='form-control'
-                        name='sessionZones'
-                    >
-                        <option value="" disabled>Seleccione la cantidad de zonas</option>
-                        <option value="1">1 Zona</option>
-                        <option value="3">3 Zonas</option>
-                        <option value="5">5 Zonas</option>
-                        <option value="10">Full-body</option>
-                    </select>
+                    {
+                        (type === "Depilación") && 
+                            <select
+                                id="options"
+                                value={selectedOption}
+                                onChange={handleChange}
+                                className='form-control'
+                                name='sessionZones'
+                            >
+                                <option value="" disabled>Seleccione la cantidad de zonas</option>
+                                <option value="1">1 Zona</option>
+                                <option value="3">3 Zonas</option>
+                                <option value="5">5 Zonas</option>
+                                <option value="10">Full-body</option>
+                            </select>
+                    }
                     <DatePicker
                         selected={ startDate }
                         placeholderText='Seleccione una fecha y hora'
@@ -161,7 +161,7 @@ const AppointmentRequestForm = ({ type }) => {
                         minTime={setHours(setMinutes(new Date(), 0), 9)}
                         maxTime={setHours(setMinutes(new Date(), 0), 20)}
                     />
-                    <button type='submit' className='form-control'>Reservar turno</button>
+                    <button type='submit' className='form-control btn-submit'>Reservar turno</button>
                 </form>
                 {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} customization={{ texts:{ valueProp: 'smart_option'}}} />}
             </div>

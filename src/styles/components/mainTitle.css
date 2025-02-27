@@ -22,7 +22,6 @@
           font-family: var(--font-brand);
         }
         p {
-          font-size: 20px;
           font-family: var(--font-secondary);
         }
       }
@@ -30,11 +29,10 @@
   }
 }
 
-/* Tablets and above */
+/* Cellphones and above */
 @media (min-width: 0px) {
   .title .image-content  {
     img {
-      /* height: 700px; */
       height: 80vh;
     }
     .title-overlay .titulo {
@@ -42,6 +40,28 @@
       margin: 60% 20% 20% 20%;
       h1 {
         font-size: 70px; 
+      }
+      p {
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+/* Tablets and above */
+@media (min-width: 520px) {
+  .title .image-content  {
+    img {
+      height: 80vh;
+    }
+    .title-overlay .titulo {
+      left: -10%;
+      margin: 30% 20% 20% 20%;
+      h1 {
+        font-size: 70px; 
+      }
+      p {
+        font-size: 13px;
       }
     }
   }
@@ -51,7 +71,6 @@
 @media (min-width: 768px) {
   .title .image-content {
     img {
-      /* height: 910px; */
       height: 80vh;
     }
     .title-overlay .titulo {
@@ -59,20 +78,26 @@
       top: 300px;
       left: 200px;
       h1 {
-        font-size: 100px;
+        font-size: 70px;
+      }
+      p {
+        font-size: 20px;
       }
     }
   }
 }
 
 /* Desktops and above */
-@media (min-width: 992px) {
+@media (min-width: 1071px) {
   .title .image-content .title-overlay .titulo{
     margin: 0px;
-    top: 400px;
+    top: 300px;
     left: 300px;
     h1 {
       font-size: 100px;
+    }
+    p {
+      font-size: 20px;
     }
   }
 }

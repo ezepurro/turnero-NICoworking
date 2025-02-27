@@ -4,12 +4,12 @@
         width: 100%;
         margin: 10px 0px 10px 0px;
     }
-    button {
+    .btn-submit {
         background-color: var(--background-color);
         color: white;
         margin-top: 10px;
     }
-    button:hover {
+    .btn-submit:hover {
         background-color: var(--background-color-hover);
         margin-top: 10px;
     }
@@ -20,6 +20,31 @@
         font-family: var(--font-primary);
         .react-datepicker__time-list-item--disabled{
             display: none;
+        }
+        .react-datepicker__day--keyboard-selected {
+            background-color: rgba(0,0,0,0);
+        }
+        .react-datepicker__day--selected {
+            background-color: var(--background-color);
+        }
+        .react-datepicker__day--outside-month {
+            background-color: rgba(0,0,0,0);
+        }
+        button {
+            background-color: var(--background-color);
+            border-radius: 5px;
+        }
+        .react-datepicker__header {
+            background-color: var(--background-color);
+            .react-datepicker__day-name {
+                color: var(--backgroud-text-color);
+            }
+            .react-datepicker__current-month {
+                color: var(--backgroud-text-color);
+            }
+            .react-datepicker-time__header {
+                color: var(--backgroud-text-color);
+            }
         }
     }
 
@@ -44,4 +69,16 @@
     .country-list {
         overflow-x: hidden;
     }
+}
+@media (min-width: 0px) {
+    .appointment-form .react-datepicker {
+        border: 0;
+    } 
+}
+
+@media (min-width: 530px) {
+    .appointment-form .react-datepicker {
+        border: 20px solid var(--background-color);
+        border-radius: 50px;
+    } 
 }
