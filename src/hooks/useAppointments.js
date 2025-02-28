@@ -149,12 +149,12 @@ export const useAppointments = () => {
         }
     };
 
-    // Nueva función para obtener los horarios ocupados en base a la fecha y duración de la sesión
+
     const getReservedTimes = async (date, sessionLength) => {
         try {
-            const formattedDate = date.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+            const formattedDate = date.toISOString().split('T')[0]; 
             const { data } = await handleApi.get(`/appointments/reserved?date=${formattedDate}&duration=${sessionLength}`);
-            return data.reservedTimes.map(time => new Date(time)); // Devuelve fechas en formato Date
+            return data.reservedTimes.map(time => new Date(time)); 
         } catch (error) {
             console.log("Error obteniendo horarios ocupados:", error);
             return [];
@@ -166,6 +166,6 @@ export const useAppointments = () => {
         deleteWaxAppointment,
         getUserAppointments,
         getWaxAppointments,
-        getReservedTimes, // Agregamos la nueva función
+        getReservedTimes, 
     };
 };

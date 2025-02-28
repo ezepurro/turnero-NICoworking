@@ -41,23 +41,14 @@ const AppointmentRequestForm = ({ type }) => {
 
     const handleDateChange = async (date) => {
         setStartDate(date);
-        const sessionLength = selectedOption * 5; // Ajusta la duración en minutos
+        const sessionLength = selectedOption * 5; 
         const reservedTimes = await getReservedTimes(date, sessionLength);
-        setExcludedTimes(reservedTimes); // Guarda los horarios bloqueados
+        setExcludedTimes(reservedTimes); 
     };
     
 
     initMercadoPago(VITE_MP_PUBLIC_KEY, { locale: 'es-AR' });
     
-    const getExcludedTimes = useMemo(() => {
-        if (!startDate || !reservedTimes.wax) return []; 
-        const selectedDate = startDate.toDateString(); 
-        const excludedTimes = reservedTimes.wax
-            .map(dateStr => new Date(dateStr)) 
-            .filter(date => date.toDateString() === selectedDate) 
-            .map(date => new Date(date.getTime())); 
-        return excludedTimes;
-    }, [startDate, reservedTimes.wax]);
 
     const handleSubmit = async ( event ) => {
         event.preventDefault();
