@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from '../hooks/useForm';
 import { useAppointments } from '../hooks/useAppointments';
 import { useMercadoPago } from '../hooks/useMercadoPago';
@@ -31,7 +31,7 @@ const AppointmentRequestForm = ({ type }) => {
     const [ selectedOption, setSelectedOption ] = useState('');
     const [ startDate, setStartDate ] = useState(null);
     const [isTouched, setIsTouched] = useState(false);
-    const { calendarDays, reservedTimes } = useCalendarSettingsStore();
+    const { calendarDays } = useCalendarSettingsStore();
     const { contact, onInputChange } = useForm( appointmentFormFields );
     const { addAppointment,getReservedTimes } = useAppointments();
     const { createPreference } = useMercadoPago();
@@ -45,11 +45,9 @@ const AppointmentRequestForm = ({ type }) => {
         const reservedTimes = await getReservedTimes(date, sessionLength);
         setExcludedTimes(reservedTimes); 
     };
-    
 
     initMercadoPago(VITE_MP_PUBLIC_KEY, { locale: 'es-AR' });
     
-
     const handleSubmit = async ( event ) => {
         event.preventDefault();
 
@@ -93,7 +91,6 @@ const AppointmentRequestForm = ({ type }) => {
                 timer: 1500,             
             });
         }
-    
     }
 
     const handleChange = (event) => {
@@ -171,6 +168,3 @@ const AppointmentRequestForm = ({ type }) => {
 }
 
 export default AppointmentRequestForm;
-
-
-

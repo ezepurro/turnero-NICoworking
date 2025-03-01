@@ -2,21 +2,28 @@ import parsePhoneNumberFromString from "libphonenumber-js";
 import { checkAvailability } from "./checkAvailability";
 
 
-export const validateAppointmentForm = async ( contact, startDate, selectedOption, calendarDays, type ) => {
-    // Validación de que esten todos los campos completados
+export const validateAppointmentForm = async (contact, startDate, selectedOption, calendarDays, type) => {
+    // Validación de que estén todos los campos completados
     if (!contact || !startDate || !selectedOption) {
         return { valid: false, message: "Por favor, completa todos los campos antes de continuar" };
     }
-    
-    // Validación de que la fecha seleccionada este habilitada
+
     const selected = new Date(startDate);
+    const now = new Date();
+
+    // Validación de que la fecha sea mayor al presente
+    if (selected <= now) {
+        return { valid: false, message: "La fecha y hora seleccionadas deben ser posteriores a la actual" };
+    }
+
+    // Validación de que la fecha seleccionada esté habilitada
     const selectedFormatted = selected.toISOString().split("T")[0];
     const isValidDate = calendarDays.waxDays.some(day => day.split("T")[0] === selectedFormatted);
     if (!isValidDate) {
         return { valid: false, message: "La fecha seleccionada no está disponible para reservar turnos" };
     }
 
-    // Validación de que este en el horario habilitado|
+    // Validación de que esté en el horario habilitado
     const openingHour = 9;
     const closingHour = 21;
     const selectedHour = selected.getHours();
