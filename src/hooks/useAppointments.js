@@ -83,7 +83,6 @@ import handleApi from "../api/handleApi";
 import { getSessionLength } from "../helpers/getSessionLength";
 
 export const useAppointments = () => {
-
     const getUserAppointments = async (uid) => {
         try {
             const { data } = await handleApi.get(`/appointments/users/${uid}`);
