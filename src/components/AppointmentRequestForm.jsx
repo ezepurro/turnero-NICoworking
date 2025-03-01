@@ -33,22 +33,22 @@ const AppointmentRequestForm = ({ type }) => {
     const [isTouched, setIsTouched] = useState(false);
     const { calendarDays, reservedTimes } = useCalendarSettingsStore();
     const { contact, onInputChange } = useForm( appointmentFormFields );
-    const { addAppointment } = useAppointments();
+    const { addAppointment,getReservedTimes } = useAppointments();
     const { createPreference } = useMercadoPago();
     const { user } = useAuthStore();
     const { VITE_MP_PUBLIC_KEY } = getEnvVariables();
+    const [excludedTimes, setExcludedTimes] = useState([]);
+
+    const handleDateChange = async (date) => {
+        setStartDate(date);
+        const sessionLength = selectedOption * 5; 
+        const reservedTimes = await getReservedTimes(date, sessionLength);
+        setExcludedTimes(reservedTimes); 
+    };
+    
 
     initMercadoPago(VITE_MP_PUBLIC_KEY, { locale: 'es-AR' });
     
-    const getExcludedTimes = useMemo(() => {
-        if (!startDate || !reservedTimes.wax) return []; 
-        const selectedDate = startDate.toDateString(); 
-        const excludedTimes = reservedTimes.wax
-            .map(dateStr => new Date(dateStr)) 
-            .filter(date => date.toDateString() === selectedDate) 
-            .map(date => new Date(date.getTime())); 
-        return excludedTimes;
-    }, [startDate, reservedTimes.wax]);
 
     const handleSubmit = async ( event ) => {
         event.preventDefault();
@@ -146,7 +146,7 @@ const AppointmentRequestForm = ({ type }) => {
                         selected={ startDate }
                         placeholderText='Seleccione una fecha y hora'
                         className="form-control"
-                        onChange={(date) => setStartDate(date) }
+                        onChange={ handleDateChange }
                         dateFormat="Pp"
                         showTimeSelect
                         locale="es"
@@ -154,9 +154,9 @@ const AppointmentRequestForm = ({ type }) => {
                         onKeyDown={ (e) => { e.preventDefault() } }
                         minDate={ new Date() }
                         includeDates={ calendarDays.waxDays }
-                        timeIntervals={ 5 }
+                        timeIntervals={selectedOption * 5}
                         name='date'
-                        excludeTimes={ getExcludedTimes } 
+                        excludeTimes={ excludedTimes } 
                         withPortal
                         minTime={setHours(setMinutes(new Date(), 0), 9)}
                         maxTime={setHours(setMinutes(new Date(), 0), 20)}
