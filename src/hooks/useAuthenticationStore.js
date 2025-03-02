@@ -10,71 +10,66 @@ export const useAuthenticationStore = () => {
     const logIn = async ({ email, password }) => {
         try {
             const { data } = await handleApi.post('/auth/login', { email, password });
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('token-init-date', new Date().getTime());
-            const user = {uid: data.uid, name: data.name, isAdmin: data.isAdmin};
+
+            const user = { uid: data.uid, name: data.name, isAdmin: data.isAdmin };
             onLogin(user);
+
             Swal.fire({
                 icon: 'success',
                 title: 'Inicio de sesión exitoso',
-                text: `Bienvenida de vuelta, ${user.name}!`,
+                text: `Bienvenido de vuelta, ${user.name}!`,
                 showConfirmButton: false, 
                 timer: 1500,             
             });
         } catch (error) {
-            const data = error.response.data;
-            const errorMessage =
-                data.msg ||
-                data.errors?.email?.msg || 
-                data.errors?.password?.msg || 
-                'Error desconocido';
+            const data = error.response?.data || {};
             Swal.fire({
                 icon: 'error',
                 title: 'Error al iniciar sesión',
-                text: errorMessage,
+                text: data.msg || 'Error desconocido',
                 showConfirmButton: false, 
                 timer: 1500,             
             });
         }
-    }
+    };
 
-    const logOut = () => {
-        onLogout();
-        clearErrorMessage();
-        // clear local storage
-    }
+
+    const logOut = async () => {
+        try {
+            await handleApi.post('/auth/logout');
+            onLogout();
+        } catch (error) {
+            console.error("Error al cerrar sesión", error);
+        }
+    };
+
 
     const register = async ({ email, password, name, contact }) => {
         try {
             const { data } = await handleApi.post('/auth/register', { email, password, name, contact });
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('token-init-date', new Date().getTime());
-            const user = {uid: data.uid, name: data.name, isAdmin: data.isAdmin};
+
+            const user = { uid: data.uid, name: data.name, isAdmin: data.isAdmin };
             onLogin(user);
+
             Swal.fire({
                 icon: 'success',
                 title: 'Registro exitoso',
-                text: `Bienvenida ${user.name}!`,
+                text: `Bienvenido ${user.name}!`,
                 showConfirmButton: false, 
                 timer: 1500,             
             });
         } catch (error) {
-            const data = error.response.data;
-            const errorMessage =
-                data.msg ||
-                data.errors?.email?.msg || 
-                data.errors?.password?.msg || 
-                data.errors?.name?.msg || 
-                'Error desconocido';
+            const data = error.response?.data || {};
             Swal.fire({
                 icon: 'error',
                 title: 'Error al registrarse',
-                text: errorMessage,
+                text: data.msg || 'Error desconocido',
                 showConfirmButton: false, 
                 timer: 1500,             
             });
         }
-    }
+    };
+
 
     const getUserById = async ( clientId ) => {
         try {
