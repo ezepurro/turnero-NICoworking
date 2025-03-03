@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { convertDateToDDMMYY, convertDateToHHMM } from "../../helpers/converters";
 import AppointmentWithDeleteButton from "./AppointmentWithDeleteButton";
 import NoAppointments from "../user/NoAppointments";
 import Search from "../../components/icons/Search";
@@ -65,16 +64,7 @@ const AppointmentList = ({ waxAppointments }) => {
                     paginatedAppointments.map((appointment) => (
                         <AppointmentWithDeleteButton 
                             key={appointment.id} 
-                            id={appointment.id} 
-                            name={appointment.title} 
-                            date={convertDateToDDMMYY(appointment.start)}
-                            hour={convertDateToHHMM(appointment.start)}
-                            type={appointment.notes}
-                            contact={appointment.contact}
-                            status={appointment.status}
-                            sessionZones={appointment.sessionZones}
-                            start={appointment.start}
-                            clientId={appointment.clientId}
+                            appointmentData={appointment}
                         />
                     ))
                 ) : (

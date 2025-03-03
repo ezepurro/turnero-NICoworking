@@ -156,7 +156,7 @@ const AppointmentRequestForm = ({ type }) => {
                         onKeyDown={ (e) => { e.preventDefault() } }
                         minDate={ new Date() }
                         includeDates={ calendarDays.waxDays }
-                        timeIntervals={selectedOption * 5}
+                        timeIntervals={(parseInt(selectedOption) !== 10) ? parseInt(selectedOption) * 5 : 25}
                         name='date'
                         excludeTimes={ excludedTimes } 
                         withPortal

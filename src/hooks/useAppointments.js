@@ -85,9 +85,9 @@ export const useAppointments = () => {
         }
     }
 
-    const updateAppointment = async ( id, appointmentChanges ) => {
+    const updateAppointment = async ( appointmentChanges ) => {
         try {
-            await handleApi.put(`/appointments/${id}`, appointmentChanges);
+            await handleApi.put(`/appointments/${appointmentChanges.id}`, appointmentChanges);
             Swal.fire({
                 icon: 'success',
                 title: 'Turno actualizado',

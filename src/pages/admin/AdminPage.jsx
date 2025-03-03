@@ -33,13 +33,14 @@ const AdminPage = () => {
         return {
           id: appointment.id,
           title: user.name,
-          notes: appointment.type,
           start: new Date(appointment.date),
           end: addMinutes(new Date(appointment.date), appointment.sessionLength),
           contact: appointment.contact,
           sessionZones: appointment.sessionZones,
           status: appointment.status,
           clientId: appointment.clientId,
+          type: appointment.type,
+          isoDate: appointment.date,
         };
       });
       setWaxAppointments(appointmentsWithNames);
