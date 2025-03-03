@@ -55,14 +55,14 @@ const AppointmentWithDeleteButton = ({ id, name, date, hour, type, contact, stat
             <div className="col-md-2 col-sm-12">
                 {
                     (status === "pending")
-                        ? <button className="btn delete" onClick={deleteAppointment} disabled>Eliminar turno</button>
+                        ? <button className="btn delete" disabled>Eliminar turno</button>
                         : <button className="btn delete" onClick={deleteAppointment}>Eliminar turno</button>
                 }
             </div>
             <div className="col-md-2 col-sm-12">
                 {
                     (status === "pending")
-                        ? <button className="btn re-schedule" onClick={handleShowModal} disabled>Reagendar turno</button>
+                        ? <button className="btn re-schedule" disabled>Reagendar turno</button>
                         : <button className="btn re-schedule" onClick={handleShowModal}>Reagendar turno</button>
                 }
             </div>

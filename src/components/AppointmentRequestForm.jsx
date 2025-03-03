@@ -98,10 +98,11 @@ const AppointmentRequestForm = ({ type }) => {
     };
 
     return (
-    <div className='container text-center'>
+    <div className='container'>
         <div className="row">
             <div className="col-12">
                 <form className='appointment-form' onSubmit={ handleSubmit }>
+                    <label htmlFor="phone-input">Número de telefono</label>
                     <PhoneInput
                         country={'ar'}
                         value={contact}
@@ -122,26 +123,30 @@ const AppointmentRequestForm = ({ type }) => {
                         containerClass="phone-input-container"
                         inputClass="form-control"
                         buttonClass="phone-input-flag-button"
+                        id="phone-input"
                     />
                     {
                         (type === "Depilación") && 
-                            <select
-                                id="options"
-                                value={selectedOption}
-                                onChange={handleChange}
-                                className='form-control'
-                                name='sessionZones'
-                            >
-                                <option value="" disabled>Seleccione la cantidad de zonas</option>
-                                <option value="1">1 Zona</option>
-                                <option value="3">3 Zonas</option>
-                                <option value="5">5 Zonas</option>
-                                <option value="10">Full-body</option>
-                            </select>
+                            <>
+                                <label htmlFor="options">Cantidad de zonas</label>
+                                <select
+                                    id="options"
+                                    value={selectedOption}
+                                    onChange={handleChange}
+                                    className='form-control'
+                                    name='sessionZones'
+                                >
+                                    <option value="" disabled></option>
+                                    <option value="1">1 Zona</option>
+                                    <option value="3">3 Zonas</option>
+                                    <option value="5">5 Zonas</option>
+                                    <option value="10">Full-body</option>
+                                </select>
+                            </>
                     }
+                    <label htmlFor="date-input">Fecha y hora</label>
                     <DatePicker
                         selected={ startDate }
-                        placeholderText='Seleccione una fecha y hora'
                         className="form-control"
                         onChange={ handleDateChange }
                         dateFormat="Pp"
@@ -157,7 +162,8 @@ const AppointmentRequestForm = ({ type }) => {
                         withPortal
                         minTime={setHours(setMinutes(new Date(), 0), 9)}
                         maxTime={setHours(setMinutes(new Date(), 0), 20)}
-                        disabled={!contact || !selectedOption}
+                        disabled={!selectedOption}
+                        id="date-input"
                     />
                     <button type='submit' className='form-control btn-submit'>Reservar turno</button>
                 </form>
