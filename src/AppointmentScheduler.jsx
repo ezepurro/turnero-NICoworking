@@ -6,7 +6,7 @@ import useAuthStore from "./store/useAuthStore";
 
 const AppointmentScheduler = () => {
 
-  const { onLogin } = useAuthStore();
+  const { onLogin, onLogout, isAuthenticated } = useAuthStore();
 
   const renewToken = async () => {
     try {
@@ -15,12 +15,14 @@ const AppointmentScheduler = () => {
           onLogin({ uid: data.uid, name: data.name, isAdmin: data.isAdmin });
         }
     } catch (error) {
-        console.error("Error renovando token", error);
+      onLogout();
     }
   }
 
   useEffect(() => {
-    renewToken();
+    if (isAuthenticated) {
+      renewToken();
+    }
   }, [])
   
 
