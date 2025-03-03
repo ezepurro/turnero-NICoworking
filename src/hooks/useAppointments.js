@@ -85,6 +85,30 @@ export const useAppointments = () => {
         }
     }
 
+    const updateAppointment = async ( id, appointmentChanges ) => {
+        try {
+            await handleApi.put(`/appointments/${id}`, appointmentChanges);
+            Swal.fire({
+                icon: 'success',
+                title: 'Turno actualizado',
+                text: 'Los cambios han sido guardados con éxito',
+                showConfirmButton: false, 
+                timer: 1500,     
+            });
+        } catch (error) {
+            console.log(error);
+            const data = error.response?.data;
+            const errorMessage = data?.msg || 'Error desconocido';
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al actualizar turno',
+                text: errorMessage,
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        }
+    }
+
 
     return {
         addAppointment,
@@ -92,5 +116,6 @@ export const useAppointments = () => {
         getUserAppointments,
         getWaxAppointments,
         getReservedTimes, 
+        updateAppointment
     }
 };

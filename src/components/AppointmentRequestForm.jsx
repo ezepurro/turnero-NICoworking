@@ -30,10 +30,10 @@ const AppointmentRequestForm = ({ type }) => {
     const [ preferenceId, setPreferenceId ] = useState(null);
     const [ selectedOption, setSelectedOption ] = useState('');
     const [ startDate, setStartDate ] = useState(null);
-    const [isTouched, setIsTouched] = useState(false);
+    const [ isTouched, setIsTouched ] = useState(false);
     const { calendarDays } = useCalendarSettingsStore();
     const { contact, onInputChange } = useForm( appointmentFormFields );
-    const { addAppointment,getReservedTimes } = useAppointments();
+    const { addAppointment, getReservedTimes } = useAppointments();
     const { createPreference } = useMercadoPago();
     const { user } = useAuthStore();
     const { VITE_MP_PUBLIC_KEY } = getEnvVariables();
@@ -41,7 +41,7 @@ const AppointmentRequestForm = ({ type }) => {
 
     const handleDateChange = async (date) => {
         setStartDate(date);
-        const sessionLength = selectedOption * 5; 
+        const sessionLength = (parseInt(selectedOption) !== 10) ? parseInt(selectedOption) * 5 : 25;
         const reservedTimes = await getReservedTimes(date, sessionLength);
         setExcludedTimes(reservedTimes); 
     };
@@ -157,6 +157,7 @@ const AppointmentRequestForm = ({ type }) => {
                         withPortal
                         minTime={setHours(setMinutes(new Date(), 0), 9)}
                         maxTime={setHours(setMinutes(new Date(), 0), 20)}
+                        disabled={!contact || !selectedOption}
                     />
                     <button type='submit' className='form-control btn-submit'>Reservar turno</button>
                 </form>

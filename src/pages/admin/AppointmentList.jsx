@@ -28,7 +28,7 @@ const AppointmentList = ({ waxAppointments }) => {
 
     return (
         <div className="delete-appointment">
-            <h3 className="service-title-admin text-center">Eliminar turnos</h3>
+            <h3 className="service-title-admin text-center">Administrar turnos</h3>
 
             <div className="search-container text-center">
                 <div className="input-wrapper">
@@ -49,11 +49,12 @@ const AppointmentList = ({ waxAppointments }) => {
             {hasAppointments && (
                 <div className="container">
                     <div className="row">
-                        <div className="col-md-3"><p>Cliente y número de contacto</p></div>
+                        <div className="col-md-2"><p>Cliente y número de contacto</p></div>
                         <div className="col-md-2"><p>Tipo de turno</p></div>
                         <div className="col-md-2"><p>Fecha y hora</p></div>
-                        <div className="col-md-3"><p>Estado del turno</p></div>
+                        <div className="col-md-2"><p>Estado del turno</p></div>
                         <div className="col-md-2"><p>Eliminar turno</p></div>
+                        <div className="col-md-2"><p>Reagendar turno</p></div>
                         <hr />
                     </div>
                 </div>
@@ -71,6 +72,9 @@ const AppointmentList = ({ waxAppointments }) => {
                             type={appointment.notes}
                             contact={appointment.contact}
                             status={appointment.status}
+                            sessionZones={appointment.sessionZones}
+                            start={appointment.start}
+                            clientId={appointment.clientId}
                         />
                     ))
                 ) : (

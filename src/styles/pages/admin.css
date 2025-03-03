@@ -85,7 +85,32 @@
         color: rgb(151, 134, 36);
     }
 
+
 }
+
+.re-schedule-form {
+    .react-datepicker__time-list-item--disabled{
+        display: none;
+    }
+    .cancel-button {
+        border: none;
+        background-color: rgb(197, 54, 54) !important;
+    }
+    .cancel-button:hover {
+        border: none;
+        background-color: rgb(151, 43, 43) !important;
+    }
+    .save-changes-button {
+        border: none;
+        background-color: rgb(52, 107, 52) !important;
+    }
+    .save-changes-button:hover {
+        border: none;
+        background-color: rgb(38, 78, 38) !important;
+    }
+}
+
+
 
 @media (max-width: 767px) {
     .admin-navbar {

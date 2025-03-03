@@ -7,15 +7,13 @@ import '../../styles/components/services.css';
 
 const Services = () => {
 
-  const { getCalendarSettings, getReservedTimes } = useCalendarSettings();
-  const { setCalendarDays, setReservedTimes } = useCalendarSettingsStore();
+  const { getCalendarSettings } = useCalendarSettings();
+  const { setCalendarDays } = useCalendarSettingsStore();
 
   useEffect(() => {
     const fetchCalendarSettings = async () => {
       const dates = await getCalendarSettings();
       setCalendarDays( dates.calendarSettings );
-      const times = await getReservedTimes();
-      setReservedTimes( times );
     }
     fetchCalendarSettings();
   }, []);

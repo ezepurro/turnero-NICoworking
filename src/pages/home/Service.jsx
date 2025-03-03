@@ -29,4 +29,4 @@ const Service = ({image_url, service, service_description, posicion, type}) => {
   )
 }
 
-export default Service
+export default Service;

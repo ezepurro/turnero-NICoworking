@@ -38,7 +38,8 @@ const AdminPage = () => {
           end: addMinutes(new Date(appointment.date), appointment.sessionLength),
           contact: appointment.contact,
           sessionZones: appointment.sessionZones,
-          status: appointment.status
+          status: appointment.status,
+          clientId: appointment.clientId,
         };
       });
       setWaxAppointments(appointmentsWithNames);
@@ -85,7 +86,7 @@ const AdminPage = () => {
             <hr />
             <button onClick={() => setSelectedOption('appointments-days')}>Administrar fechas para turnos</button>
             <hr />
-            <button onClick={() => setSelectedOption('delete-appointment')}>Eliminar turnos</button>
+            <button onClick={() => setSelectedOption('manage-appointment')}>Administrar turnos</button>
             <hr />
             <button onClick={reloadData}><Reload /> Recargar turnos</button>
           </div>
@@ -94,7 +95,7 @@ const AdminPage = () => {
           {
             selectedOption === 'appointments-calendars' ? <Calendars waxAppointments={waxAppointments} /> :
             selectedOption === 'appointments-days' ? <DaysSelectors /> :
-            selectedOption === 'delete-appointment' ? <AppointmentList waxAppointments={waxAppointments} /> :
+            selectedOption === 'manage-appointment' ? <AppointmentList waxAppointments={waxAppointments} /> :
             <NoOptionSelected />
           }
         </div>
