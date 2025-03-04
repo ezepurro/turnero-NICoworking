@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useAppointments } from "../../hooks/useAppointments";
-import useAppointmentsStore from "../../store/useAppointmentsStore";
 import Tooltip from "../../components/Tooltip";
 import Swal from "sweetalert2";
 import AppointmentReScheduleForm from "./AppointmentReScheduleForm";
@@ -8,7 +7,6 @@ import { convertDateToDDMMYY, convertDateToHHMM } from '../../helpers/converters
 
 const AppointmentWithDeleteButton = ({ appointmentData }) => {
     const { deleteWaxAppointment } = useAppointments();
-    const { waxAppointments, setWaxAppointments } = useAppointmentsStore();
     const [showModal, setShowModal] = useState(false);
 
     const handleCloseModal = () => setShowModal(false);
@@ -28,8 +26,6 @@ const AppointmentWithDeleteButton = ({ appointmentData }) => {
 
         if (result.isConfirmed) {
             deleteWaxAppointment(appointmentData.id);
-            const updatedAppointments = waxAppointments.filter(appointment => appointment.id !== appointmentData.id);
-            setWaxAppointments(updatedAppointments);
         }
     }
 

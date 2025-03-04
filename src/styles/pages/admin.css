@@ -40,11 +40,8 @@
     .admin-options {
         margin-top: 20%;
         margin-left: 20px;
-        display: flex; 
-        flex-direction: column; 
         height: calc(100% - 20%); 
-        justify-content: space-between; 
-
+        text-align: left;
         button {
             text-align: left;
             border: 0;
@@ -59,9 +56,9 @@
             }
         }
 
-        button:last-child {
+        /* button:last-child {
             margin-top: auto; 
-        }
+        } */
     }
 }
 
@@ -69,7 +66,7 @@
     font-family: var(--font-primary);
     height: 100vh;
     box-sizing: border-box;
-    overflow-y: auto;
+    overflow-y: hidden;
 
     .dayselectors {
         margin: 30px 0px 0px 0px;  
@@ -85,6 +82,16 @@
         color: rgb(151, 134, 36);
     }
 
+    .btn-reload {
+        border: none;
+        background-color: rgba(0,0,0,0);
+        margin-left: 10px;
+    }
+    .btn-reload:hover {
+        svg {
+            transform: scale(1.2);
+        } 
+    }
 
 }
 

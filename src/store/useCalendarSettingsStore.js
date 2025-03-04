@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 
-const useCalendarSettingsStore = create(persist(
+const useCalendarSettingsStore = create(
     (set) => ({
     calendarDays: {}, 
     reservedTimes: {},
@@ -32,7 +32,7 @@ const useCalendarSettingsStore = create(persist(
     name: 'calendarSettings-storage', 
     getStorage: () => localStorage, 
     }
-));
+);
 
 
 export default useCalendarSettingsStore;

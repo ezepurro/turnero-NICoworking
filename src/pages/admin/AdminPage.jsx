@@ -1,50 +1,23 @@
 import { useEffect, useState } from "react";
-import { useAppointments } from "../../hooks/useAppointments";
-import { useAuthenticationStore } from "../../hooks/useAuthenticationStore";
 import { useCalendarSettings } from "../../hooks/useCalendarSettings";
-import { addMinutes } from "date-fns";
 import Swal from "sweetalert2";
-import useAppointmentsStore from "../../store/useAppointmentsStore";
 import useAuthStore from "../../store/useAuthStore";
 import useCalendarSettingsStore from "../../store/useCalendarSettingsStore";
 import Calendars from "./Calendars";
 import DaysSelectors from "./DaysSelectors";
 import NoOptionSelected from "./NoOptionSelected";
 import AppointmentList from "./AppointmentList";
-import Reload from "../../components/icons/Reload";
 import '../../styles/pages/admin.css';
 
 const AdminPage = () => {
-  const [selectedOption, setSelectedOption] = useState(undefined);
 
-  const { getWaxAppointments } = useAppointments();
-  const { getAllUsers } = useAuthenticationStore();
-  const { waxAppointments, setWaxAppointments } = useAppointmentsStore();
+  const [selectedOption, setSelectedOption] = useState(undefined);
   const { setCalendarDays } = useCalendarSettingsStore();
   const { getCalendarSettings } = useCalendarSettings();
   const { user } = useAuthStore();
 
   const refreshData = async () => {
     try {
-      const fetchedAppointments = await getWaxAppointments();
-      const users = await getAllUsers();
-      const appointmentsWithNames = fetchedAppointments.map(appointment => {
-        const user = users.find(u => u.id === appointment.clientId);
-        return {
-          id: appointment.id,
-          title: user.name,
-          start: new Date(appointment.date),
-          end: addMinutes(new Date(appointment.date), appointment.sessionLength),
-          contact: appointment.contact,
-          sessionZones: appointment.sessionZones,
-          status: appointment.status,
-          clientId: appointment.clientId,
-          type: appointment.type,
-          isoDate: appointment.date,
-        };
-      });
-      setWaxAppointments(appointmentsWithNames);
-
       const data = await getCalendarSettings();
       const formattedDates = data.calendarSettings.waxDays.map(dateStr => new Date(dateStr));
       setCalendarDays({
@@ -66,15 +39,7 @@ const AdminPage = () => {
     });
   }, []); 
 
-  const reloadData = () => {
-    refreshData();
-    Swal.fire({
-      icon: 'success',
-      title: 'Información actualizada exitosamente',
-      showConfirmButton: false, 
-      timer: 1500,   
-    });
-  }
+
 
   return (
     <>
@@ -89,14 +54,13 @@ const AdminPage = () => {
             <hr />
             <button onClick={() => setSelectedOption('manage-appointment')}>Administrar turnos</button>
             <hr />
-            <button onClick={reloadData}><Reload /> Recargar turnos</button>
           </div>
         </div>
         <div className="col-sm-12 col-md-10 admin-content">
           {
-            selectedOption === 'appointments-calendars' ? <Calendars waxAppointments={waxAppointments} /> :
+            selectedOption === 'appointments-calendars' ? <Calendars /> :
             selectedOption === 'appointments-days' ? <DaysSelectors /> :
-            selectedOption === 'manage-appointment' ? <AppointmentList waxAppointments={waxAppointments} /> :
+            selectedOption === 'manage-appointment' ? <AppointmentList /> :
             <NoOptionSelected />
           }
         </div>

@@ -40,15 +40,23 @@ export const useAppointments = () => {
     }
 
 
-    const getWaxAppointments = async () => {
+    const getAppointmentsByService = async ( service ) => {
         try {
-            const { data } = await handleApi.get('/appointments/waxing');
-            return data.waxAppointments;
+            const { data } = await handleApi.post('/appointments/service', { type: service });
+            return data.appointments;
         } catch (error) {
             console.log(error);
         }
     }
 
+    const getAllAppointments = async () => {
+        try {
+            const { data } = await handleApi.get('/appointments');
+            return data.appointments;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const deleteWaxAppointment = async ( id ) => {
         try {
@@ -113,9 +121,10 @@ export const useAppointments = () => {
     return {
         addAppointment,
         deleteWaxAppointment,
-        getUserAppointments,
-        getWaxAppointments,
+        getAllAppointments,
+        getAppointmentsByService,
         getReservedTimes, 
-        updateAppointment
+        getUserAppointments,
+        updateAppointment,
     }
 };

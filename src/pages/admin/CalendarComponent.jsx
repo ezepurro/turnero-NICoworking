@@ -20,13 +20,17 @@ const localizer = dateFnsLocalizer({
 const CustomAgendaEvent = ({ event }) => (
   <span>
     <div className="row">
-      <div className="col-md-4"><strong>{event.title}</strong></div>
-      <div className="col-md-4"><p>+{event.contact}</p></div>
-      <div className="col-md-4"><p>
-      {(event.sessionZones === 10)
-          ? 'Full-body'
-          : `${event.sessionZones} zonas`}
-    </p></div>
+      <div className="col-md-3"><strong>{event.title}</strong></div>
+      <div className="col-md-3"><p>+{event.contact}</p></div>
+      <div className="col-md-3"><p>{event.type}</p></div>
+      {
+        (event.type === "Depilación") && 
+          (<div className="col-md-3"><p>
+            {(event.sessionZones === 10)
+                ? 'Full-body'
+                : `${event.sessionZones} zonas`}</p>
+            </div>)
+      }
       
     </div>
   </span>
@@ -57,7 +61,7 @@ const CustomToolbar = ({ label, view, onView, onNavigate }) => {
   );
 };
 
-const CalendarComponent = ({events}) => {
+const CalendarComponent = ({events = []}) => {
   const [calendarHeight, setCalendarHeight] = useState(0);
 
   useEffect(() => {
@@ -90,7 +94,7 @@ const CalendarComponent = ({events}) => {
             messages={{
               date: 'Fecha',
               time: 'Hora',
-              event: 'Cliente',
+              event: 'Datos del turno',
               today: "Hoy",
               previous: "Anterior",
               next: "Siguiente",

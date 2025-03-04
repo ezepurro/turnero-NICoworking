@@ -1,16 +1,70 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AppointmentWithDeleteButton from "./AppointmentWithDeleteButton";
 import NoAppointments from "../user/NoAppointments";
 import Search from "../../components/icons/Search";
+import { useAppointments } from "../../hooks/useAppointments";
+import { useAuthenticationStore } from "../../hooks/useAuthenticationStore";
+import { addMinutes } from "date-fns";
+import Swal from "sweetalert2";
+import Reload from "../../components/icons/Reload";
 
 const ITEMS_PER_PAGE = 6;
 
-const AppointmentList = ({ waxAppointments }) => {
+const AppointmentList = () => {
+
+    const { getAllAppointments } = useAppointments();
+    const { getAllUsers } = useAuthenticationStore();
+    const [appointments, setAppointments] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
 
-    const sortedAppointments = Array.isArray(waxAppointments)
-        ? [...waxAppointments].sort((a, b) => new Date(a.start) - new Date(b.start))
+    const refreshData = async () => {
+      try {
+        const fetchedAppointments = await getAllAppointments();
+        const users = await getAllUsers();
+        const appointmentsWithNames = fetchedAppointments.map(appointment => {
+          const user = users.find(u => u.id === appointment.clientId);
+          return {
+            id: appointment.id,
+            title: user.name,
+            start: new Date(appointment.date),
+            end: addMinutes(new Date(appointment.date), appointment.sessionLength),
+            contact: appointment.contact,
+            sessionZones: appointment.sessionZones,
+            status: appointment.status,
+            clientId: appointment.clientId,
+            type: appointment.type,
+            isoDate: appointment.date,
+          };
+        });
+        setAppointments(appointmentsWithNames);
+      } catch (error) {
+        console.error("Error al recargar los datos:", error);
+      }
+    };
+
+    useEffect(() => {
+      refreshData();
+      Swal.fire({
+        text: 'Cargando la información necesaria',
+        showConfirmButton: false, 
+        timer: 1500,         
+        timerProgressBar: true    
+      });
+    }, []); 
+
+    const reloadData = () => {
+      refreshData();
+      Swal.fire({
+        icon: 'success',
+        title: 'Información actualizada exitosamente',
+        showConfirmButton: false, 
+        timer: 1500,   
+      });
+    }
+
+    const sortedAppointments = Array.isArray(appointments)
+        ? [...appointments].sort((a, b) => new Date(a.start) - new Date(b.start))
         : [];
 
     const filteredAppointments = sortedAppointments.filter(appointment =>
@@ -27,8 +81,9 @@ const AppointmentList = ({ waxAppointments }) => {
 
     return (
         <div className="delete-appointment">
-            <h3 className="service-title-admin text-center">Administrar turnos</h3>
-
+            <div className="service-title-admin text-center">
+                Administrar turnos<button onClick={reloadData} className="btn-reload"><Reload /></button>
+            </div>
             <div className="search-container text-center">
                 <div className="input-wrapper">
                     <Search classname="search-icon" color="currentColor" />
