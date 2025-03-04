@@ -16,6 +16,13 @@
         background-color: var(--background-color-hover);
         margin-top: 10px;
     }
+    .btn-submit:disabled {
+        background-color: rgb(207, 207, 207); 
+    }
+    
+    .btn-submit:disabled:hover {
+        background-color: rgb(207, 207, 207); 
+    }
     .react-datepicker-wrapper {
         width: 100%;
     }
