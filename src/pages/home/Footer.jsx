@@ -18,9 +18,9 @@ const Footer = () => {
         <div className="col-lg-6 col-sm-12">
             <p>Podés contactarte con nosotros a través de los siguientes canales:</p>
             <ul>
-              <li><Email /> nuevaidcoworking@gmail.com</li>
-              <li><Instagram /> <a href="https://www.instagram.com/beauty.centercba/" target='_blank'>@beauty.certercba</a></li>
-              <li><Facebook /> <a href="https://www.facebook.com/nuevaidentidadcoworking/" target='_blank'>Nueva Identidad Coworking</a></li>
+              <li><a href="mailto:nuevaidcoworking@gmail.com"><Email /> nuevaidcoworking@gmail.com</a></li>
+              <li><a href="https://www.instagram.com/beauty.centercba/" target='_blank'><Instagram /> @beauty.certercba</a></li>
+              <li><a href="https://www.facebook.com/nuevaidentidadcoworking/" target='_blank'><Facebook /> Nueva Identidad Coworking</a></li>
               <li><Whatsapp /> 0351 15-858-0190</li>
             </ul>
         </div>

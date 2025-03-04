@@ -5,25 +5,42 @@ footer {
   color: var(--backgroud-text-color);
   font-family: var(--font-secondary);
 
+  .title {
+    display: flex;
+    justify-content: center;  
+    align-items: center;      
+    height: 100%;             
+    text-align: center;       
+  }
+
   h1 {
     font-family: var(--font-brand);
+    font-size: 60px;
+    width: 100%; 
+    margin: 0;   
   }
+
   ul {
     list-style: none;
-    padding: 0px;
+    padding: 0;
+
     li {
       margin-bottom: 8px;
+
       a {
         color: var(--backgroud-text-color);
         text-decoration: none;
       }
     }
   }
+
   span {
     margin-top: 5px;
   }
+
   .footer-button {
     margin-bottom: 5%;
+
     a {
       background-color: rgba(0, 0, 0, 0);
       font-family: var(--font-secondary);
@@ -31,46 +48,38 @@ footer {
       border: var(--backgroud-text-color) solid 0.5px;
       padding: 1%;
       text-decoration: none;
-
     }
   }
-}
 
-/* Tablets and above */
-@media (min-width: 0px) {
-  footer {
+  @media (min-width: 0px) {
     h1 {
       font-size: 60px;
-      text-align: center;
     }
+
     .footer-button {
       text-align: center;
     }
   }
-}
 
-/* Laptops and above */
-@media (min-width: 768px) {
-  footer {
-    h1 {
-    font-size: 60px;
-    text-align: left;
+  @media (min-width: 768px) {
+    .title {
+      justify-content: flex-start; 
+      text-align: center;
+      h1 {
+        font-size: 70px;
+        margin-top: 20px;
+      }
     }
   }
-}
 
-/* Desktops and above */
-@media (min-width: 900px) {
-  footer {
+  @media (min-width: 900px) {
     h1 {
       font-size: 80px;
+      margin-top: 40px;
     }
   }
-}
 
-/* Desktops and above */
-@media (min-width: 1488px) {
-  footer {
+  @media (min-width: 1488px) {
     h1 {
       font-size: 100px;
       margin-top: 20px;
