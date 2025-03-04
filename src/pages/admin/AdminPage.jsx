@@ -30,13 +30,13 @@ const AdminPage = () => {
 
   useEffect(() => {
     refreshData();
-    Swal.fire({
-      title: `Bienvenida ${user.name}`,
-      text: 'Cargando la información necesaria',
-      showConfirmButton: false, 
-      timer: 1500,         
-      timerProgressBar: true    
-    });
+    // Swal.fire({
+    //   title: `Bienvenida ${user.name}`,
+    //   text: 'Cargando la información necesaria',
+    //   showConfirmButton: false, 
+    //   timer: 1500,         
+    //   timerProgressBar: true    
+    // });
   }, []); 
 
 
