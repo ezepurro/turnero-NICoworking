@@ -1,11 +1,64 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useCalendarSettings } from "../../hooks/useCalendarSettings";
 import { convertDateToDDMMYY } from "../../helpers/converters";
-import DaySelectorComponent from "./DaySelectorComponent";
 import useCalendarSettingsStore from "../../store/useCalendarSettingsStore";
+import DaySelectorComponent from "./DaySelectorComponent";
 import DateItem from "./DateItem";
+import Swal from "sweetalert2";
 
 const DaysSelectors = () => {
-  const { calendarDays } = useCalendarSettingsStore();
+
+  const [ selectorsType, setSelectorsType ] = useState("");
+  const [ currentPage, setCurrentPage ] = useState(0);
+  const { calendarDays, setCalendarDays } = useCalendarSettingsStore();
+  const { getCalendarSettings } = useCalendarSettings();  
+
+  const fetchData = async () => {
+      try {
+          const data = await getCalendarSettings();
+          const formattedDates = data.calendarSettings.waxDays.map(dateStr => new Date(dateStr));
+          setCalendarDays({
+              'waxDays': formattedDates,
+          });
+      } catch (error) {
+          console.error("Error al recargar los datos:", error);
+      }
+  };
+
+  useEffect(() => {
+      const chooseCalendar = async () => {
+          const inputOptions = new Promise((resolve) => {
+              setTimeout(() => {
+                  resolve({
+                      "Depilación": "Depilación",
+                      // "Peluqueria": "Peluqueria",
+                  });
+              }, 250);
+          });
+
+          const { value: service } = await Swal.fire({
+              title: "Seleccione tipo de turno",
+              input: "radio",
+              inputOptions,
+              confirmButtonText: "Seleccionar",
+              allowOutsideClick: false,
+              allowEscapeKey: false,
+              inputValidator: (value) => {
+                  if (!value) {
+                      return "Por favor, seleccione tipo de turno";
+                  }
+              },
+          });
+
+          if (service) {
+            setSelectorsType(service);
+            fetchData();
+          }
+      };
+
+      chooseCalendar();
+  }, []);
+
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
   const itemsPerPage = 5; 
@@ -18,7 +71,6 @@ const DaysSelectors = () => {
   })
   .sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
 
-  const [currentPage, setCurrentPage] = useState(0);
   const totalPages = Math.ceil(futureDates.length / itemsPerPage);
 
   const paginatedDates = futureDates.slice(
@@ -28,7 +80,7 @@ const DaysSelectors = () => {
 
   return (
     <div className="dayselectors">
-      <h3 className="service-title-admin text-center">Habilitación de fechas</h3>
+      <h3 className="service-title-admin text-center">Habilitación de fechas de {selectorsType.toLocaleLowerCase()}</h3>
       <div className="container">
         <div className="row">
           <div className="col-lg-6 col-md-12">

@@ -1,45 +1,13 @@
-import { useEffect, useState } from "react";
-import { useCalendarSettings } from "../../hooks/useCalendarSettings";
-import Swal from "sweetalert2";
-import useAuthStore from "../../store/useAuthStore";
-import useCalendarSettingsStore from "../../store/useCalendarSettingsStore";
+import { useState } from "react";
 import Calendars from "./Calendars";
-import DaysSelectors from "./DaysSelectors";
 import NoOptionSelected from "./NoOptionSelected";
 import AppointmentList from "./AppointmentList";
+import DaysSelectors from "./DaysSelectors";
 import '../../styles/pages/admin.css';
 
 const AdminPage = () => {
 
   const [selectedOption, setSelectedOption] = useState(undefined);
-  const { setCalendarDays } = useCalendarSettingsStore();
-  const { getCalendarSettings } = useCalendarSettings();
-  const { user } = useAuthStore();
-
-  const refreshData = async () => {
-    try {
-      const data = await getCalendarSettings();
-      const formattedDates = data.calendarSettings.waxDays.map(dateStr => new Date(dateStr));
-      setCalendarDays({
-        'waxDays': formattedDates,
-      });
-    } catch (error) {
-      console.error("Error al recargar los datos:", error);
-    }
-  };
-
-  useEffect(() => {
-    refreshData();
-    // Swal.fire({
-    //   title: `Bienvenida ${user.name}`,
-    //   text: 'Cargando la información necesaria',
-    //   showConfirmButton: false, 
-    //   timer: 1500,         
-    //   timerProgressBar: true    
-    // });
-  }, []); 
-
-
 
   return (
     <>

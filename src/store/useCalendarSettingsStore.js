@@ -4,7 +4,10 @@ import { persist } from 'zustand/middleware';
 
 const useCalendarSettingsStore = create(
     (set) => ({
-    calendarDays: {}, 
+    calendarDays: {
+        waxDays: [],
+        hairdresserDays: [],
+    }, 
     reservedTimes: {},
     
     // setCalendarDays
