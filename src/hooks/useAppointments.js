@@ -95,7 +95,7 @@ export const useAppointments = () => {
 
     const updateAppointment = async ( appointmentChanges ) => {
         try {
-            await handleApi.put(`/appointments/${appointmentChanges.id}`, appointmentChanges);
+            const {data} = await handleApi.put(`/appointments/${appointmentChanges.id}`, appointmentChanges);
             Swal.fire({
                 icon: 'success',
                 title: 'Turno actualizado',
@@ -103,6 +103,7 @@ export const useAppointments = () => {
                 showConfirmButton: false, 
                 timer: 1500,     
             });
+            return data.ok;
         } catch (error) {
             console.log(error);
             const data = error.response?.data;
@@ -114,6 +115,7 @@ export const useAppointments = () => {
                 showConfirmButton: false,
                 timer: 1500,
             });
+            return false;
         }
     }
 

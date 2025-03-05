@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import AppointmentReScheduleForm from "./AppointmentReScheduleForm";
 import { convertDateToDDMMYY, convertDateToHHMM } from '../../helpers/converters';
 
-const AppointmentWithDeleteButton = ({ appointmentData }) => {
+const AppointmentWithDeleteButton = ({ appointmentData, refreshData }) => {
     const { deleteWaxAppointment } = useAppointments();
     const [showModal, setShowModal] = useState(false);
 
@@ -70,6 +70,7 @@ const AppointmentWithDeleteButton = ({ appointmentData }) => {
                 show={showModal}
                 handleClose={handleCloseModal}
                 appointment={appointmentData} 
+                refreshData={refreshData}
             />
         </div>
     );

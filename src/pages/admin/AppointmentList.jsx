@@ -120,6 +120,7 @@ const AppointmentList = () => {
                         <AppointmentWithDeleteButton 
                             key={appointment.id} 
                             appointmentData={appointment}
+                            refreshData={refreshData}
                         />
                     ))
                 ) : (

@@ -8,7 +8,7 @@ import DatePicker from 'react-datepicker';
 import Swal from 'sweetalert2';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const AppointmentReScheduleForm = ({ show, handleClose, appointment }) => {
+const AppointmentReScheduleForm = ({ show, handleClose, appointment, refreshData }) => {
     const [ startDate, setStartDate ] = useState(null);
     const [ selectedOption, setSelectedOption ] = useState('');
     const [ excludedTimes, setExcludedTimes ] = useState([]);
@@ -49,14 +49,17 @@ const AppointmentReScheduleForm = ({ show, handleClose, appointment }) => {
                 userId: appointment.clientId
             };
 
-            await updateAppointment(updatedData);
+            const isUpdated = await updateAppointment(updatedData);
+            if (isUpdated) {
+                await sendRescheduleMessage({phoneNumber: appointment.contact, messageData: {
+                    name: appointment.title,
+                    type: appointment.type,
+                    date: convertDateToDDMMYY(startDate),
+                    time: convertDateToHHMM(startDate),
+                }}, appointment.title);
+            }
+            refreshData();
             
-            await sendRescheduleMessage({phoneNumber: appointment.contact, messageData: {
-                name: appointment.title,
-                type: appointment.type,
-                date: convertDateToDDMMYY(startDate),
-                time: convertDateToHHMM(startDate),
-            }}, appointment.title);
         } catch (error) {
             console.log(error);
         }
