@@ -64,7 +64,7 @@ const NoPaidAppointmentList = () => {
     return (
         <div className="no-paid-appointments">
             <div className="service-title-admin text-center">
-                Turnos no pagados<button onClick={reloadData} className="btn-reload"><Reload /></button>
+                Turnos vencidos<button onClick={reloadData} className="btn-reload"><Reload /></button>
             </div>
             <div className="search-container text-center">
                 <div className="input-wrapper">
@@ -84,6 +84,14 @@ const NoPaidAppointmentList = () => {
 
             {filteredAppointments.length > 0 ? (
                 <div className="container">
+                    <div className="row">
+                        <div className="col-md-3">Cliente</div>
+                        <div className="col-md-2">Zonas</div>
+                        <div className="col-md-3">Fecha y hora</div>
+                        <div className="col-md-2">Estado</div>
+                        <div className="col-md-2">Eliminar turno</div>
+                        <hr />
+                    </div>
                     {filteredAppointments.map((appointment) => (
                         <NoPaidAppointmentWithDeleteButton
                             key={appointment.id}

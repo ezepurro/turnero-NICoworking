@@ -107,7 +107,7 @@ const AppointmentList = () => {
                         <div className="col-md-2"><p>Tipo de turno</p></div>
                         <div className="col-md-2"><p>Fecha y hora</p></div>
                         <div className="col-md-2"><p>Estado del turno</p></div>
-                        <div className="col-md-2"><p>Reagendar turno</p></div>
+                        <div className="col-md-2"><p>Gestionar turno</p></div>
                         <div className="col-md-2"><p>Eliminar turno</p></div>
                         <hr />
                     </div>

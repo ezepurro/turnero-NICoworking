@@ -14,7 +14,7 @@ const NoPaidAppointmentWithDeleteButton = ({ appointmentData, refreshData }) => 
         <>
             <div className="row">
                 <div className="col-md-3">
-                    {appointmentData.clientName} - {appointmentData.contact.startsWith("+") ? appointmentData.contact : `+${appointmentData.contact}`}
+                    <b>{appointmentData.clientName}</b> - {appointmentData.contact.startsWith("+") ? appointmentData.contact : `+${appointmentData.contact}`}
                 </div>
                 <div className="col-md-2">
                     {(appointmentData.sessionZones !== 10 ? `${appointmentData.sessionZones} zonas` : 'Full-Body')}

@@ -6,8 +6,9 @@ import AppointmentReScheduleForm from "./AppointmentReScheduleForm";
 import { convertDateToDDMMYY, convertDateToHHMM } from '../../helpers/converters';
 
 const AppointmentWithDeleteButton = ({ appointmentData, refreshData }) => {
-    const { deleteAppointment } = useAppointments();
-    const [showModal, setShowModal] = useState(false);
+
+    const { deleteAppointment, updateAppointment } = useAppointments();
+    const [ showModal, setShowModal ] = useState(false);
 
     const handleCloseModal = () => setShowModal(false);
     const handleShowModal = () => setShowModal(true);
@@ -28,6 +29,28 @@ const AppointmentWithDeleteButton = ({ appointmentData, refreshData }) => {
         if (result.isConfirmed) {
             deleteAppointment(appointmentData.id);
             refreshData();
+        }
+    }
+
+    const handleAppointmentToPaid = async () => {
+        try {
+            const updatedData = {
+                id: appointmentData.id,
+                status: "paid",
+                userId: appointmentData.clientId
+            };
+            const isUpdated = await updateAppointment(updatedData);
+            if (isUpdated) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Seña marcada como pagada',
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+                refreshData();
+            }
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -54,7 +77,7 @@ const AppointmentWithDeleteButton = ({ appointmentData, refreshData }) => {
             <div className="col-md-2 col-sm-12">
                 {
                     (appointmentData.status === "pending")
-                        ? <button className="btn re-schedule" disabled>Reagendar turno</button>
+                        ? <button className="btn make-paid" onClick={handleAppointmentToPaid}>Marcar como pago</button>
                         : <button className="btn re-schedule" onClick={handleShowModal}>Reagendar turno</button>
                 }
             </div>
