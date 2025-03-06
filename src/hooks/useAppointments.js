@@ -58,7 +58,7 @@ export const useAppointments = () => {
         }
     }
 
-    const deleteWaxAppointment = async ( id ) => {
+    const deleteAppointment = async ( id ) => {
         try {
             await handleApi.delete(`/appointments/${id}`);
             Swal.fire({
@@ -119,14 +119,28 @@ export const useAppointments = () => {
         }
     }
 
+    const getNoPaidAppointments = async (page = 1, limit = 6) => {
+        try {
+            const { data } = await handleApi.get(`/appointments/no-paid/pagination?page=${page}&limit=${limit}`);
+            return {
+                appointments: data.appointments,
+                totalPages: data.totalPages
+            };
+        } catch (error) {
+            console.error("Error obteniendo los turnos no pagados:", error);
+            return { appointments: [], totalPages: 1 };
+        }
+    };
+
 
     return {
         addAppointment,
-        deleteWaxAppointment,
+        deleteAppointment,
         getAllAppointments,
         getAppointmentsByService,
         getReservedTimes, 
         getUserAppointments,
         updateAppointment,
+        getNoPaidAppointments
     }
 };

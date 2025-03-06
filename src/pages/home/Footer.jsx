@@ -13,7 +13,7 @@ const Footer = () => {
     <footer className='py-3' >
       <div className="row">
         <div className="col-lg-6 col-sm-12 title">
-            <h1>Beauty Center</h1>
+            <h1>Beauty Bloom</h1>
         </div>
         <div className="col-lg-6 col-sm-12">
             <p>Podés contactarte con nosotros a través de los siguientes canales:</p>
@@ -26,7 +26,7 @@ const Footer = () => {
         </div>
         <hr />
         <div className="col-lg-12 text-center">
-          <span>Beauty Center {currentYear} © Todos los derechos reservados</span>
+          <span>Beauty Bloom {currentYear} © Todos los derechos reservados</span>
         </div>
       </div>
     </footer>

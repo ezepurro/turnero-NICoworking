@@ -31,9 +31,8 @@ const MyAppointments = () => {
           icon: 'success',
           title: 'Cita agendada!',
           text: `Te esperamos, ${user.name}!`,
-          showConfirmButton: false, 
-          timer: 1500,             
-      });
+          showConfirmButton: true, 
+          confirmButtonText: 'Aceptar',});
     }
   }, [])
   

@@ -22,7 +22,7 @@
           font-family: var(--font-brand);
         }
         p {
-          font-family: var(--font-secondary);
+          font-family: var(--font-brand);
         }
       }
     }
@@ -42,7 +42,7 @@
         font-size: 70px; 
       }
       p {
-        font-size: 13px;
+        font-size: 20px;
       }
     }
   }
@@ -61,7 +61,7 @@
         font-size: 70px; 
       }
       p {
-        font-size: 13px;
+        font-size: 23px;
       }
     }
   }
@@ -81,7 +81,7 @@
         font-size: 70px;
       }
       p {
-        font-size: 20px;
+        font-size: 25px;
       }
     }
   }
@@ -97,7 +97,7 @@
       font-size: 100px;
     }
     p {
-      font-size: 20px;
+      font-size: 35px;
     }
   }
 }

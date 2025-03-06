@@ -14,9 +14,9 @@ const AppointmentList = () => {
 
     const { getAllAppointments } = useAppointments();
     const { getAllUsers } = useAuthenticationStore();
-    const [appointments, setAppointments] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [searchTerm, setSearchTerm] = useState("");
+    const [ appointments, setAppointments ] = useState([]);
+    const [ currentPage, setCurrentPage ] = useState(1);
+    const [ searchTerm, setSearchTerm ] = useState("");
 
     const refreshData = async () => {
       try {
@@ -107,8 +107,8 @@ const AppointmentList = () => {
                         <div className="col-md-2"><p>Tipo de turno</p></div>
                         <div className="col-md-2"><p>Fecha y hora</p></div>
                         <div className="col-md-2"><p>Estado del turno</p></div>
-                        <div className="col-md-2"><p>Eliminar turno</p></div>
                         <div className="col-md-2"><p>Reagendar turno</p></div>
+                        <div className="col-md-2"><p>Eliminar turno</p></div>
                         <hr />
                     </div>
                 </div>

@@ -137,24 +137,20 @@ const AppointmentRequestForm = ({ type }) => {
                             buttonClass="phone-input-flag-button"
                             id="phone-input"
                         />
-                        {type === "Depilación" && (
-                            <>
-                                <label htmlFor="options">Cantidad de zonas</label>
-                                <select
-                                    id="options"
-                                    value={selectedOption}
-                                    onChange={handleChange}
-                                    className='form-control'
-                                    name='sessionZones'
-                                >
-                                    <option value="" disabled></option>
-                                    <option value="1">1 Zona</option>
-                                    <option value="3">3 Zonas</option>
-                                    <option value="5">5 Zonas</option>
-                                    <option value="10">Full-body</option>
-                                </select>
-                            </>
-                        )}
+                        <label htmlFor="options">Cantidad de zonas</label>
+                        <select
+                            id="options"
+                            value={selectedOption}
+                            onChange={handleChange}
+                            className='form-control'
+                            name='sessionZones'
+                        >
+                            <option value="" disabled></option>
+                            <option value="1">1 Zona</option>
+                            <option value="3">3 Zonas</option>
+                            <option value="5">5 Zonas</option>
+                            <option value="10">Full-body</option>
+                        </select>
                         <label htmlFor="date-input">Fecha y hora</label>
                         <DatePicker
                             selected={startDate}

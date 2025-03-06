@@ -33,6 +33,7 @@ const AppointmentList = ({ name, appointments }) => {
                 service={appointment.type}
                 date={convertDateToDDMMYY(appointment.date)}
                 hour={convertDateToHHMM(appointment.date)}
+                status={appointment.status}
               />
             ))
           ) : (

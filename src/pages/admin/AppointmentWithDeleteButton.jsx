@@ -6,15 +6,16 @@ import AppointmentReScheduleForm from "./AppointmentReScheduleForm";
 import { convertDateToDDMMYY, convertDateToHHMM } from '../../helpers/converters';
 
 const AppointmentWithDeleteButton = ({ appointmentData, refreshData }) => {
-    const { deleteWaxAppointment } = useAppointments();
+    const { deleteAppointment } = useAppointments();
     const [showModal, setShowModal] = useState(false);
 
     const handleCloseModal = () => setShowModal(false);
     const handleShowModal = () => setShowModal(true);
 
-    const deleteAppointment = async () => {
+    const deleteSelectedAppointment = async () => {
+
         const result = await Swal.fire({
-            title: `Desea eliminar el turno de ${appointmentData.name}?`,
+            title: `Desea eliminar el turno de ${appointmentData.title}?`,
             text: `Esta acción no se puede deshacer`,
             icon: "warning",
             showCancelButton: true,
@@ -25,7 +26,8 @@ const AppointmentWithDeleteButton = ({ appointmentData, refreshData }) => {
         });
 
         if (result.isConfirmed) {
-            deleteWaxAppointment(appointmentData.id);
+            deleteAppointment(appointmentData.id);
+            refreshData();
         }
     }
 
@@ -52,15 +54,15 @@ const AppointmentWithDeleteButton = ({ appointmentData, refreshData }) => {
             <div className="col-md-2 col-sm-12">
                 {
                     (appointmentData.status === "pending")
-                        ? <button className="btn delete" disabled>Eliminar turno</button>
-                        : <button className="btn delete" onClick={deleteAppointment}>Eliminar turno</button>
+                        ? <button className="btn re-schedule" disabled>Reagendar turno</button>
+                        : <button className="btn re-schedule" onClick={handleShowModal}>Reagendar turno</button>
                 }
             </div>
             <div className="col-md-2 col-sm-12">
                 {
                     (appointmentData.status === "pending")
-                        ? <button className="btn re-schedule" disabled>Reagendar turno</button>
-                        : <button className="btn re-schedule" onClick={handleShowModal}>Reagendar turno</button>
+                        ? <button className="btn delete" disabled>Eliminar turno</button>
+                        : <button className="btn delete" onClick={deleteSelectedAppointment}>Eliminar turno</button>
                 }
             </div>
             <hr />
