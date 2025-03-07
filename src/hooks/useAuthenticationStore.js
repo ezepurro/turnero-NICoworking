@@ -5,14 +5,14 @@ import Swal from 'sweetalert2';
 
 export const useAuthenticationStore = () => {
 
-    const { onLogin, onLogout, clearErrorMessage } = useAuthStore();
+    const { onLogin, onLogout } = useAuthStore();
 
     const logIn = async ({ email, password }) => {
         try {
             const { data } = await handleApi.post('/auth/login', { email, password });
 
             const user = { uid: data.uid, name: data.name, isAdmin: data.isAdmin };
-            onLogin(user);
+            onLogin(user, data.token);
 
             Swal.fire({
                 icon: 'success',
@@ -36,7 +36,6 @@ export const useAuthenticationStore = () => {
 
     const logOut = async () => {
         try {
-            await handleApi.post('/auth/logout');
             onLogout();
         } catch (error) {
             console.error("Error al cerrar sesión", error);
@@ -49,7 +48,7 @@ export const useAuthenticationStore = () => {
             const { data } = await handleApi.post('/auth/register', { email, password, name, contact });
 
             const user = { uid: data.uid, name: data.name, isAdmin: data.isAdmin };
-            onLogin(user);
+            onLogin(user, data.token);
 
             Swal.fire({
                 icon: 'success',

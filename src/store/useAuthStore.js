@@ -19,17 +19,15 @@ const useAuthStore = create(persist(zukeeper(
         
 
         // onLogin
-        onLogin: ( user = {} ) => {
-          set({ isAuthenticated: true });
-          set({ user: user });
-          set({ errorMessage: null });
+        onLogin: ( user = {}, token ) => {
+          localStorage.setItem('token', token);
+          set({ isAuthenticated: true, user, errorMessage: null });
         },
 
         // onLogout
-        onLogout: ( errorMessage ) => {
-          set({ isAuthenticated: false });
-          set({ user: {} });
-          set({ errorMessage: errorMessage });
+        onLogout: () => {
+          localStorage.removeItem('token');
+          set({ isAuthenticated: false, user: null, errorMessage: null });
         },
 
         // clearErrorMessage
@@ -43,7 +41,7 @@ const useAuthStore = create(persist(zukeeper(
       }
 )));
 
-window.store = useAuthStore;
+// window.store = useAuthStore;
 
 export default useAuthStore;
 
