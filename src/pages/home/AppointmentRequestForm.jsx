@@ -1,21 +1,21 @@
 import { useState } from 'react';
-import { useForm } from '../hooks/useForm';
-import { useAppointments } from '../hooks/useAppointments';
-import { useMercadoPago } from '../hooks/useMercadoPago';
+import { useForm } from '../../hooks/useForm';
+import { useAppointments } from '../../hooks/useAppointments';
+import { useMercadoPago } from '../../hooks/useMercadoPago';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import { setHours, setMinutes } from 'date-fns';
 import { parsePhoneNumberFromString } from "libphonenumber-js";
-import { getEnvVariables } from '../helpers/getEnvVariables';
-import { validateAppointmentForm } from '../helpers/validators';
+import { getEnvVariables } from '../../helpers/getEnvVariables';
+import { validateAppointmentForm } from '../../helpers/validators';
 import DatePicker, { registerLocale } from "react-datepicker";
-import useAuthStore from '../store/useAuthStore';
-import useCalendarSettingsStore from '../store/useCalendarSettingsStore';
+import useAuthStore from '../../store/useAuthStore';
+import useCalendarSettingsStore from '../../store/useCalendarSettingsStore';
 import es from 'date-fns/locale/es';
 import Swal from "sweetalert2";
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import "react-datepicker/dist/react-datepicker.css";
-import '../styles/components/appointmentRequestForm.css';
+import '../../styles/components/appointmentRequestForm.css';
 
 registerLocale('es', es);
 
@@ -26,18 +26,18 @@ const appointmentFormFields = {
 };
 
 const AppointmentRequestForm = ({ type }) => {
-    const [preferenceId, setPreferenceId] = useState(null);
-    const [selectedOption, setSelectedOption] = useState('');
-    const [startDate, setStartDate] = useState(null);
-    const [isTouched, setIsTouched] = useState(false);
-    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const [ preferenceId, setPreferenceId ] = useState(null);
+    const [ selectedOption, setSelectedOption ] = useState('');
+    const [ startDate, setStartDate ] = useState(null);
+    const [ isTouched, setIsTouched ] = useState(false);
+    const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
     const { calendarDays } = useCalendarSettingsStore();
     const { contact, onInputChange } = useForm(appointmentFormFields);
     const { addAppointment, getReservedTimes } = useAppointments();
     const { createPreference } = useMercadoPago();
     const { user } = useAuthStore();
     const { VITE_MP_PUBLIC_KEY } = getEnvVariables();
-    const [excludedTimes, setExcludedTimes] = useState([]);
+    const [ excludedTimes, setExcludedTimes ] = useState([]);
 
     const handleDateChange = async (date) => {
         setPreferenceId(null);

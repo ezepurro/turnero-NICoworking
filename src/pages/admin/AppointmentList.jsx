@@ -46,7 +46,7 @@ const AppointmentList = () => {
     useEffect(() => {
       refreshData();
       Swal.fire({
-        text: 'Cargando la información necesaria',
+        text: 'Cargando turnos...',
         showConfirmButton: false, 
         timer: 1500,         
         timerProgressBar: true    

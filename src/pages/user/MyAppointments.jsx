@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import useAuthStore from "../../store/useAuthStore";
 import AppointmentList from "./AppointmentList";
 import Navbar from "../../components/navbar";
-import Footer from "../home/Footer";
+import Footer from "../../components/Footer";
 
 const MyAppointments = () => {
 

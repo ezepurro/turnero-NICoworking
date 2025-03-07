@@ -1,6 +1,6 @@
-import Navbar from "../../components/navbar"
-import Footer from "../home/Footer"
-import RegisterForm from "./register/RegisterForm"
+import Navbar from "../../components/navbar";
+import Footer from "../../components/Footer";
+import RegisterForm from "./register/RegisterForm";
 
 const RegisterPage = () => {
   return (
@@ -12,4 +12,4 @@ const RegisterPage = () => {
   )
 }
 
-export default RegisterPage
+export default RegisterPage;

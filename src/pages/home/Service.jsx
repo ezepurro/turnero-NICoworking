@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import AppointmentRequestModal from '../../components/AppointmentRequestModal';
+import AppointmentRequestModal from './AppointmentRequestModal';
 import '../../styles/components/service.css';
 
 

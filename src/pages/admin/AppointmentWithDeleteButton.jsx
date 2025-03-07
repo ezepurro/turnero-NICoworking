@@ -27,7 +27,7 @@ const AppointmentWithDeleteButton = ({ appointmentData, refreshData }) => {
         });
 
         if (result.isConfirmed) {
-            deleteAppointment(appointmentData.id);
+            await deleteAppointment(appointmentData.id);
             refreshData();
         }
     }

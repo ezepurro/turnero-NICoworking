@@ -1,6 +1,6 @@
-import Navbar from "../../components/navbar"
-import Footer from "../home/Footer"
-import LoginForm from "./login/LoginForm"
+import Navbar from "../../components/navbar";
+import Footer from "../../components/Footer";
+import LoginForm from "./login/LoginForm";
 
 const LoginPage = () => {
   return (
@@ -12,4 +12,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage
+export default LoginPage;

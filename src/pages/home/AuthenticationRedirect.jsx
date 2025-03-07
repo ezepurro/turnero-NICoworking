@@ -1,4 +1,4 @@
-import '../styles/components/authenticationRedirect.css';
+import '../../styles/components/authenticationRedirect.css';
 
 
 const AuthenticationRedirect = () => {

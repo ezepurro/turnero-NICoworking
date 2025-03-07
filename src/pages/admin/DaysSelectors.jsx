@@ -18,7 +18,7 @@ const DaysSelectors = () => {
           const data = await getCalendarSettings();
           const formattedDates = data.calendarSettings.waxDays.map(dateStr => new Date(dateStr));
           setCalendarDays({
-              'waxDays': formattedDates,
+            'waxDays': formattedDates,
           });
       } catch (error) {
           console.error("Error al recargar los datos:", error);

@@ -5,10 +5,15 @@ import { useAppointments } from "../../hooks/useAppointments";
 const NoPaidAppointmentWithDeleteButton = ({ appointmentData, refreshData }) => {
     
     const { deleteAppointment } = useAppointments();
-    const handleDeleteAppointment = () => {
-        deleteAppointment(appointmentData.id);
-        refreshData();
+
+    const handleDeleteAppointment = async () => {
+    try {
+        await deleteAppointment(appointmentData.id); 
+        refreshData(); 
+    } catch (error) {
+        console.error("Error eliminando el turno:", error);
     }
+};
  
     return (
         <>
@@ -23,7 +28,7 @@ const NoPaidAppointmentWithDeleteButton = ({ appointmentData, refreshData }) => 
                     {convertDateToDDMMYY(appointmentData.date)} | {convertDateToHHMM(appointmentData.date)} HS
                 </div>
                 <div className="col-md-2 no-paid-status">
-                    {(appointmentData.status === 'no-paid' ? 'Sin seña' : appointmentData.status)}
+                    <b>{(appointmentData.status === 'no-paid' ? 'Sin seña' : appointmentData.status)}</b>
                 </div>
                 <div className="col-md-2">
                     <button className="btn delete" onClick={handleDeleteAppointment}>Eliminar turno</button>
