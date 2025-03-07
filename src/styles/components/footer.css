@@ -34,8 +34,13 @@ footer {
     }
   }
 
-  span {
-    margin-top: 5px;
+
+
+  .solidcat-signature {
+    img {
+      width: 120px;
+      height: auto;
+    }
   }
 
   .footer-button {
@@ -59,6 +64,10 @@ footer {
     .footer-button {
       text-align: center;
     }
+
+    .copy {
+      margin-bottom: 15px;
+    }
   }
 
   @media (min-width: 768px) {
@@ -69,6 +78,9 @@ footer {
         font-size: 70px;
         margin-top: 20px;
       }
+    }
+    .copy {
+      margin-bottom: 0px;
     }
   }
 

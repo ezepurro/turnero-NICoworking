@@ -27,8 +27,15 @@ const Footer = () => {
             </ul>
         </div>
         <hr />
-        <div className="col-lg-12 text-center">
-          <span>Beauty Bloom {currentYear} © Todos los derechos reservados</span>
+        <div className="container">
+          <div className="row d-flex align-items-center justify-content-between">
+            <div className="col-md-6 text-center copy">
+              <span>Beauty Bloom {currentYear} © Todos los derechos reservados</span>
+            </div>
+            <div className="col-md-6 solidcat-signature text-center">
+              <img src="solidcat-box2.svg" alt="SolidCatBrand" />
+            </div>
+          </div>
         </div>
       </div>
     </footer>
