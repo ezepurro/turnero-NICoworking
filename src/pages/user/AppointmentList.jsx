@@ -3,6 +3,7 @@ import { convertDateToDDMMYY, convertDateToHHMM } from '../../helpers/converters
 import Appointment from './Appointment';
 import NoAppointments from './NoAppointments';
 import '../../styles/components/appointmentList.css';
+import { Wallet } from '@mercadopago/sdk-react';
 
 const AppointmentList = ({ name, appointments }) => {
   const [selectedOption, setSelectedOption] = useState(true);
@@ -28,13 +29,23 @@ const AppointmentList = ({ name, appointments }) => {
 
           {sortedAppointments.length !== 0 ? (
             sortedAppointments.map((appointment) => (
-              <Appointment
+              //const newPreferenceId = await createPreference(price, schedule, zonesAmmount, id); --> necesito poder hacer esto
+              <div>
+                <Appointment
                 key={appointment.id}
                 service={appointment.type}
                 date={convertDateToDDMMYY(appointment.date)}
                 hour={convertDateToHHMM(appointment.date)}
                 status={appointment.status}
               />
+              {appointment.status == 'pending'?(
+                <div>
+                  {preferenceId && <Wallet initialization={{ preferenceId }} customization={{ texts: { valueProp: 'smart_option' } }} />}
+                </div>
+              ) : (
+                'hola'
+              )}
+              </div>
             ))
           ) : (
             <NoAppointments admin={false} />

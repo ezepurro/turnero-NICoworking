@@ -1,6 +1,6 @@
 
 const Appointment = ({ service, date, hour, status }) => {
-  return (
+    return (
     <div className="container appoinment">
         <div className="row">
             <div className="col-3">
@@ -18,7 +18,7 @@ const Appointment = ({ service, date, hour, status }) => {
             <hr />
         </div>
     </div>
-  )
+    )
 }
 
 export default Appointment

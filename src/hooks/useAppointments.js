@@ -7,7 +7,9 @@ export const useAppointments = () => {
     const getUserAppointments = async ( uid ) => {
         try {
             const { data } = await handleApi.get(`/appointments/users/${uid}`);
-            return data.appointments.filter(appointment => appointment.status === "paid");
+            return data.appointments.filter((appointment) => {
+                return appointment.status === "paid" || appointment.status === "pending"
+            });
         } catch (error) {
             console.log(error);
         }
