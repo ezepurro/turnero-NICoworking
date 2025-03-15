@@ -29,7 +29,7 @@
     }
     button {
         background-color: var(--background-color);
-        color: var(--backgroud-text-color);
+        color: var(--text-color);
         margin-bottom: 25px;
     }
     button:hover {

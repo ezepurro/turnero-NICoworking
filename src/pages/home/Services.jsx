@@ -1,8 +1,6 @@
 import { useEffect } from "react";
 import { useCalendarSettings } from "../../hooks/useCalendarSettings";
-import { services } from "../../data/services";
 import useCalendarSettingsStore from "../../store/useCalendarSettingsStore";
-import Service from "./Service";
 import '../../styles/components/services.css';
 
 
@@ -22,16 +20,8 @@ const Services = () => {
   return (
     <>
       <div className="subtitulo">
-        <p>Nuestros servicios</p>
-      </div>
-      <div id="services">
-          <div className=" service-container">
-            {
-              services.map((service, index) => {
-                return <Service key={index} image_url={service.image} service={service.title.toLocaleUpperCase()} service_description={service.description} type={service.type} />
-              })
-            }
-          </div>
+        <p>DEPILACIÓN LÁSER</p>
+        <p className="subtitle">La Libertad de tu Piel sin Vello y Sin Dolor</p>
       </div>
     </>
   )

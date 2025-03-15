@@ -2,8 +2,8 @@ footer {
   width: 100%;
   padding: 3%;
   background-color: var(--background-color);
-  color: var(--backgroud-text-color);
-  font-family: var(--font-secondary);
+  color: var(--text-color);
+  font-family: var(--font-primary);
 
   .title {
     display: flex;
@@ -24,19 +24,33 @@ footer {
     list-style: none;
     padding: 0;
 
-    li {
+    li.social-item {
       margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+
+      span {
+        margin-left: 10px;
+      }
 
       a {
-        color: var(--backgroud-text-color);
+        color: var(--text-color);
         text-decoration: none;
+        display: flex;
+        align-items: center;
+      }
+
+      .social-icon {
+        margin-right: 8px;
       }
     }
   }
 
-
-
   .solidcat-signature {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     img {
       width: 120px;
       height: auto;
@@ -48,9 +62,9 @@ footer {
 
     a {
       background-color: rgba(0, 0, 0, 0);
-      font-family: var(--font-secondary);
-      color: var(--backgroud-text-color);
-      border: var(--backgroud-text-color) solid 0.5px;
+      font-family: var(--font-primary);
+      color: var(--text-color);
+      border: var(--background-text-color) solid 0.5px;
       padding: 1%;
       text-decoration: none;
     }
@@ -58,7 +72,8 @@ footer {
 
   @media (min-width: 0px) {
     h1 {
-      font-size: 60px;
+      font-size: 45px;
+      margin-bottom: 10px;
     }
 
     .footer-button {
