@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Krona+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
 
 :root {
-  --background-color: #494f33;
-  --background-color-hover: #373b27;
+  --background-color: #e8ded8;
+  --background-color-hover: #d4cbc5;
   --backgroud-text-color: #f2f0ed;
-  --font-primary: 'Nunito', sans-serif;
+  --text-color: #393939;
+  --font-primary: 'Raleway', sans-serif;
   --font-secondary: 'Krona One', Courier, monospace;
   --font-title: 'Kudryashev Display';
   --font-brand: 'Tan Meringue';

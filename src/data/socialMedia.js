@@ -5,23 +5,18 @@ import Whatsapp from '../components/icons/Whatsapp';
 
 export const socialMedia = [
     {
-        url: 'mailto:nuevaidcoworking@gmail.com',
+        url: 'mailto:beautybloom.arg@gmail.com',
         icon: Email,
-        text: 'nuevaidcoworking@gmail.com'
+        text: 'beautybloom.arg@gmail.com'
     },
     {
-        url: 'https://www.instagram.com/beauty.centercba/',
+        url: 'https://www.instagram.com/depilacion_beauty_bloom/',
         icon: Instagram,
-        text: '@beauty.certercba'
-    },
-    {
-        url: 'https://www.facebook.com/nuevaidentidadcoworking/',
-        icon: Facebook,
-        text: 'Nueva Identidad Coworking'
+        text: '@depilacion_beauty_bloom'
     },
         {
         url: null,
         icon: Whatsapp,
-        text: '0351 15-858-0190'
+        text: '351 376 2018'
     },
 ]
