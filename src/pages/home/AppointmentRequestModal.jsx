@@ -5,7 +5,7 @@ import useAuthStore from '../../store/useAuthStore';
 import '../../styles/components/appointmentRequestModal.css';
 
 
-const AppointmentRequestModal = ( {service, type, ...props}) => {
+const AppointmentRequestModal = ( {service, type, defaultValue, ...props}) => {
   
     const { isAuthenticated } = useAuthStore();
 
@@ -21,14 +21,14 @@ const AppointmentRequestModal = ( {service, type, ...props}) => {
               {
               (isAuthenticated)
                 ? `Sacar turno a ${service.toLowerCase()}`
-                : <>Ingresar a <span className='title'>Beauty Center</span></>
+                : <>Ingresar a <span className='title'>Beauty Bloom</span></>
               }
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             {
               ( isAuthenticated )
-                ? <AppointmentRequestForm type={type} />
+                ? <AppointmentRequestForm type={type} defaultValue={defaultValue} />
                 : <AuthenticationRedirect />
             }
           </Modal.Body>

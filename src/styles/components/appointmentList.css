@@ -8,10 +8,10 @@
     }
     h5 {
         margin: 0px 0px 40px 0px;
-        color: rgb(105, 105, 105);
+        color: var(--text-color);
     }
     b {
-        color: var(--background-color);
+        color: var(--text-color);
     }
     .appoinment {
         h4 {

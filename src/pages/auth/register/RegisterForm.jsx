@@ -41,7 +41,7 @@ const RegisterForm = () => {
                     <form onSubmit={handleSubmit} className="form-control auth-form p-5">
                         <div className="form-title">
                             <p>Bienvenida a</p>
-                            <span>Beauty Center</span>
+                            <span>Beauty Bloom</span>
                         </div>
                         <input
                             type="text"

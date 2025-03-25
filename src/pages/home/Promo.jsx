@@ -18,6 +18,7 @@ const Promo = ({ data }) => {
           onHide={() => setModalShow(false)}
           service={ service.title.toLocaleUpperCase() }
           type={ service.type }
+          defaultValue={data.value}
         />
     </article>
   )

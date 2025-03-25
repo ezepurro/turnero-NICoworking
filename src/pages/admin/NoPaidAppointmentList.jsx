@@ -66,7 +66,7 @@ const NoPaidAppointmentList = () => {
             <div className="service-title-admin text-center">
                 Turnos vencidos<button onClick={reloadData} className="btn-reload"><Reload /></button>
             </div>
-            <div className="search-container text-center">
+            {/* <div className="search-container text-center">
                 <div className="input-wrapper">
                     <Search classname="search-icon" color="currentColor" />
                     <input
@@ -80,7 +80,7 @@ const NoPaidAppointmentList = () => {
                         className="search-input"
                     />
                 </div>
-            </div>
+            </div> */}
 
             {filteredAppointments.length > 0 ? (
                 <div className="container">

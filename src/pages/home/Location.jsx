@@ -1,6 +1,4 @@
 import MapMarker from '../../components/icons/MapMarker';
-import Whatsapp from '../../components/icons/Whatsapp';
-import Email from '../../components/icons/Email';
 import '../../styles/components/location.css';
 
 const Location = () => {
@@ -9,7 +7,7 @@ const Location = () => {
       <div className="row">
         <div className="col-lg-6 col-md-12">
           <div className="subtitulo">
-            <p>Nuestro Espacio:</p>
+            <p>Nuestro Espacio</p>
           </div>
           <ul className='info'>
             <li>

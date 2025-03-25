@@ -25,9 +25,9 @@ const appointmentFormFields = {
     date: '',
 };
 
-const AppointmentRequestForm = ({ type }) => {
+const AppointmentRequestForm = ({ type, defaultValue }) => {
     const [ preferenceId, setPreferenceId ] = useState(null);
-    const [ selectedOption, setSelectedOption ] = useState('');
+    const [ selectedOption, setSelectedOption ] = useState(defaultValue || '');
     const [ startDate, setStartDate ] = useState(null);
     const [ isTouched, setIsTouched ] = useState(false);
     const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);

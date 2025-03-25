@@ -40,7 +40,7 @@ const LoginForm = () => {
                     <form className="form-control auth-form p-5" onSubmit={ loginSubmit }>
                         <div className="form-title">
                             <p>Ingresar a</p>
-                            <span>Beauty Center</span>
+                            <span>Beauty Bloom</span>
                         </div>
                         <input
                             type="email"  

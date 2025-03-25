@@ -2,15 +2,15 @@ import { useState } from 'react';
 import { useAuthenticationStore } from '../hooks/useAuthenticationStore';
 import useAuthStore from '../store/useAuthStore';
 import AppointmentRequestModal from '../pages/home/AppointmentRequestModal';
+import Cross from './icons/Cross';
 import Logo from './Logo';
 import '../styles/components/navbar.css';
-import Cross from './icons/Cross';
 
 function Navbar() {
     const { isAuthenticated, user } = useAuthStore();
     const { logOut } = useAuthenticationStore();
-    const [modalShow, setModalShow] = useState(false);
-    const [menuOpen, setMenuOpen] = useState(false);
+    const [ modalShow, setModalShow ] = useState(false);
+    const [ menuOpen, setMenuOpen ] = useState(false);
 
     return (
         <div className="navbar__container">
