@@ -1,10 +1,10 @@
-import Footer from "../../components/Footer";
-import MainTitle from "./MainTitle";
-import Services from "./Services";
 import Navbar from "../../components/Navbar";
-import Location from "./Location";
-import '../../styles/pages/home.css';
+import MainTitle from "./MainTitle";
 import Promos from "./Promos";
+import Services from "./Services";
+import Location from "./Location";
+import Footer from "../../components/Footer";
+import '../../styles/pages/home.css';
 
 const HomePage = () => {
   return (
