@@ -1,4 +1,4 @@
-import Navbar from "../../components/Navbar";
+import Navbar from "../../components/Navbar.jsx";
 import MainTitle from "./MainTitle";
 import Promos from "./Promos";
 import Services from "./Services";
