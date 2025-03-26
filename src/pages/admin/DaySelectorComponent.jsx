@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import { useCalendarSettings } from "../../hooks/useCalendarSettings";
 import useCalendarSettingsStore from "../../store/useCalendarSettingsStore";
-import "../../styles/components/DaySelectorComponent.css";
+import "../../styles/components/daySelectorComponent.css";
 
 const DaySelectorComponent = () => {
 

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
+import { useAuthenticationStore } from "../../hooks/useAuthenticationStore";
+import { useAppointments } from "../../hooks/useAppointments";
+import { addMinutes } from "date-fns";
 import AppointmentWithDeleteButton from "./AppointmentWithDeleteButton";
 import NoAppointments from "../user/NoAppointments";
 import Search from "../../components/icons/Search";
-import { useAppointments } from "../../hooks/useAppointments";
-import { useAuthenticationStore } from "../../hooks/useAuthenticationStore";
-import { addMinutes } from "date-fns";
-import Swal from "sweetalert2";
 import Reload from "../../components/icons/Reload";
+import Swal from "sweetalert2";
 
 const ITEMS_PER_PAGE = 6;
 
