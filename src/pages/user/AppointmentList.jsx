@@ -50,13 +50,15 @@ const AppointmentList = ({ name, appointments, loading }) => {
               )}
             </>
           )}
-
-          <button
-            onClick={() => setSelectedOption(!selectedOption)}
-            className='btn'
-          >
-            {selectedOption ? "Ver historial de turnos" : "Ver próximos turnos"}
-          </button>
+          {
+            !loading && 
+              <button
+                onClick={() => setSelectedOption(!selectedOption)}
+                className='btn'
+              >
+                {selectedOption ? "Ver historial de turnos" : "Ver próximos turnos"}
+              </button>
+          }
         </div>
       </div>
     </div>
