@@ -9,26 +9,29 @@ import Footer from "../../components/Footer";
 import Swal from "sweetalert2";
 
 const MyAppointments = () => {
-
   const { user } = useAuthStore();
   const [ appointments, setAppointments ] = useState([]);
+  const [ loading, setLoading ] = useState(true);
   const { getUserAppointments } = useAppointments();
   const { getCalendarSettings } = useCalendarSettings();
   const { setCalendarDays } = useCalendarSettingsStore();
 
   useEffect(() => {
     const fetchAppointments = async () => {
+      setLoading(true);
       const fetchedAppointments = await getUserAppointments(user.uid);
       setAppointments(fetchedAppointments);
-    }
+      setLoading(false);
+    };
+    
     const fetchCalendarSettings = async () => {
       const dates = await getCalendarSettings();
       setCalendarDays(dates.calendarSettings);
-    }
+    };
     
     fetchAppointments();
     fetchCalendarSettings();
-  }, []);
+  }, [user.uid]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -44,17 +47,19 @@ const MyAppointments = () => {
         confirmButtonText: 'Aceptar',
       });
     }
-  }, [])
-
-
+  }, [user.name]);
 
   return (
     <>
-      <AppointmentList name={user.name} appointments={appointments} />
+      <AppointmentList 
+        name={user.name} 
+        appointments={appointments} 
+        loading={loading}
+      />
       <Navbar />
       <Footer />
     </>
-  )
-}
+  );
+};
 
 export default MyAppointments;

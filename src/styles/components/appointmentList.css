@@ -125,6 +125,14 @@
         color: white;
         border: 1px rgba(0,0,0,0) solid;
     }
+    .make-paid {
+        border: 1px rgb(42, 90, 45) solid;
+        color: (58, 83, 150);
+    }
+    .make-paid:hover {
+        background-color: rgb(42, 90, 45);
+        color: white;
+    }
     h3 {
         margin: 30px 0px 10px 0px;
     }

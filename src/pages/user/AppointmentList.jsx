@@ -3,9 +3,11 @@ import { convertDateToDDMMYY, convertDateToHHMM } from '../../helpers/converters
 import Appointment from './Appointment';
 import NoAppointments from './NoAppointments';
 import '../../styles/components/appointmentList.css';
+import '../../styles/components/loadingMessage.css';
 
-const AppointmentList = ({ name, appointments }) => {
-  const [selectedOption, setSelectedOption] = useState(true);
+
+const AppointmentList = ({ name, appointments, loading }) => {
+  const [ selectedOption, setSelectedOption ] = useState(true);
 
   const futureAppointments = appointments.filter(
     (appointment) => new Date(appointment.date) > new Date()
@@ -26,18 +28,27 @@ const AppointmentList = ({ name, appointments }) => {
           </h3>
           <h5 className="text-center">{name}</h5>
 
-          {sortedAppointments.length !== 0 ? (
-            sortedAppointments.map((appointment) => (
-              <Appointment
-                key={appointment.id}
-                service={appointment.type}
-                date={convertDateToDDMMYY(appointment.date)}
-                hour={convertDateToHHMM(appointment.date)}
-                status={appointment.status}
-              />
-            ))
+          {loading ? (
+            <div className="loading-message">
+              <div className="spinner"></div>
+              <h2>Cargando turnos...</h2>
+            </div>
           ) : (
-            <NoAppointments admin={false} />
+            <>
+              {sortedAppointments.length !== 0 ? (
+                sortedAppointments.map((appointment) => (
+                  <Appointment
+                    key={appointment.id}
+                    service={appointment.type}
+                    date={convertDateToDDMMYY(appointment.date)}
+                    hour={convertDateToHHMM(appointment.date)}
+                    status={appointment.status}
+                  />
+                ))
+              ) : (
+                <NoAppointments admin={false} />
+              )}
+            </>
           )}
 
           <button

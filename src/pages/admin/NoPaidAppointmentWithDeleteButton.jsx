@@ -4,7 +4,7 @@ import { useAppointments } from "../../hooks/useAppointments";
 
 const NoPaidAppointmentWithDeleteButton = ({ appointmentData, refreshData }) => {
     
-    const { deleteAppointment } = useAppointments();
+    const { deleteAppointment, updateAppointment } = useAppointments();
 
     const handleDeleteAppointment = async () => {
     try {
@@ -13,7 +13,29 @@ const NoPaidAppointmentWithDeleteButton = ({ appointmentData, refreshData }) => 
     } catch (error) {
         console.error("Error eliminando el turno:", error);
     }
-};
+    };
+
+    // const handleAppointmentToPaid = async () => {
+    //         try {
+    //             const updatedData = {
+    //                 id: appointmentData.id,
+    //                 status: "paid",
+    //                 userId: appointmentData.clientId
+    //             };
+    //             const isUpdated = await updateAppointment(updatedData);
+    //             if (isUpdated) {
+    //                 Swal.fire({
+    //                     icon: 'success',
+    //                     title: 'Seña marcada como pagada',
+    //                     showConfirmButton: false,
+    //                     timer: 1500,
+    //                 });
+    //                 refreshData();
+    //             }
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     }
  
     return (
         <>
@@ -30,6 +52,9 @@ const NoPaidAppointmentWithDeleteButton = ({ appointmentData, refreshData }) => 
                 <div className="col-md-2 no-paid-status">
                     <b>{(appointmentData.status === 'no-paid' ? 'Sin seña' : appointmentData.status)}</b>
                 </div>
+                {/* <div className="col-md-2">
+                    <button className="btn make-paid" onClick={handleAppointmentToPaid}>Marcar como pago</button>
+                </div> */}
                 <div className="col-md-2">
                     <button className="btn delete" onClick={handleDeleteAppointment}>Eliminar turno</button>
                 </div>
