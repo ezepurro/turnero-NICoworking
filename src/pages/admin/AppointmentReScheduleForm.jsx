@@ -50,14 +50,14 @@ const AppointmentReScheduleForm = ({ show, handleClose, appointment, refreshData
             };
 
             const isUpdated = await updateAppointment(updatedData);
-            if (isUpdated) {
-                await sendRescheduleMessage({phoneNumber: appointment.contact, messageData: {
-                    name: appointment.title,
-                    type: appointment.type,
-                    date: convertDateToDDMMYY(startDate),
-                    time: convertDateToHHMM(startDate),
-                }}, appointment.title);
-            }
+            // if (isUpdated) {
+            //     await sendRescheduleMessage({phoneNumber: appointment.contact, messageData: {
+            //         name: appointment.title,
+            //         type: appointment.type,
+            //         date: convertDateToDDMMYY(startDate),
+            //         time: convertDateToHHMM(startDate),
+            //     }}, appointment.title);
+            // }
             refreshData();
             
         } catch (error) {
