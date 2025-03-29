@@ -20,6 +20,8 @@ const AppRouter = () => {
             <Route path="/auth/login" element={ <LoginPage /> } />
             <Route path="/auth/register" element={ <RegisterPage /> } />
 
+            {/* Privacy Policy */}
+
             {/* Home Routes */}
             <Route path="/" element={ <HomePage /> } />
             <Route path="/*" element={ <Navigate to="/" /> } />

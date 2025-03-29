@@ -124,7 +124,7 @@ const AppointmentRequestForm = ({ type, defaultValue }) => {
                                 name: 'contact',
                                 required: true,
                             }}
-                            placeholder='Número de contacto'
+                            placeholder='Por ej: +549...'
                             enableSearch={true}
                             autoFormat={false}
                             isValid={(value) => {
@@ -137,6 +137,7 @@ const AppointmentRequestForm = ({ type, defaultValue }) => {
                             buttonClass="phone-input-flag-button"
                             id="phone-input"
                         />
+                        <p className='phone-aclaration'>Por ej: +54 <strong>9</strong> 351...</p>
                         <label htmlFor="options">Cantidad de zonas</label>
                         <select
                             id="options"
