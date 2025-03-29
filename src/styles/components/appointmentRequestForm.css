@@ -1,48 +1,99 @@
-
 .appointment-form {
     input {
         width: 100%;
         margin: 10px 0px 10px 0px;
     }
+
     label {
         margin: 10px 0px 10px 0px;
     }
+
     .phone-aclaration {
         color: red;
         font-family: 'Montserrat', 'Courier New', Courier, monospace;
     }
+
+    .phone-format-helper {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 4px;
+        margin-bottom: 10px;
+        color: #6c757d;
+        font-size: 12px;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+
+        code {
+            color: #FF0000;
+        }
+    }
+
+    .phone-format-helper strong {
+        color: #FF0000;
+    }
+
+    .phone-format-helper svg {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+        color: red;
+    }
+
+    @media (max-width: 480px) {
+        .phone-format-helper {
+            flex-wrap: nowrap;
+            align-items: center;
+            font-size: 11px;
+            white-space: normal;
+        }
+
+        .phone-format-helper svg {
+            width: 12px;
+            height: 12px;
+        }
+    }
+
     .btn-submit {
         background-color: var(--background-color);
         color: white;
         margin-top: 10px;
     }
+
     .btn-submit:hover {
         background-color: var(--background-color-hover);
         margin-top: 10px;
     }
+
     .btn-submit:disabled {
-        background-color: rgb(207, 207, 207); 
+        background-color: rgb(207, 207, 207);
     }
-    
+
     .btn-submit:disabled:hover {
-        background-color: rgb(207, 207, 207); 
+        background-color: rgb(207, 207, 207);
     }
+
     .react-datepicker-wrapper {
         width: 100%;
     }
-    .react-datepicker{
+
+    .react-datepicker {
         font-family: var(--font-primary);
-        .react-datepicker__time-list-item--disabled{
+
+        .react-datepicker__time-list-item--disabled {
             display: none;
         }
+
         .react-datepicker__day--keyboard-selected {
-            background-color: rgba(0,0,0,0);
+            background-color: rgba(0, 0, 0, 0);
         }
+
         .react-datepicker__day--selected {
             background-color: var(--background-color);
         }
+
         .react-datepicker__day--outside-month {
-            background-color: rgba(0,0,0,0);
+            background-color: rgba(0, 0, 0, 0);
         }
     }
 
@@ -52,12 +103,12 @@
         margin: 10px 0px 10px 0px;
         font-family: var(--font-primary);
     }
-    
+
     .phone-input-container .form-control {
         width: 100%;
-        padding-left: 50px !important; 
+        padding-left: 50px !important;
     }
-    
+
     .phone-input-flag-button {
         background: transparent !important;
         border: none !important;
@@ -68,9 +119,9 @@
         overflow-x: hidden;
     }
 }
+
 @media (min-width: 0px) {
     .appointment-form .react-datepicker {
         border: 0;
-    } 
+    }
 }
-

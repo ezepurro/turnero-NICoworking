@@ -16,6 +16,7 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import "react-datepicker/dist/react-datepicker.css";
 import '../../styles/components/appointmentRequestForm.css';
+import Warning from '../../components/icons/Warning';
 
 registerLocale('es', es);
 
@@ -137,7 +138,14 @@ const AppointmentRequestForm = ({ type, defaultValue }) => {
                             buttonClass="phone-input-flag-button"
                             id="phone-input"
                         />
-                        <p className='phone-aclaration'>Por ej: +54 <strong>9</strong> 351...</p>
+                        {/* <p className='phone-aclaration'>Por ej: +54 <strong>9</strong> 351...</p> */}
+                        <small className="phone-format-helper">
+                            <Warning />
+                            <div>
+                                Asegúrate de ingresar tu número con el código de país y un <strong>9</strong> después. Ejemplo: <code>+54 9 351 1234567</code>
+                            </div>
+                        </small>
+
                         <label htmlFor="options">Cantidad de zonas</label>
                         <select
                             id="options"
