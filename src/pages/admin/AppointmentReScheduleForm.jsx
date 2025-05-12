@@ -76,7 +76,7 @@ const AppointmentReScheduleForm = ({ show, handleClose, appointment, refreshData
                 <Form>
                     <Form.Group className="mb-3">
                         <Form.Label>Contacto</Form.Label>
-                        <Form.Control type="text" value={appointment?.contact || ''} disabled />
+                        <Form.Control type="text" value={appointment?.extraContact || appointment?.contact || ''} disabled />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Cantidad de Zonas</Form.Label>

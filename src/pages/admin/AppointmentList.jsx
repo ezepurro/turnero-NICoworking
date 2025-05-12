@@ -8,24 +8,26 @@ import NoAppointments from "../user/NoAppointments";
 import Search from "../../components/icons/Search";
 import Reload from "../../components/icons/Reload";
 import Swal from "sweetalert2";
+import useAuthStore from "../../store/useAuthStore";
 
 const ITEMS_PER_PAGE = 6;
 
 const AppointmentList = () => {
-  const { getAllAppointments } = useAppointments();
+  const { getAllAppointments, addAppointmentByAdmin } = useAppointments();
+  const { user } = useAuthStore();
   const { getAllUsers } = useAuthenticationStore();
-  const [appointments, setAppointments] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(true);
-
-  const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    contact: "",
+  const [ appointments, setAppointments ] = useState([]);
+  const [ currentPage, setCurrentPage ] = useState(1);
+  const [ searchTerm, setSearchTerm ] = useState("");
+  const [ loading, setLoading ] = useState(true);
+  const [ showModal, setShowModal ] = useState(false);
+  const [ formData, setFormData ] = useState({
+    extraName: "",
+    extraContact: "",
     sessionZones: 1,
+    extraData: "",
     date: "",
-    extra: "",
+    userId: user.uid,
   });
 
   const refreshData = async () => {
@@ -45,6 +47,9 @@ const AppointmentList = () => {
           clientId: appointment.clientId,
           type: appointment.type,
           isoDate: appointment.date,
+          extraName: appointment.extraName,
+          extraContact: appointment.extraContact,
+          extraData: appointment.extraData,
         };
       });
       setAppointments(appointmentsWithNames);
@@ -74,17 +79,28 @@ const AppointmentList = () => {
   const handleModalClose = () => {
     setShowModal(false);
     setFormData({
-      name: "",
-      contact: "",
+      extraName: "",
+      extraContact: "",
       sessionZones: 1,
+      extraData: "",
       date: "",
-      extra: "",
+      userId: user.uid
     });
   };
 
   const handleModalSubmit = () => {
-    // createAppointment(formData);
+    if (!formData.extraName || !formData.extraContact || !formData.sessionZones || !formData.date || !formData.extraData) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Por favor, completa todos los campos",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
     console.log("Turno a guardar:", formData);
+    addAppointmentByAdmin(formData)
     Swal.fire({
       icon: "success",
       title: "Turno creado correctamente",
@@ -92,7 +108,7 @@ const AppointmentList = () => {
       showConfirmButton: false,
     });
     handleModalClose();
-    // refreshData();
+    refreshData();
   };
 
   const sortedAppointments = [...appointments].sort((a, b) => new Date(a.start) - new Date(b.start));
