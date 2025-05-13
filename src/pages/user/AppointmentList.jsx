@@ -29,22 +29,18 @@ const AppointmentList = ({ name, appointments }) => {
 
           {sortedAppointments.length !== 0 ? (
             sortedAppointments.map((appointment) => (
-              //const newPreferenceId = await createPreference(price, schedule, zonesAmmount, id); --> necesito poder hacer esto
+        
               <div>
                 <Appointment
                 key={appointment.id}
+                id={appointment.id}
                 service={appointment.type}
                 date={convertDateToDDMMYY(appointment.date)}
                 hour={convertDateToHHMM(appointment.date)}
                 status={appointment.status}
+                price={7000}
+                zonesAmmount = {appointment.sessionZones}
               />
-              {appointment.status == 'pending'?(
-                <div>
-                  {preferenceId && <Wallet initialization={{ preferenceId }} customization={{ texts: { valueProp: 'smart_option' } }} />}
-                </div>
-              ) : (
-                'hola'
-              )}
               </div>
             ))
           ) : (
