@@ -1,3 +1,16 @@
+.btn-success {
+    background-color: #198754 !important;
+    border-color: #198754 !important;
+}
+
+.datepicker-admin {
+    .react-datepicker-wrapper {
+        width: 100%;
+    }
+    .react-datepicker__time-list-item--disabled {
+        display: none;
+    }
+}
 
 .add-appointment-modal {
     .phone-aclaration {

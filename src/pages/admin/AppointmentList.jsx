@@ -129,7 +129,7 @@ const AppointmentList = () => {
         <h2 className="">Administrar turnos</h2>
         <div className="d-flex gap-2">
           <button onClick={handleAddAppointment} className="btn re-schedule">
-            Añadir turno
+            Agendar turno
           </button>
           <button onClick={reloadData} className="btn-reload">
             <Reload />

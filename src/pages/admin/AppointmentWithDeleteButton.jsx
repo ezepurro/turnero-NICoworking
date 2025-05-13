@@ -23,7 +23,7 @@ const AppointmentWithDeleteButton = ({ appointmentData, refreshData }) => {
 
     const deleteSelectedAppointment = async () => {
         const result = await Swal.fire({
-            title: `Desea eliminar el turno de ${appointmentData.title}?`,
+            title: `Desea eliminar el turno de ${appointmentData.extraName || appointmentData.title}?`,
             text: `Esta acción no se puede deshacer`,
             icon: "warning",
             showCancelButton: true,
@@ -81,7 +81,7 @@ const AppointmentWithDeleteButton = ({ appointmentData, refreshData }) => {
                 {
                     (appointmentData.status === "pending")
                         ? <div className="status-pending">En proceso de pago <Tooltip info={pendingInfo} /></div>
-                        : <div className="status-paid">Seña pagada<br />{formatData(appointmentData.extraData ? appointmentData.extraData : '7000')}</div>
+                        : <div className="status-paid">Seña pagada<br /><span>{formatData(appointmentData.extraData ? appointmentData.extraData : '7000')}</span></div>
                 }
             </div>
             <div className="col-md-2 col-sm-12">
