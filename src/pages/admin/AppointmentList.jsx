@@ -88,8 +88,8 @@ const AppointmentList = () => {
     });
   };
 
-  const handleModalSubmit = () => {
-    if (!formData.extraName || !formData.extraContact || !formData.sessionZones || !formData.date || !formData.extraData) {
+  const handleModalSubmit = async () => {
+    if (!formData.extraName || !formData.extraContact || !formData.sessionZones || !formData.date) {
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -99,16 +99,16 @@ const AppointmentList = () => {
       });
       return;
     }
-    console.log("Turno a guardar:", formData);
-    addAppointmentByAdmin(formData)
+    (!formData.extraData) ? formData.extraData = "0" : formData.extraData;
+    await addAppointmentByAdmin(formData);
     Swal.fire({
       icon: "success",
       title: "Turno creado correctamente",
       timer: 1500,
       showConfirmButton: false,
     });
-    handleModalClose();
     refreshData();
+    handleModalClose();
   };
 
   const sortedAppointments = [...appointments].sort((a, b) => new Date(a.start) - new Date(b.start));

@@ -5,12 +5,14 @@ import NoAppointments from './NoAppointments';
 import '../../styles/components/appointmentList.css';
 import '../../styles/components/loadingMessage.css';
 
-
 const AppointmentList = ({ name, appointments, loading }) => {
   const [ selectedOption, setSelectedOption ] = useState(true);
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
   const futureAppointments = appointments.filter(
-    (appointment) => new Date(appointment.date) > new Date()
+    (appointment) => new Date(appointment.date) >= today
   );
 
   const displayedAppointments = selectedOption ? futureAppointments : appointments;
@@ -36,29 +38,31 @@ const AppointmentList = ({ name, appointments, loading }) => {
           ) : (
             <>
               {sortedAppointments.length !== 0 ? (
-                sortedAppointments.map((appointment) => (
-                  <Appointment
-                    key={appointment.id}
-                    service={appointment.type}
-                    date={convertDateToDDMMYY(appointment.date)}
-                    hour={convertDateToHHMM(appointment.date)}
-                    status={appointment.status}
-                  />
-                ))
+                sortedAppointments.map((appointment) => {
+                  if (appointment.extraName || appointment.extraContact || appointment.extraData) return null;
+                  return (
+                    <Appointment
+                      key={appointment.id}
+                      service={appointment.type}
+                      date={convertDateToDDMMYY(appointment.date)}
+                      hour={convertDateToHHMM(appointment.date)}
+                      status={appointment.status}
+                    />
+                  );
+                })
               ) : (
                 <NoAppointments admin={false} />
               )}
             </>
           )}
-          {
-            !loading && 
-              <button
-                onClick={() => setSelectedOption(!selectedOption)}
-                className='btn'
-              >
-                {selectedOption ? "Ver historial de turnos" : "Ver próximos turnos"}
-              </button>
-          }
+          {!loading && (
+            <button
+              onClick={() => setSelectedOption(!selectedOption)}
+              className="btn"
+            >
+              {selectedOption ? "Ver historial de turnos" : "Ver próximos turnos"}
+            </button>
+          )}
         </div>
       </div>
     </div>
