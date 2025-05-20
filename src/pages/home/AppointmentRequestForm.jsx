@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from '../../hooks/useForm';
 import { useAppointments } from '../../hooks/useAppointments';
 import { useMercadoPago } from '../../hooks/useMercadoPago';
@@ -9,13 +9,14 @@ import { getEnvVariables } from '../../helpers/getEnvVariables';
 import { validateAppointmentForm } from '../../helpers/validators';
 import DatePicker, { registerLocale } from "react-datepicker";
 import useAuthStore from '../../store/useAuthStore';
-import useCalendarSettingsStore from '../../store/useCalendarSettingsStore';
+
 import es from 'date-fns/locale/es';
 import Swal from "sweetalert2";
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import "react-datepicker/dist/react-datepicker.css";
 import '../../styles/components/appointmentRequestForm.css';
+import { useDate } from '../../hooks/useDate';
 
 registerLocale('es', es);
 
@@ -25,19 +26,33 @@ const appointmentFormFields = {
     date: '',
 };
 
+
+
 const AppointmentRequestForm = ({ type }) => {
     const [ preferenceId, setPreferenceId ] = useState(null);
     const [ selectedOption, setSelectedOption ] = useState('');
     const [ startDate, setStartDate ] = useState(null);
     const [ isTouched, setIsTouched ] = useState(false);
     const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
-    const { calendarDays } = useCalendarSettingsStore();
+    const { getDates } = useDate()
     const { contact, onInputChange } = useForm(appointmentFormFields);
     const { addAppointment, getReservedTimes } = useAppointments();
     const { createPreference } = useMercadoPago();
     const { user } = useAuthStore();
     const { VITE_MP_PUBLIC_KEY } = getEnvVariables();
     const [ excludedTimes, setExcludedTimes ] = useState([]);
+    const [ includedDates, setIncludedDates ] = useState([]);
+
+    useEffect(() => {
+        async function dataFetching (){
+            const fetchedDates = await getDates();
+            const filteredDates = fetchedDates.map(date => {
+                return date.date
+            })
+            setIncludedDates(filteredDates)
+        };
+        dataFetching();
+    },[])
 
     const handleDateChange = async (date) => {
         setPreferenceId(null);
@@ -50,11 +65,13 @@ const AppointmentRequestForm = ({ type }) => {
 
     initMercadoPago(VITE_MP_PUBLIC_KEY, { locale: 'es-AR' });
 
+
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         setIsButtonDisabled(true);
 
-        const validation = await validateAppointmentForm(contact, startDate, selectedOption, calendarDays, type);
+        const validation = await validateAppointmentForm(contact, startDate, selectedOption);
         if (!validation.valid) {
             Swal.fire({
                 icon: "error",
@@ -162,7 +179,7 @@ const AppointmentRequestForm = ({ type }) => {
                             timeCaption="Hora"
                             onKeyDown={(e) => { e.preventDefault() }}
                             minDate={new Date()}
-                            includeDates={calendarDays.waxDays}
+                            includeDates={includedDates}
                             timeIntervals={(parseInt(selectedOption) !== 10) ? parseInt(selectedOption) * 5 : 25}
                             name='date'
                             excludeTimes={excludedTimes}
