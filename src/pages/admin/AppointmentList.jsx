@@ -16,12 +16,12 @@ const AppointmentList = () => {
   const { getAllAppointments, addAppointmentByAdmin } = useAppointments();
   const { user } = useAuthStore();
   const { getAllUsers } = useAuthenticationStore();
-  const [ appointments, setAppointments ] = useState([]);
-  const [ currentPage, setCurrentPage ] = useState(1);
-  const [ searchTerm, setSearchTerm ] = useState("");
-  const [ loading, setLoading ] = useState(true);
-  const [ showModal, setShowModal ] = useState(false);
-  const [ formData, setFormData ] = useState({
+  const [appointments, setAppointments] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [formData, setFormData] = useState({
     extraName: "",
     extraContact: "",
     sessionZones: 1,
@@ -112,9 +112,17 @@ const AppointmentList = () => {
   };
 
   const sortedAppointments = [...appointments].sort((a, b) => new Date(a.start) - new Date(b.start));
-  const filteredAppointments = sortedAppointments.filter((appointment) =>
-    appointment.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredAppointments = sortedAppointments.filter(appointment => {
+    const { title, extraName, contact, extraContact } = appointment;
+    const lowerSearch = searchTerm.toLowerCase();
+    return (
+      (title && title.toLowerCase().includes(lowerSearch)) ||
+      (extraName && extraName.toLowerCase().includes(lowerSearch)) ||
+      (contact && contact.toLowerCase().includes(lowerSearch)) ||
+      (extraContact && extraContact.toLowerCase().includes(lowerSearch))
+    );
+  });
+
   const totalPages = Math.ceil(filteredAppointments.length / ITEMS_PER_PAGE);
   const paginatedAppointments = filteredAppointments.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,

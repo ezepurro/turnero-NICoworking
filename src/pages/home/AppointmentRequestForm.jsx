@@ -138,7 +138,6 @@ const AppointmentRequestForm = ({ type, defaultValue }) => {
                             buttonClass="phone-input-flag-button"
                             id="phone-input"
                         />
-                        {/* <p className='phone-aclaration'>Por ej: +54 <strong>9</strong> 351...</p> */}
                         <small className="phone-format-helper">
                             <Warning />
                             <div>

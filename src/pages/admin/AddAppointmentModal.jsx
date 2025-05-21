@@ -109,6 +109,7 @@ const AddAppointmentModal = ({ show, handleClose, handleSubmit, formData, setFor
               showTimeSelect
               withPortal
               dateFormat="Pp"
+              timeIntervals={(parseInt(formData.sessionZones) !== 10) ? parseInt(formData.sessionZones) * 5 : 25}
               timeCaption="hora"
               className="form-control datepicker-admin"
               placeholderText="Selecciona fecha y hora"
