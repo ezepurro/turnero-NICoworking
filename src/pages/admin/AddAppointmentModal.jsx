@@ -1,14 +1,21 @@
+import { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { setHours, setMinutes } from "date-fns";
 import DatePicker, { registerLocale } from "react-datepicker";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { es } from "date-fns/locale";
+import PhoneInput from 'react-phone-input-2';
 import Warning from "../../components/icons/Warning";
-import "../../styles/components/addAppointmentModal.css";
+import 'react-phone-input-2/lib/style.css';
 import "react-datepicker/dist/react-datepicker.css";
+import "../../styles/components/addAppointmentModal.css";
 
 registerLocale('es', es);
 
 const AddAppointmentModal = ({ show, handleClose, handleSubmit, formData, setFormData }) => {
+
+  const [ isTouched, setIsTouched ] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -17,6 +24,16 @@ const AddAppointmentModal = ({ show, handleClose, handleSubmit, formData, setFor
   const handleDateChange = (date) => {
     setFormData(prev => ({ ...prev, date: date }));
   };
+
+  const handleCloseModal = () => {
+    setIsTouched(false);
+    handleClose();
+  }
+
+  const handleSubmitModal = () => {
+    setIsTouched(false);
+    handleSubmit();
+  }
 
   return (
     <Modal show={show} onHide={handleClose} className="add-appointment-modal">
@@ -38,12 +55,27 @@ const AddAppointmentModal = ({ show, handleClose, handleSubmit, formData, setFor
 
           <Form.Group className="mb-3">
             <Form.Label>Número de contacto del cliente</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Ej: +54 351..."
-              name="extraContact"
+            <PhoneInput
+              country={'ar'}
               value={formData.extraContact}
-              onChange={handleChange}
+              onBlur={() => setIsTouched(true)}
+              onChange={(value) => setFormData(prev => ({ ...prev, extraContact: value }))}
+              inputProps={{
+                name: 'extraContact',
+                required: true,
+              }}
+              placeholder='Por ej: +549...'
+              enableSearch={true}
+              autoFormat={false}
+              isValid={(value) => {
+                if (!isTouched) return true;
+                const phone = parsePhoneNumberFromString(value.startsWith("+") ? value : `+${value}`);
+                return phone?.isValid() || false;
+              }}
+              containerClass="phone-input-container"
+              inputClass="form-control"
+              buttonClass="phone-input-flag-button"
+              id="phone-input"
             />
             <small className="phone-format-helper">
               <Warning />
@@ -99,10 +131,10 @@ const AddAppointmentModal = ({ show, handleClose, handleSubmit, formData, setFor
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" onClick={handleCloseModal}>
           Cancelar
         </Button>
-        <Button variant="success" onClick={handleSubmit}>
+        <Button variant="success" onClick={handleSubmitModal}>
           Agendar turno
         </Button>
       </Modal.Footer>
