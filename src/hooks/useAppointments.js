@@ -87,8 +87,9 @@ export const useAppointments = () => {
     const getReservedTimes = async ( date, sessionLength ) => {
         try {
             const formattedDate = date.toISOString().split('T')[0]; 
-            const { data } = await handleApi.get(`/appointments/reserved?dateId=${formattedDate}&duration=${sessionLength}`);
-            return data.reservedTimes.map(time => new Date(time)); 
+            const { data } = await handleApi.get(`/appointments/reserved?date=${formattedDate}&duration=${sessionLength / 5}`);
+            console.log(date.reservedTimes)
+            return data.reservedTimes
         } catch (error) {
             console.log("Error obteniendo los horarios ocupados:", error);
             return [];

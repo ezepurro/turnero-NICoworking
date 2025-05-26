@@ -26,6 +26,21 @@ const appointmentFormFields = {
     date: '',
 };
 
+// Suponiendo que `startDate` es el día seleccionado
+const convertToDateTimes = (minutesArray, baseDate) => {
+  if (!Array.isArray(minutesArray)) {
+    console.log('No hay array de minutos')
+    return []
+  };
+
+  return minutesArray.map(min => {
+    const date = new Date(baseDate);
+    date.setHours(0, 0, 0, 0);
+    return new Date(date.getTime() + min * 60000);
+  });
+};
+
+
 
 
 const AppointmentRequestForm = ({ type }) => {
@@ -54,14 +69,16 @@ const AppointmentRequestForm = ({ type }) => {
         dataFetching();
     },[])
 
-    const handleDateChange = async (date) => {
-        setPreferenceId(null);
-        setStartDate(date);
-        setIsButtonDisabled(false);
-        const sessionLength = (parseInt(selectedOption) !== 10) ? parseInt(selectedOption) * 5 : 25;
-        const reservedTimes = await getReservedTimes(date, sessionLength);
-        setExcludedTimes(reservedTimes);
-    };
+   const handleDateChange = async (date) => {
+    setPreferenceId(null);
+    setStartDate(date);
+    setIsButtonDisabled(false);
+    const sessionLength = (parseInt(selectedOption) !== 10) ? parseInt(selectedOption) * 5 : 25;
+
+    const reservedTimes = await getReservedTimes(date, sessionLength); // <--- ¡ahora sí!
+    setExcludedTimes(reservedTimes);
+};
+
 
     initMercadoPago(VITE_MP_PUBLIC_KEY, { locale: 'es-AR' });
 
@@ -182,7 +199,7 @@ const AppointmentRequestForm = ({ type }) => {
                             includeDates={includedDates}
                             timeIntervals={(parseInt(selectedOption) !== 10) ? parseInt(selectedOption) * 5 : 25}
                             name='date'
-                            excludeTimes={excludedTimes}
+                            excludeTimes={convertToDateTimes(excludedTimes,startDate)}
                             withPortal
                             minTime={setHours(setMinutes(new Date(), 0), 9)}
                             maxTime={setHours(setMinutes(new Date(), 0), 20)}
