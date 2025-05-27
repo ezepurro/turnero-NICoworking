@@ -20,6 +20,12 @@ import { useDate } from '../../hooks/useDate';
 
 registerLocale('es', es);
 
+const subtractMinutes = (date, minutes) => {
+    const newDate = new Date(date);
+    newDate.setMinutes(newDate.getMinutes() - minutes);
+    return newDate;
+};
+
 const appointmentFormFields = {
     contact: '',
     sessionZones: '',
@@ -57,7 +63,7 @@ const AppointmentRequestForm = ({ type }) => {
     const { VITE_MP_PUBLIC_KEY } = getEnvVariables();
     const [ excludedTimes, setExcludedTimes ] = useState([]);
     const [ includedDates, setIncludedDates ] = useState([]);
-
+    const [timeRange, setTimeRange] = useState({ start: null, end: null });
     useEffect(() => {
         async function dataFetching (){
             const fetchedDates = await getDates();
@@ -67,7 +73,23 @@ const AppointmentRequestForm = ({ type }) => {
             setIncludedDates(filteredDates)
         };
         dataFetching();
-    },[])
+    },[]);
+
+    const createTimeFromBase = (baseDate, timeISOString) => {
+  if (!baseDate || !timeISOString) return null;
+
+  const base = new Date(baseDate);
+  const time = new Date(timeISOString);
+
+  const newTime = new Date(base);
+  newTime.setHours(time.getUTCHours());
+  newTime.setMinutes(time.getUTCMinutes());
+  newTime.setSeconds(0);
+  newTime.setMilliseconds(0);
+
+  return newTime;
+};
+
 
    const handleDateChange = async (date) => {
     setPreferenceId(null);
@@ -75,8 +97,13 @@ const AppointmentRequestForm = ({ type }) => {
     setIsButtonDisabled(false);
     const sessionLength = (parseInt(selectedOption) !== 10) ? parseInt(selectedOption) * 5 : 25;
 
-    const reservedTimes = await getReservedTimes(date, sessionLength); // <--- ¡ahora sí!
+    const {reservedTimes, startTime , endTime } = await getReservedTimes(date, sessionLength); //
+    console.log(startTime,endTime)
     setExcludedTimes(reservedTimes);
+    setTimeRange({
+        start: startTime ? new Date(startTime) : null,
+        end: endTime ? new Date(endTime) : null
+    });
 };
 
 
@@ -201,8 +228,13 @@ const AppointmentRequestForm = ({ type }) => {
                             name='date'
                             excludeTimes={convertToDateTimes(excludedTimes,startDate)}
                             withPortal
-                            minTime={setHours(setMinutes(new Date(), 0), 9)}
-                            maxTime={setHours(setMinutes(new Date(), 0), 20)}
+                            minTime={createTimeFromBase(startDate, timeRange.start)}
+                            maxTime={
+                                createTimeFromBase(
+                                    startDate,
+                                    timeRange.end ? subtractMinutes(timeRange.end, (parseInt(selectedOption) !== 10) ? parseInt(selectedOption) * 5 : 25) : null
+                                    )
+                            }
                             disabled={!selectedOption}
                             id="date-input"
                         />

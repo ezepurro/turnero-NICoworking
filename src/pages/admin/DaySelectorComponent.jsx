@@ -2,8 +2,8 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import { useDate } from "../../hooks/useDate";
 import "../../styles/components/DaySelectorComponent.css";
-const defaultStartTime = '2025-06-01T09:00:00.000Z'
-const defaultEndTime = '2025-06-01T21:00:00.000Z'
+const defaultStartTime = '2025-06-01T13:00:00.000Z'
+const defaultEndTime = '2025-06-01T20:30:00.000Z'
 const DaySelectorComponent = ({refreshData}) => {
 
     const [startDate, setStartDate] = useState();

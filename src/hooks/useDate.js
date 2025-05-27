@@ -7,7 +7,6 @@ export const useDate = () => {
         try {
             const { data } = await handleApi.get('/date');
 
-            // ✅ Corrige el error de doble array y asegura compatibilidad
             if (!data.dates) return [];
 
             return Array.isArray(data.dates)
