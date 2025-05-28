@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useAppointments } from "../../hooks/useAppointments";
+import { convertDateToDDMMYY, convertDateToHHMM } from '../../helpers/converters';
+import AppointmentReScheduleForm from "./AppointmentReScheduleForm";
 import Tooltip from "../../components/Tooltip";
 import Swal from "sweetalert2";
-import AppointmentReScheduleForm from "./AppointmentReScheduleForm";
-import { convertDateToDDMMYY, convertDateToHHMM } from '../../helpers/converters';
 
 const AppointmentWithDeleteButton = ({ appointmentData, refreshData }) => {
 
@@ -13,10 +13,17 @@ const AppointmentWithDeleteButton = ({ appointmentData, refreshData }) => {
     const handleCloseModal = () => setShowModal(false);
     const handleShowModal = () => setShowModal(true);
 
-    const deleteSelectedAppointment = async () => {
+    const formatContact = (contact) => {
+        return contact.startsWith('+') ? contact : `+${contact}`;
+    };
 
+    const formatData = (data) => {
+        return data.startsWith('$') ? data : `$${data}`;
+    };
+
+    const deleteSelectedAppointment = async () => {
         const result = await Swal.fire({
-            title: `Desea eliminar el turno de ${appointmentData.title}?`,
+            title: `Desea eliminar el turno de ${appointmentData.extraName || appointmentData.title}?`,
             text: `Esta acción no se puede deshacer`,
             icon: "warning",
             showCancelButton: true,
@@ -59,7 +66,10 @@ const AppointmentWithDeleteButton = ({ appointmentData, refreshData }) => {
     return (
         <div className="row">
             <div className="col-md-2 col-sm-12">
-                <p><b>{appointmentData.title}</b> - {appointmentData.contact.startsWith("+") ? appointmentData.contact : `+${appointmentData.contact}`}</p>
+                <p>
+                    <b>{appointmentData.extraName ? `${appointmentData.extraName}` : `${appointmentData.title}`}</b> -
+                    {formatContact(appointmentData.extraContact ? appointmentData.extraContact : appointmentData.contact)}
+                </p>
             </div>
             <div className="col-md-2 col-sm-12">
                 <p>{appointmentData.type}</p>
@@ -71,7 +81,7 @@ const AppointmentWithDeleteButton = ({ appointmentData, refreshData }) => {
                 {
                     (appointmentData.status === "pending")
                         ? <div className="status-pending">En proceso de pago <Tooltip info={pendingInfo} /></div>
-                        : <div className="status-paid">Seña pagada</div>
+                        : <div className="status-paid">Seña pagada<br /><span>{formatData(appointmentData.extraData ? appointmentData.extraData : '7000')}</span></div>
                 }
             </div>
             <div className="col-md-2 col-sm-12">
@@ -89,7 +99,6 @@ const AppointmentWithDeleteButton = ({ appointmentData, refreshData }) => {
                 }
             </div>
             <hr />
-
 
             <AppointmentReScheduleForm
                 show={showModal}
