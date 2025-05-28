@@ -70,13 +70,13 @@ const AppointmentReScheduleForm = ({ show, handleClose, appointment, refreshData
     return (
         <Modal show={show} onHide={handleClose} aria-hidden={!show} centered className='re-schedule-form'>
             <Modal.Header closeButton>
-                <Modal.Title>Editar Turno de {appointment.title}</Modal.Title>
+                <Modal.Title>Editar Turno de {appointment.extraName || appointment.title}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>
                     <Form.Group className="mb-3">
                         <Form.Label>Contacto</Form.Label>
-                        <Form.Control type="text" value={appointment?.contact || ''} disabled />
+                        <Form.Control type="text" value={appointment?.extraContact || appointment?.contact || ''} disabled />
                     </Form.Group>
                     <Form.Group className="mb-3">
                         <Form.Label>Cantidad de Zonas</Form.Label>

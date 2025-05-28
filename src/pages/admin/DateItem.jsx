@@ -1,22 +1,10 @@
-import { useCalendarSettings } from "../../hooks/useCalendarSettings";
-import useCalendarSettingsStore from "../../store/useCalendarSettingsStore";
+import { useDate } from "../../hooks/useDate";
+const DateItem = ({date, dateObj, refreshData }) => {
+  const { removeDate } = useDate();
 
-const DateItem = ({date, dateObj}) => {
-
-  const { removeWaxDateFromCalendarSettings } = useCalendarSettings();
-  const { setCalendarDays, calendarDays } = useCalendarSettingsStore();
-  
-  const handleDelete = () => {
-    removeWaxDateFromCalendarSettings(encodeURIComponent(dateObj));
-
-    const updatedWaxDays = calendarDays.waxDays.filter(
-      (d) => new Date(d).getTime() !== new Date(dateObj).getTime()
-    );
-
-    setCalendarDays({
-      ...calendarDays,
-      waxDays: updatedWaxDays,
-    });
+  const handleDelete = async() => {
+    await removeDate(dateObj.id)
+    refreshData()
   };
 
   return (
@@ -32,6 +20,7 @@ const DateItem = ({date, dateObj}) => {
             >
               Deshabilitar fecha
             </button>
+
           </div>
       </div>
       <hr />

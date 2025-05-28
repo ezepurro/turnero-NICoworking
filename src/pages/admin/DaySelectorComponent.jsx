@@ -1,30 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useDate } from "../../hooks/useDate";
 import DatePicker from "react-datepicker";
-import { useCalendarSettings } from "../../hooks/useCalendarSettings";
-import useCalendarSettingsStore from "../../store/useCalendarSettingsStore";
-import "../../styles/components/daySelectorComponent.css";
+const defaultStartTime = '2025-06-01T13:00:00.000Z'
+const defaultEndTime = '2025-06-01T20:30:00.000Z'
+import "../../styles/components/DaySelectorComponent.css";
 
-const DaySelectorComponent = () => {
-
+const DaySelectorComponent = ({refreshData}) => {
     const [startDate, setStartDate] = useState();
     const [enabledDates, setEnabledDates] = useState([]);
-    const { addWaxDate } = useCalendarSettings();
-    const { calendarDays, setCalendarDays } = useCalendarSettingsStore();
+    const { addDate } = useDate();
 
-    useEffect(() => {
-      const formattedDates = calendarDays.waxDays.map(date => new Date(date));
-      setEnabledDates(formattedDates);
-    }, [calendarDays.waxDays]);
     
 
-    const handleSubmit = ( event ) => {
+    const handleSubmit = async( event ) => {
         event.preventDefault();
         if (startDate) {
-            const waxDate = new Date(startDate); 
-            addWaxDate({ waxDate: [waxDate.toISOString()] }); 
-            setCalendarDays({
-                'waxDays': [...calendarDays.waxDays, waxDate],
-            });
+            const date = new Date(startDate)
+            const formattedDate = date.toISOString();
+            await addDate(formattedDate,defaultStartTime,defaultEndTime)
+            refreshData()
         }
     }
 
