@@ -47,12 +47,6 @@ const AppointmentRequestForm = ({ type }) => {
 
     initMercadoPago(VITE_MP_PUBLIC_KEY, { locale: 'es-AR' });
 
-    const subtractMinutes = (date, minutes) => {
-        const newDate = new Date(date);
-        newDate.setMinutes(newDate.getMinutes() - minutes);
-        return newDate;
-    };
-
     const getMaxSelectableTime = (endTime, durationMinutes) => {
         if (!endTime || !durationMinutes) return null;
         const end = new Date(endTime);

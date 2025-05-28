@@ -5,7 +5,6 @@ import Swal from "sweetalert2";
 export const useMercadoPago = () => {
 
     const createPreference = async ( price, date, zonesAmmount, appointmentId ) => {
-        console.log('llega')
             const appointmentPreference = {
                 price : price,
                 date : date,

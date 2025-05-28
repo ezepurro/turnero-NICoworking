@@ -1,24 +1,27 @@
-import { useState } from "react";
-import DatePicker from "react-datepicker";
+import { useState, useEffect } from "react";
 import { useDate } from "../../hooks/useDate";
+import DatePicker from "react-datepicker";
 import "../../styles/components/DaySelectorComponent.css";
+
 const defaultStartTime = '2025-06-01T12:00:00.000Z'
 const defaultEndTime = '2025-06-01T20:30:00.000Z'
+
 const DaySelectorComponent = ({refreshData}) => {
 
     const [startDate, setStartDate] = useState();
     const [enabledDates, setEnabledDates] = useState([]);
-    const { addDate } = useDate();
+    const { addDate, getDates } = useDate();
 
     
 
     const handleSubmit = async( event ) => {
         event.preventDefault();
         if (startDate) {
-            const date = new Date(startDate)
+            const date = new Date(startDate);
             const formattedDate = date.toISOString();
-            await addDate(formattedDate,defaultStartTime,defaultEndTime)
-            refreshData()
+            await addDate(formattedDate,defaultStartTime,defaultEndTime);
+            refreshData();
+            fetchDates();
         }
     }
 
@@ -27,6 +30,17 @@ const DaySelectorComponent = ({refreshData}) => {
             enabledDate.toDateString() === date.toDateString()
         ) ? "enabled-day" : "";
     };
+
+    const fetchDates = async () => {
+            const dates = await getDates();
+            const formattedDates = dates.map(date => new Date(date.date));
+            setEnabledDates(formattedDates);
+        };
+
+    useEffect(() => {
+        fetchDates();
+    }, [])
+    
     
     return (
         <form className="day-selector" onSubmit={ handleSubmit }> 
