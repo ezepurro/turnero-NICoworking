@@ -1,8 +1,8 @@
 import parsePhoneNumberFromString from "libphonenumber-js";
-import { checkAvailability } from "./checkAvailability";
 
 
-export const validateAppointmentForm = async (contact, startDate, selectedOption, calendarDays, type) => {
+
+export const validateAppointmentForm = async (contact, startDate, selectedOption) => {
     // Validación de que estén todos los campos completados
     if (!contact || !startDate || !selectedOption) {
         return { valid: false, message: "Por favor, completa todos los campos antes de continuar" };
@@ -17,11 +17,11 @@ export const validateAppointmentForm = async (contact, startDate, selectedOption
     }
 
     // Validación de que la fecha seleccionada esté habilitada
-    const selectedFormatted = selected.toISOString().split("T")[0];
-    const isValidDate = calendarDays.waxDays.some(day => day.split("T")[0] === selectedFormatted);
-    if (!isValidDate) {
-        return { valid: false, message: "La fecha seleccionada no está disponible para reservar turnos" };
-    }
+    //const selectedFormatted = selected.toISOString().split("T")[0];
+    // const isValidDate = calendarDays.waxDays.some(day => day.split("T")[0] === selectedFormatted);
+    // if (!isValidDate) {
+    //     return { valid: false, message: "La fecha seleccionada no está disponible para reservar turnos" };
+    // }
 
     // Validación de que esté en el horario habilitado
     const openingHour = 9;
@@ -38,11 +38,7 @@ export const validateAppointmentForm = async (contact, startDate, selectedOption
     }
 
     // Verificar disponibilidad en la base de datos
-    const isAvailable = await checkAvailability(startDate, type);
-    if (!isAvailable) {
-        return { valid: false, message: "Ya existe una reserva para esta fecha y hora. Elige otra disponibilidad" };
-    }
-
+    //CHECKAVAILIBITY
     return { valid: true };
 };
 

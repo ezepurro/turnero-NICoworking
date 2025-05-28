@@ -3,7 +3,11 @@ import { convertDateToDDMMYY, convertDateToHHMM } from '../../helpers/converters
 import Appointment from './Appointment';
 import NoAppointments from './NoAppointments';
 import '../../styles/components/appointmentList.css';
+<<<<<<< HEAD
 import '../../styles/components/loadingMessage.css';
+=======
+import { Wallet } from '@mercadopago/sdk-react';
+>>>>>>> cee0700759bee78020cf81559673e0c7df13d9ea
 
 
 const AppointmentList = ({ name, appointments, loading }) => {
@@ -28,11 +32,30 @@ const AppointmentList = ({ name, appointments, loading }) => {
           </h3>
           <h5 className="text-center">{name}</h5>
 
+<<<<<<< HEAD
           {loading ? (
             <div className="loading-message">
               <div className="spinner"></div>
               <h2>Cargando turnos...</h2>
             </div>
+=======
+          {sortedAppointments.length !== 0 ? (
+            sortedAppointments.map((appointment) => (
+        
+              <div>
+                <Appointment
+                key={appointment.id}
+                id={appointment.id}
+                service={appointment.type}
+                date={convertDateToDDMMYY(appointment.date)}
+                hour={convertDateToHHMM(appointment.date)}
+                status={appointment.status}
+                price={7000}
+                zonesAmmount = {appointment.sessionZones}
+              />
+              </div>
+            ))
+>>>>>>> cee0700759bee78020cf81559673e0c7df13d9ea
           ) : (
             <>
               {sortedAppointments.length !== 0 ? (

@@ -1,25 +1,23 @@
 import { useEffect, useState } from "react";
-import { useCalendarSettings } from "../../hooks/useCalendarSettings";
 import { convertDateToDDMMYY } from "../../helpers/converters";
-import useCalendarSettingsStore from "../../store/useCalendarSettingsStore";
 import DaySelectorComponent from "./DaySelectorComponent";
 import DateItem from "./DateItem";
 import Swal from "sweetalert2";
+import { useDate } from "../../hooks/useDate";
 
 const DaysSelectors = () => {
-
+  const { getDates } = useDate()
   const [ selectorsType, setSelectorsType ] = useState("");
   const [ currentPage, setCurrentPage ] = useState(0);
-  const { calendarDays, setCalendarDays } = useCalendarSettingsStore();
-  const { getCalendarSettings } = useCalendarSettings();  
+  const [ dates, setDates ] = useState([])
+
+
 
   const fetchData = async () => {
       try {
-          const data = await getCalendarSettings();
-          const formattedDates = data.calendarSettings.waxDays.map(dateStr => new Date(dateStr));
-          setCalendarDays({
-            'waxDays': formattedDates,
-          });
+        const availableDates = await getDates();
+        setDates(availableDates)
+  
       } catch (error) {
           console.error("Error al recargar los datos:", error);
       }
@@ -63,20 +61,12 @@ const DaysSelectors = () => {
   currentDate.setHours(0, 0, 0, 0);
   const itemsPerPage = 5; 
 
-  const futureDates = calendarDays.waxDays
-  .filter((calendarDay) => {
-    const calendarDayDate = new Date(calendarDay);
-    calendarDayDate.setHours(0, 0, 0, 0); 
-    return calendarDayDate.getTime() >= currentDate.getTime(); 
-  })
-  .sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+  //const totalPages = Math.ceil(futureDates.length / itemsPerPage);
 
-  const totalPages = Math.ceil(futureDates.length / itemsPerPage);
-
-  const paginatedDates = futureDates.slice(
-    currentPage * itemsPerPage,
-    (currentPage + 1) * itemsPerPage
-  );
+  // const paginatedDates = futureDates.slice(
+  //   currentPage * itemsPerPage,
+  //   (currentPage + 1) * itemsPerPage
+  // );
 
   return (
     <div className="dayselectors">
@@ -94,7 +84,7 @@ const DaysSelectors = () => {
       <div className="container d-flex align-items-center" style={{ minHeight: "70vh" }}>
         <div className="row w-100">
           <div className="col-lg-6 col-md-12 mx-auto">
-            <DaySelectorComponent />
+            <DaySelectorComponent refreshData={fetchData} />
           </div>
           <div className="col-lg-6 col-md-12">
             <div className="row">
@@ -104,14 +94,14 @@ const DaysSelectors = () => {
             </div>
             <ul className="text-center">
               {
-                paginatedDates.map((calendarDay, index) => (
+                dates.map((calendarDay, index) => (
                   <li key={index}>
-                    <DateItem date={convertDateToDDMMYY(calendarDay)} dateObj={calendarDay.toISOString()} />
+                    <DateItem date={convertDateToDDMMYY(calendarDay.date)} dateObj={calendarDay} refreshData = {fetchData}  />
                   </li>
                 ))
               }
             </ul>
-            {totalPages > 1 && (
+            {/* {totalPages > 1 && (
               <div className="pagination-controls text-center">
                 <button
                   className="btn mx-2 pag-btn"
@@ -129,7 +119,7 @@ const DaysSelectors = () => {
                   Siguiente
                 </button>
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>
