@@ -1,37 +1,50 @@
+.btn-success {
+    background-color: #198754 !important;
+    border-color: #198754 !important;
+}
 
 .appointments-container {
     font-family: var(--font-primary);
     font-weight: 500;
-    min-height: calc(90vh); 
+    min-height: calc(90vh);
+
     h3 {
         margin: 120px 0px 5px 0px;
     }
+
     h5 {
         margin: 0px 0px 40px 0px;
         color: var(--text-color);
     }
+
     b {
         color: var(--text-color);
     }
+
     .appoinment {
         h4 {
             font-size: 20px;
         }
+
         p {
             font-size: 18px;
         }
+
         .paid {
             color: rgb(63, 141, 63);
         }
+
         .pending {
             color: rgb(148, 19, 19);
         }
     }
+
     button {
         background-color: var(--background-color);
         color: var(--text-color);
         margin-bottom: 25px;
     }
+
     button:hover {
         background-color: var(--background-color-hover);
         color: var(--backgroud-text-color);
@@ -45,38 +58,47 @@
         color: rgb(179, 59, 59);
         margin: 0px 0px 10px 0px;
     }
+
     .delete:hover {
         background-color: rgb(179, 59, 59);
         color: white;
-        border: 1px rgba(0,0,0,0) solid;
+        border: 1px rgba(0, 0, 0, 0) solid;
     }
+
     .re-schedule {
         border: 1px rgb(58, 83, 150) solid;
         color: (58, 83, 150);
     }
+
     .re-schedule:hover {
         background-color: rgb(58, 83, 150);
         color: white;
-        border: 1px rgba(0,0,0,0) solid;
+        border: 1px rgba(0, 0, 0, 0) solid;
     }
+
     .make-paid {
         border: 1px rgb(42, 90, 45) solid;
         color: (58, 83, 150);
     }
+
     .make-paid:hover {
         background-color: rgb(42, 90, 45);
         color: white;
     }
+
     h3 {
         margin: 30px 0px 10px 0px;
     }
+
     span {
         color: rgb(119, 119, 119);
     }
+
     .btn-pag {
         background-color: var(--background-color);
         color: white;
     }
+
     .btn-pag:hover {
         background-color: var(--background-color-hover);
         color: white;
@@ -87,7 +109,7 @@
         justify-content: center;
         margin-bottom: 30px;
     }
-    
+
     .input-wrapper {
         position: relative;
         display: flex;
@@ -95,7 +117,7 @@
         width: 100%;
         max-width: 1300px;
     }
-    
+
     .search-input {
         width: 100%;
         padding: 10px 10px 10px 35px;
@@ -103,7 +125,7 @@
         border-radius: 5px;
         font-size: 16px;
     }
-    
+
     .search-icon {
         position: absolute;
         left: 10px;
@@ -111,7 +133,7 @@
         height: 20px;
         color: #888;
     }
-    
+
 }
 
 .no-paid-appointments {
@@ -120,29 +142,36 @@
         color: rgb(179, 59, 59);
         margin: 0px 0px 10px 0px;
     }
+
     .delete:hover {
         background-color: rgb(179, 59, 59);
         color: white;
-        border: 1px rgba(0,0,0,0) solid;
+        border: 1px rgba(0, 0, 0, 0) solid;
     }
+
     .make-paid {
         border: 1px rgb(42, 90, 45) solid;
         color: (58, 83, 150);
     }
+
     .make-paid:hover {
         background-color: rgb(42, 90, 45);
         color: white;
     }
+
     h3 {
         margin: 30px 0px 10px 0px;
     }
+
     span {
         color: rgb(119, 119, 119);
     }
+
     .btn-pag {
         background-color: var(--background-color);
         color: white;
     }
+
     .btn-pag:hover {
         background-color: var(--background-color-hover);
         color: white;
@@ -153,7 +182,7 @@
         justify-content: center;
         margin-bottom: 30px;
     }
-    
+
     .input-wrapper {
         position: relative;
         display: flex;
@@ -161,7 +190,7 @@
         width: 100%;
         max-width: 1300px;
     }
-    
+
     .search-input {
         width: 100%;
         padding: 10px 10px 10px 35px;
@@ -169,7 +198,7 @@
         border-radius: 5px;
         font-size: 16px;
     }
-    
+
     .search-icon {
         position: absolute;
         left: 10px;
@@ -177,10 +206,11 @@
         height: 20px;
         color: #888;
     }
+
     .no-paid-status {
         color: rgb(197, 27, 27);
     }
-    
+
 }
 
 @media (max-width: 450px) {
@@ -189,6 +219,7 @@
             h4 {
                 font-size: 15px;
             }
+
             p {
                 font-size: 15px;
             }

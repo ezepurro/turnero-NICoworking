@@ -21,7 +21,7 @@ const CustomAgendaEvent = ({ event }) => (
   <span>
     <div className="row">
       <div className="col-md-3"><strong>{event.title}</strong></div>
-      <div className="col-md-3"><p>+{event.contact}</p></div>
+      <div className="col-md-3"><p>{event.contact.startsWith('+') ? event.contact : `+${event.contact}`}</p></div>
       <div className="col-md-3"><p>{event.type}</p></div>
       {
         (event.type === "Depilación") && 

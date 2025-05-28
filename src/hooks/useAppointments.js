@@ -135,9 +135,35 @@ export const useAppointments = () => {
         }
     };
 
+    const addAppointmentByAdmin = async ({ contact = '', status = "paid", sessionZones, date, userId, extraName, extraContact, extraData }) => {
+
+        const isoDate = date.toISOString();
+        const sessionLength = getSessionLength(sessionZones);
+        const parsedSessionZones = parseInt(sessionZones);
+
+        try {
+            const { data } = await handleApi.post('/appointments/admin', {
+                date: isoDate, userId, contact, sessionZones: parsedSessionZones, type: "Depilación", sessionLength, status, extraName, extraContact, extraData
+            });
+            return data.appointment.id;
+        } catch (error) {
+            console.log(error);
+            const data = error.response?.data;
+            const errorMessage = data?.msg || 'Error desconocido';
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al reservar turno',
+                text: errorMessage,
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        }
+    }
+
 
     return {
         addAppointment,
+        addAppointmentByAdmin,
         deleteAppointment,
         getAllAppointments,
         getAppointmentsByService,
