@@ -2,7 +2,7 @@
 
 .service-title-admin {
     font-family: var(--font-primary);
-    color: var(--background-color);
+    color: var(--text-color);
     padding: 10px 0px 10px 0px;
     margin: 10px 0px 10px 0px;
     font-size: 150%;
@@ -91,6 +91,10 @@
         svg {
             transform: scale(1.2);
         } 
+    }
+
+    .pagination-buttons span{
+        margin: 0px 10px 0px 10px;
     }
 
 }

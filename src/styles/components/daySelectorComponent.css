@@ -12,13 +12,23 @@
     }
 
     .date-item {
-        button {
+        .delete-button {
             border: 1px red solid;
             color: rgb(179, 59, 59);
             margin: 0px 0px 10px 0px;
         }
-        button:hover {
+        .delete-button:hover {
             background-color: rgb(179, 59, 59);
+            color: white;
+            border: 1px rgba(0,0,0,0) solid;
+        }
+        .change-button {
+            border: 1px rgb(44, 128, 167) solid;
+            color: rgb(44, 128, 167);
+            margin: 0px 0px 10px 0px;
+        }
+        .change-button:hover {
+            background-color: rgb(44, 128, 167);
             color: white;
             border: 1px rgba(0,0,0,0) solid;
         }

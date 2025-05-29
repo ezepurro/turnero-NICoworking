@@ -134,7 +134,7 @@ const AppointmentList = () => {
   return (
     <div className="delete-appointment">
       <div className="service-title-admin d-flex justify-content-between align-items-center mb-3 mx-5">
-        <h2 className="">Administrar turnos</h2>
+        <h3 className="">Administrar turnos</h3>
         <div className="d-flex gap-2">
           <button onClick={handleAddAppointment} className="btn re-schedule">
             Agendar turno

@@ -27,21 +27,21 @@ export const useDate = () => {
     };
 
 
-    // const getDates = async () => {
-    //     try {
-    //         const { data } = await handleApi.get('/date');
-    //         return data.dates ? [data.dates] : [];
-    //     } catch (error) {
-    //         console.log(error);
-    //         Swal.fire({
-    //             icon: 'error',
-    //             title: 'Error al obtener fechas',
-    //             text: error.response?.data?.msg || 'Error desconocido',
-    //             showConfirmButton: false,
-    //             timer: 1500,
-    //         });
-    //     }
-    // };
+    const getObjectDates = async () => {
+        try {
+            const { data } = await handleApi.get('/date');
+            return data;
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al obtener fechas',
+                text: error.response?.data?.msg || 'Error desconocido',
+                showConfirmButton: false,
+                timer: 1500,
+            });
+        }
+    };
 
     const addDate = async (newDateAvailable, startTime, endTime) => {
         try {
@@ -112,6 +112,7 @@ export const useDate = () => {
 
     return {
         getDates,
+        getObjectDates,
         addDate,
         changeDateTime,
         removeDate

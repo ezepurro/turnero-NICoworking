@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { useAppointments } from "../../hooks/useAppointments";
+import { useDate } from "../../hooks/useDate";
 import { es } from "date-fns/locale";
+import DatePicker, { registerLocale } from "react-datepicker";
 import PhoneInput from "react-phone-input-2";
 import Warning from "../../components/icons/Warning";
-import DatePicker, { registerLocale } from "react-datepicker";
-import { useDate } from "../../hooks/useDate";
-import { useAppointments } from "../../hooks/useAppointments";
 import "react-phone-input-2/lib/style.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../styles/components/addAppointmentModal.css";
@@ -19,7 +19,6 @@ const AddAppointmentModal = ({ show, handleClose, handleSubmit, formData, setFor
   const [startDate, setStartDate] = useState(null)
   const [includedDates, setIncludedDates] = useState([]);
   const [timeRange, setTimeRange] = useState({ start: null, end: null });
-
   const { getDates } = useDate();
   const { getReservedTimes } = useAppointments();
 
@@ -30,7 +29,7 @@ const AddAppointmentModal = ({ show, handleClose, handleSubmit, formData, setFor
       setIncludedDates(filteredDates);
     }
     fetchDates();
-  }, []);
+  }, [])
 
   const convertToDateTimes = (minutesArray, baseDate) => {
     if (!Array.isArray(minutesArray)) return [];
@@ -39,7 +38,7 @@ const AddAppointmentModal = ({ show, handleClose, handleSubmit, formData, setFor
       date.setHours(0, 0, 0, 0);
       return new Date(date.getTime() + min * 60000);
     });
-  };
+  }
 
   const createTimeFromBase = (baseDate, timeISOString) => {
     if (!baseDate || !timeISOString) return null;
@@ -51,19 +50,19 @@ const AddAppointmentModal = ({ show, handleClose, handleSubmit, formData, setFor
     newTime.setSeconds(0);
     newTime.setMilliseconds(0);
     return newTime;
-  };
+  }
 
   const getMaxSelectableTime = (endTime, durationMinutes) => {
     if (!endTime || !durationMinutes) return null;
     const end = new Date(endTime);
     end.setMinutes(end.getMinutes() - durationMinutes);
     return end;
-  };
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-  };
+  }
 
   const handleDateChange = async (date) => {
     setFormData(prev => ({ ...prev, date }));
@@ -78,17 +77,18 @@ const AddAppointmentModal = ({ show, handleClose, handleSubmit, formData, setFor
       start: startTime ? new Date(startTime) : null,
       end: endTime ? new Date(endTime) : null
     });
-  };
+  }
 
   const handleCloseModal = () => {
     setIsTouched(false);
+    setStartDate(null);
     handleClose();
-  };
+  }
 
   const handleSubmitModal = () => {
     setIsTouched(false);
     handleSubmit();
-  };
+  }
 
   const sessionDuration = (parseInt(formData.sessionZones) !== 10)
     ? parseInt(formData.sessionZones) * 5

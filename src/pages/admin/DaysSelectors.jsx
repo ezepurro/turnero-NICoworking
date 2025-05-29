@@ -1,76 +1,52 @@
 import { useEffect, useState } from "react";
 import { convertDateToDDMMYY } from "../../helpers/converters";
+import { useDate } from "../../hooks/useDate";
 import DaySelectorComponent from "./DaySelectorComponent";
 import DateItem from "./DateItem";
-import Swal from "sweetalert2";
-import { useDate } from "../../hooks/useDate";
 
 const DaysSelectors = () => {
-  const { getDates } = useDate()
-  const [ selectorsType, setSelectorsType ] = useState("");
-  const [ currentPage, setCurrentPage ] = useState(0);
-  const [ dates, setDates ] = useState([])
 
+  const { getObjectDates } = useDate()
+  const [ currentPage, setCurrentPage ] = useState(0);
+  const [ dates, setDates ] = useState([]);
 
 
   const fetchData = async () => {
-      try {
-        const availableDates = await getDates();
-        setDates(availableDates)
-  
-      } catch (error) {
-          console.error("Error al recargar los datos:", error);
+    try {
+      const response = await getObjectDates();
+
+      if (response?.ok && Array.isArray(response.dates)) {
+        const sortedDates = response.dates.sort((a, b) => new Date(a.date) - new Date(b.date));
+        setDates(sortedDates);
+      } else {
+        console.error("Respuesta inválida:", response);
       }
+
+    } catch (error) {
+      console.error("Error al recargar los datos:", error);
+    }
   };
 
   useEffect(() => {
-      const chooseCalendar = async () => {
-          const inputOptions = new Promise((resolve) => {
-              setTimeout(() => {
-                  resolve({
-                      "Depilación": "Depilación",
-                      // "Peluqueria": "Peluqueria",
-                  });
-              }, 250);
-          });
-
-          const { value: service } = await Swal.fire({
-              title: "Seleccione tipo de turno",
-              input: "radio",
-              inputOptions,
-              confirmButtonText: "Seleccionar",
-              allowOutsideClick: false,
-              allowEscapeKey: false,
-              inputValidator: (value) => {
-                  if (!value) {
-                      return "Por favor, seleccione tipo de turno";
-                  }
-              },
-          });
-
-          if (service) {
-            setSelectorsType(service);
-            fetchData();
-          }
-      };
-
-      chooseCalendar();
+    fetchData();
   }, []);
+
+
 
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
-  const itemsPerPage = 5; 
+  const itemsPerPage = 5;
 
-  //const totalPages = Math.ceil(futureDates.length / itemsPerPage);
+  const totalPages = Math.ceil(dates.length / itemsPerPage);
 
-  // const paginatedDates = futureDates.slice(
-  //   currentPage * itemsPerPage,
-  //   (currentPage + 1) * itemsPerPage
-  // );
+  const paginatedDates = dates.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage
+  );
 
   return (
     <div className="dayselectors">
-      <h3 className="service-title-admin text-center">Habilitación de fechas de {selectorsType.toLocaleLowerCase()}</h3>
+      <h3 className="service-title-admin text-center">Habilitación de fechas de depilación</h3>
       <div className="container">
         <div className="row">
           <div className="col-lg-6 col-md-12">
@@ -88,20 +64,23 @@ const DaysSelectors = () => {
           </div>
           <div className="col-lg-6 col-md-12">
             <div className="row">
-              <div className="col-6 text-center"><p>Fecha</p></div>
-              <div className="col-6 text-center"><p>Deshabilitar fecha</p></div>
+              <div className="col-2 text-center"><p><b>Fecha</b></p></div>
+              <div className="col-2 text-center"><p><b>Desde</b></p></div>
+              <div className="col-2 text-center"><p><b>Hasta</b></p></div>
+              <div className="col-3 text-center"><p><b>Modificar horarios</b></p></div>
+              <div className="col-3 text-center"><p><b>Deshabilitar fecha</b></p></div>
               <hr />
             </div>
             <ul className="text-center">
               {
-                dates.map((calendarDay, index) => (
+                paginatedDates.map((calendarDay, index) => (
                   <li key={index}>
-                    <DateItem date={convertDateToDDMMYY(calendarDay.date)} dateObj={calendarDay} refreshData = {fetchData}  />
+                    <DateItem date={convertDateToDDMMYY(calendarDay.date)} dateObj={calendarDay} refreshData={fetchData} />
                   </li>
                 ))
               }
             </ul>
-            {/* {totalPages > 1 && (
+            {totalPages > 1 && (
               <div className="pagination-controls text-center">
                 <button
                   className="btn mx-2 pag-btn"
@@ -119,7 +98,7 @@ const DaysSelectors = () => {
                   Siguiente
                 </button>
               </div>
-            )} */}
+            )}
           </div>
         </div>
       </div>

@@ -17,24 +17,31 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const CustomAgendaEvent = ({ event }) => (
-  <span>
-    <div className="row">
-      <div className="col-md-3"><strong>{event.title}</strong></div>
-      <div className="col-md-3"><p>+{event.contact}</p></div>
-      <div className="col-md-3"><p>{event.type}</p></div>
-      {
-        (event.type === "Depilación") && 
-          (<div className="col-md-3"><p>
-            {(event.sessionZones === 10)
-                ? 'Full-body'
-                : `${event.sessionZones} zonas`}</p>
-            </div>)
-      }
-      
-    </div>
-  </span>
-);
+const formatPhone = (phone) => {
+  if (!phone) return '';
+  return phone.startsWith('+') ? phone : `+${phone}`;
+};
+
+const CustomAgendaEvent = ({ event }) => {
+  const contactToShow = event.extraContact || event.contact;
+  return (
+    <span>
+      <div className="row">
+        <div className="col-md-3"><strong>{event.extraName || event.title}</strong></div>
+        <div className="col-md-3"><p>{formatPhone(contactToShow)}</p></div>
+        <div className="col-md-3"><p>{event.type}</p></div>
+        {
+          (event.type === "Depilación") && 
+            (<div className="col-md-3"><p>
+              {(event.sessionZones === 10)
+                  ? 'Full-body'
+                  : `${event.sessionZones} zonas`}</p>
+              </div>)
+        }
+      </div>
+    </span>
+  );
+};
 
 const CustomToolbar = ({ label, view, onView, onNavigate }) => {
   return (

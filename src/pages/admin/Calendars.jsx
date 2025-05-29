@@ -48,15 +48,18 @@ const Calendars = () => {
           const user = users.find((u) => u.id === appointment.clientId);
           return {
             id: appointment.id,
-            title: user ? user.name : "Desconocido",
+            title: user?.name || "Sin nombre",
             start: new Date(appointment.date),
-            end: addMinutes(new Date(appointment.date), appointment.sessionLength || 0),
+            end: addMinutes(new Date(appointment.date), appointment.sessionLength),
             contact: appointment.contact,
             sessionZones: appointment.sessionZones,
             status: appointment.status,
             clientId: appointment.clientId,
             type: appointment.type,
             isoDate: appointment.date,
+            extraName: appointment.extraName,
+            extraContact: appointment.extraContact,
+            extraData: appointment.extraData,
           };
         });
         setCalendarEvents(events);

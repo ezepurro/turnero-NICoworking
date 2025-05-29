@@ -8,8 +8,8 @@ const defaultEndTime = '2025-06-01T20:30:00.000Z'
 
 const DaySelectorComponent = ({refreshData}) => {
 
-    const [startDate, setStartDate] = useState();
-    const [enabledDates, setEnabledDates] = useState([]);
+    const [ startDate, setStartDate ] = useState();
+    const [ enabledDates, setEnabledDates ] = useState([]);
     const { addDate, getDates } = useDate();
 
     
