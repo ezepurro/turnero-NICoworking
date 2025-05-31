@@ -10,7 +10,7 @@ const MyAppointments = () => {
 
   const { user } = useAuthStore();
   const { getUserAppointments } = useAppointments(); 
-  const [appointments, setAppointments] = useState([]);
+  const [ appointments, setAppointments ] = useState([]);
 
   useEffect(() => {
     const fetchAppointments = async () => {

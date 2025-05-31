@@ -65,7 +65,7 @@ export const useDate = () => {
         }
     };
 
-    const changeDateTime = async ({ dateId, newStartTime, newEndTime }) => {
+    const changeDateTime = async ( dateId, newStartTime, newEndTime ) => {
         try {
             await handleApi.put('/date', { dateId, newStartTime, newEndTime });
             Swal.fire({

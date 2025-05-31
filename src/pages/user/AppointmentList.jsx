@@ -29,9 +29,7 @@ const AppointmentList = ({ name, appointments }) => {
 
           {sortedAppointments.length !== 0 ? (
             sortedAppointments.map((appointment) => (
-        
-              <div>
-                <Appointment
+              <Appointment
                 key={appointment.id}
                 id={appointment.id}
                 service={appointment.type}
@@ -39,9 +37,8 @@ const AppointmentList = ({ name, appointments }) => {
                 hour={convertDateToHHMM(appointment.date)}
                 status={appointment.status}
                 price={7000}
-                zonesAmmount = {appointment.sessionZones}
+                zonesAmmount={appointment.sessionZones}
               />
-              </div>
             ))
           ) : (
             <NoAppointments admin={false} />

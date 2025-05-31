@@ -13,15 +13,16 @@
     b {
         color: var(--background-color);
     }
+    .paid {
+        color: rgb(63, 141, 63);
+        font-weight: bold;
+    }
     .appoinment {
         h4 {
             font-size: 20px;
         }
         p {
             font-size: 18px;
-        }
-        .paid {
-            color: rgb(63, 141, 63);
         }
         .pending {
             color: rgb(148, 19, 19);
