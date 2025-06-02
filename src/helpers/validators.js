@@ -1,7 +1,6 @@
 import parsePhoneNumberFromString from "libphonenumber-js";
 
 
-
 export const validateAppointmentForm = async (contact, startDate, selectedOption) => {
     // Validación de que estén todos los campos completados
     if (!contact || !startDate || !selectedOption) {

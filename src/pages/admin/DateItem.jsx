@@ -2,8 +2,11 @@ import { useState } from "react";
 import { useDate } from "../../hooks/useDate";
 import { Button, Modal, Form } from "react-bootstrap";
 import { convertDateToHHMM } from "../../helpers/converters";
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from "react-datepicker";
+import es from 'date-fns/locale/es';
 import "react-datepicker/dist/react-datepicker.css";
+
+registerLocale('es', es);
 
 const DateItem = ({ date, dateObj, refreshData }) => {
 
@@ -59,6 +62,7 @@ const DateItem = ({ date, dateObj, refreshData }) => {
               <br />
               <DatePicker
                 selected={startTime}
+                locale="es"
                 onChange={(date) => setStartTime(date)}
                 showTimeSelect
                 showTimeSelectOnly
@@ -73,6 +77,7 @@ const DateItem = ({ date, dateObj, refreshData }) => {
               <br />
               <DatePicker
                 selected={endTime}
+                locale="es"
                 onChange={(date) => setEndTime(date)}
                 showTimeSelect
                 showTimeSelectOnly

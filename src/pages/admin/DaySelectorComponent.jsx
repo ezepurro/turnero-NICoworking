@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import "../../styles/components/DaySelectorComponent.css";
 
 const defaultStartTime = '2025-06-01T12:00:00.000Z';
-const defaultEndTime = '2025-06-01T22:00:00.000Z';
+const defaultEndTime = '2025-06-01T23:00:00.000Z';
 
 const DaySelectorComponent = ({ refreshData }) => {
 
