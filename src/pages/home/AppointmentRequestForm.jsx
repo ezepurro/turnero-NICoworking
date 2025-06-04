@@ -2,22 +2,19 @@ import { useEffect, useState } from 'react';
 import { useForm } from '../../hooks/useForm';
 import { useAppointments } from '../../hooks/useAppointments';
 import { useMercadoPago } from '../../hooks/useMercadoPago';
+import { useDate } from '../../hooks/useDate';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 import { getEnvVariables } from '../../helpers/getEnvVariables';
 import { validateAppointmentForm } from '../../helpers/validators';
 import DatePicker, { registerLocale } from "react-datepicker";
 import useAuthStore from '../../store/useAuthStore';
-
 import es from 'date-fns/locale/es';
 import Swal from "sweetalert2";
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import "react-datepicker/dist/react-datepicker.css";
 import '../../styles/components/appointmentRequestForm.css';
-import { useDate } from '../../hooks/useDate';
-
-// ...imports...
 
 registerLocale('es', es);
 
@@ -44,11 +41,10 @@ const AppointmentRequestForm = ({ type }) => {
             const filteredDates = fetchedDates.map(date => date.date);
             setIncludedDates(filteredDates);
 
-            // ✅ Seleccionar automáticamente la primera fecha válida si no hay ninguna seleccionada
             if (filteredDates.length > 0 && !startDate) {
                 const firstAvailableDate = new Date(filteredDates[0]);
                 setStartDate(firstAvailableDate);
-                handleDateChange(firstAvailableDate);  // Cargar horarios de esa fecha
+                handleDateChange(firstAvailableDate); 
             }
         }
         dataFetching();
@@ -97,10 +93,15 @@ const AppointmentRequestForm = ({ type }) => {
 
         const { reservedTimes, startTime, endTime } = await getReservedTimes(date, sessionLength);
 
+        const newStartTime = new Date(startTime);
+        newStartTime.setHours(newStartTime.getHours() - 3); // Ajuste de zona horaria a UTC-3
+        const newEndTime = new Date(endTime);
+        newEndTime.setHours(newEndTime.getHours() - 3); // Ajuste de zona horaria a UTC-3
+
         setExcludedTimes(reservedTimes);
         setTimeRange({
-            start: startTime ? new Date(startTime) : null,
-            end: endTime ? new Date(endTime) : null
+            start: newStartTime ? new Date(newStartTime) : null,
+            end: newEndTime ? new Date(newEndTime) : null
         });
     };
 
