@@ -7,6 +7,7 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import { es } from 'date-fns/locale';
 import Swal from 'sweetalert2';
 import 'react-datepicker/dist/react-datepicker.css';
+import "../../styles/components/appointmentReScheduleForm.css";
 import { useDate } from '../../hooks/useDate';
 
 registerLocale('es', es);
@@ -17,25 +18,29 @@ const AppointmentReScheduleForm = ({ show, handleClose, appointment, refreshData
   const [excludedTimes, setExcludedTimes] = useState([]);
   const [includedDates, setIncludedDates] = useState([]);
   const [timeRange, setTimeRange] = useState({ start: null, end: null });
+  const [isDatepickerTouched, setIsDatepickerTouched] = useState(false);
 
   const { updateAppointment, getReservedTimes } = useAppointments();
   const { sendRescheduleMessage } = useWhatsapp();
   const { getDates } = useDate();
 
   useEffect(() => {
-    if (appointment) {
-      setStartDate(new Date(appointment.start));
-      setSelectedOption(appointment.sessionZones.toString());
-    }
+    if (!show || !appointment) return;
 
-    async function fetchDates() {
-      const fetchedDates = await getDates();
-      const validDates = fetchedDates.map(d => d.date);
+    const initializeForm = async () => {
+      const validDates = (await getDates()).map(d => d.date);
       setIncludedDates(validDates);
-    }
 
-    fetchDates();
-  }, [appointment]);
+      const initialDate = new Date(appointment.start);
+      setStartDate(initialDate);
+      setSelectedOption(appointment.sessionZones.toString());
+      setIsDatepickerTouched(false);
+
+      await handleDateChange(initialDate, appointment.sessionZones);
+    };
+
+    initializeForm();
+  }, [show, appointment]);
 
   const convertToDateTimes = (minutesArray, baseDate) => {
     if (!Array.isArray(minutesArray)) return [];
@@ -65,24 +70,34 @@ const AppointmentReScheduleForm = ({ show, handleClose, appointment, refreshData
     return end;
   };
 
-  const handleDateChange = async (date) => {
+  const handleDateChange = async (date, zones = selectedOption) => {
     setStartDate(date);
-    const sessionLength = (parseInt(selectedOption) !== 10)
-      ? parseInt(selectedOption) * 5
+
+    const sessionLength = (parseInt(zones) !== 10)
+      ? parseInt(zones) * 5
       : 25;
 
     const { reservedTimes, startTime, endTime } = await getReservedTimes(date, sessionLength);
-    
+
     const newStartTime = new Date(startTime);
-    newStartTime.setHours(newStartTime.getHours() - 3); // Ajuste de zona horaria a UTC-3
+    newStartTime.setHours(newStartTime.getHours() - 3); // UTC-3
     const newEndTime = new Date(endTime);
-    newEndTime.setHours(newEndTime.getHours() - 3); // Ajuste de zona horaria a UTC-3
+    newEndTime.setHours(newEndTime.getHours() - 3);
 
     setExcludedTimes(reservedTimes);
     setTimeRange({
-      start: newStartTime ? new Date(newStartTime) : null,
-      end: newEndTime ? new Date(newEndTime) : null
+      start: newStartTime,
+      end: getMaxSelectableTime(newEndTime, sessionLength)
     });
+  };
+
+  const handleCloseModal = () => {
+    setStartDate(null);
+    setSelectedOption('');
+    setIsDatepickerTouched(false);
+    setExcludedTimes([]);
+    setTimeRange({ start: null, end: null });
+    handleClose();
   };
 
   const handleSaveChanges = async () => {
@@ -123,7 +138,7 @@ const AppointmentReScheduleForm = ({ show, handleClose, appointment, refreshData
       console.error(error);
     }
 
-    handleClose();
+    handleCloseModal();
   };
 
   const sessionDuration = (parseInt(selectedOption) !== 10)
@@ -131,23 +146,28 @@ const AppointmentReScheduleForm = ({ show, handleClose, appointment, refreshData
     : 25;
 
   return (
-    <Modal show={show} onHide={handleClose} centered className="re-schedule-form">
+    <Modal show={show} onHide={handleCloseModal} centered className="re-schedule-form">
       <Modal.Header closeButton>
-        <Modal.Title>Editar Turno de {appointment.title}</Modal.Title>
+        <Modal.Title>Editar Turno de {appointment?.title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
           <Form.Group className="mb-3">
             <Form.Label>Contacto</Form.Label>
-            <Form.Control type="text" value={appointment?.contact || ''} disabled />
+            <Form.Control type="text" value={appointment?.extraContact || appointment?.contact || ''} disabled />
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Cantidad de Zonas</Form.Label>
             <Form.Select
               value={selectedOption}
-              onChange={(e) => setSelectedOption(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+                setSelectedOption(value);
+                if (startDate) handleDateChange(startDate, value);
+              }}
             >
+              <option value="">Seleccionar</option>
               <option value="1">1 Zona</option>
               <option value="3">3 Zonas</option>
               <option value="5">5 Zonas</option>
@@ -159,7 +179,8 @@ const AppointmentReScheduleForm = ({ show, handleClose, appointment, refreshData
             <Form.Label>Fecha y Hora</Form.Label>
             <DatePicker
               selected={startDate}
-              onChange={handleDateChange}
+              onFocus={() => setIsDatepickerTouched(true)}
+              onChange={(date) => handleDateChange(date)}
               dateFormat="Pp"
               showTimeSelect
               locale="es"
@@ -170,11 +191,8 @@ const AppointmentReScheduleForm = ({ show, handleClose, appointment, refreshData
               excludeTimes={convertToDateTimes(excludedTimes, startDate)}
               timeIntervals={sessionDuration}
               minTime={createTimeFromBase(startDate, timeRange.start)}
-              maxTime={createTimeFromBase(
-                startDate,
-                getMaxSelectableTime(timeRange.end, sessionDuration)
-              )}
-              className="form-control"
+              maxTime={createTimeFromBase(startDate, timeRange.end)}
+              className={`form-control`}
               disabled={!selectedOption}
               onKeyDown={(e) => e.preventDefault()}
               placeholderText="Selecciona una nueva fecha y hora"
@@ -183,7 +201,7 @@ const AppointmentReScheduleForm = ({ show, handleClose, appointment, refreshData
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={handleClose} className="cancel-button">
+        <Button onClick={handleCloseModal} className="cancel-button">
           Cancelar
         </Button>
         <Button onClick={handleSaveChanges} className="save-changes-button">

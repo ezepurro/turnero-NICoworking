@@ -171,7 +171,7 @@ const AppointmentList = () => {
 
       {loading ? (
         <div className="loading-message">
-          <div className="spinner"></div>
+          {/* <div className="spinner"></div> */}
           <h2>Cargando turnos...</h2>
         </div>
       ) : (

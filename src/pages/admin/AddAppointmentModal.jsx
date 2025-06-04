@@ -16,20 +16,33 @@ registerLocale("es", es);
 const AddAppointmentModal = ({ show, handleClose, handleSubmit, formData, setFormData }) => {
   const [isTouched, setIsTouched] = useState(false);
   const [excludedTimes, setExcludedTimes] = useState([]);
-  const [startDate, setStartDate] = useState(null)
+  const [startDate, setStartDate] = useState(null);
   const [includedDates, setIncludedDates] = useState([]);
   const [timeRange, setTimeRange] = useState({ start: null, end: null });
+  const [isDatepickerTouched, setIsDatepickerTouched] = useState(false);
+
   const { getDates } = useDate();
   const { getReservedTimes } = useAppointments();
 
   useEffect(() => {
-    async function fetchDates() {
+    if (!show) return;
+
+    const fetchDates = async () => {
       const fetchedDates = await getDates();
       const filteredDates = fetchedDates.map(date => date.date);
       setIncludedDates(filteredDates);
-    }
+
+      if (filteredDates.length > 0 && !startDate) {
+        const firstAvailableDate = new Date(filteredDates[0]);
+        setStartDate(firstAvailableDate);
+        setFormData(prev => ({ ...prev, date: firstAvailableDate }));
+        handleDateChange(firstAvailableDate);
+        setIsDatepickerTouched(false);
+      }
+    };
+
     fetchDates();
-  }, [])
+  }, [show]);
 
   const convertToDateTimes = (minutesArray, baseDate) => {
     if (!Array.isArray(minutesArray)) return [];
@@ -38,7 +51,7 @@ const AddAppointmentModal = ({ show, handleClose, handleSubmit, formData, setFor
       date.setHours(0, 0, 0, 0);
       return new Date(date.getTime() + min * 60000);
     });
-  }
+  };
 
   const createTimeFromBase = (baseDate, timeISOString) => {
     if (!baseDate || !timeISOString) return null;
@@ -50,58 +63,60 @@ const AddAppointmentModal = ({ show, handleClose, handleSubmit, formData, setFor
     newTime.setSeconds(0);
     newTime.setMilliseconds(0);
     return newTime;
-  }
+  };
 
   const getMaxSelectableTime = (endTime, durationMinutes) => {
     if (!endTime || !durationMinutes) return null;
     const end = new Date(endTime);
     end.setMinutes(end.getMinutes() - durationMinutes);
     return end;
-  }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-  }
+  };
 
   const handleDateChange = async (date) => {
-    setFormData(prev => ({ ...prev, date }));
     setStartDate(date);
+    setFormData(prev => ({ ...prev, date }));
+
     const sessionLength = (parseInt(formData.sessionZones) !== 10)
       ? parseInt(formData.sessionZones) * 5
       : 25;
 
     const { reservedTimes, startTime, endTime } = await getReservedTimes(date, sessionLength);
-    
+
     const newStartTime = new Date(startTime);
-    newStartTime.setHours(newStartTime.getHours() - 3); // Ajuste de zona horaria a UTC-3
+    newStartTime.setHours(newStartTime.getHours() - 3); // UTC-3
     const newEndTime = new Date(endTime);
-    newEndTime.setHours(newEndTime.getHours() - 3); // Ajuste de zona horaria a UTC-3
+    newEndTime.setHours(newEndTime.getHours() - 3);
 
     setExcludedTimes(reservedTimes);
     setTimeRange({
-      start: newStartTime ? new Date(newStartTime) : null,
-      end: newEndTime ? new Date(newEndTime) : null
+      start: newStartTime,
+      end: newEndTime,
     });
-  }
+  };
 
   const handleCloseModal = () => {
     setIsTouched(false);
     setStartDate(null);
+    setIsDatepickerTouched(false);
     handleClose();
-  }
+  };
 
   const handleSubmitModal = () => {
     setIsTouched(false);
     handleSubmit();
-  }
+  };
 
   const sessionDuration = (parseInt(formData.sessionZones) !== 10)
     ? parseInt(formData.sessionZones) * 5
     : 25;
 
   return (
-    <Modal show={show} onHide={handleCloseModal} className="add-appointment-modal">
+    <Modal show={show} onHide={handleCloseModal} className="add-appointment-modal" centered>
       <Modal.Header closeButton>
         <Modal.Title>Agendar turno</Modal.Title>
       </Modal.Header>
@@ -125,10 +140,7 @@ const AddAppointmentModal = ({ show, handleClose, handleSubmit, formData, setFor
               value={formData.extraContact}
               onBlur={() => setIsTouched(true)}
               onChange={(value) => setFormData(prev => ({ ...prev, extraContact: value }))}
-              inputProps={{
-                name: "extraContact",
-                required: true
-              }}
+              inputProps={{ name: "extraContact", required: true }}
               placeholder="Por ej: +549..."
               enableSearch={true}
               autoFormat={false}
@@ -168,16 +180,16 @@ const AddAppointmentModal = ({ show, handleClose, handleSubmit, formData, setFor
 
           <Form.Group className="mb-3 datepicker-admin">
             <Form.Label>Fecha y hora</Form.Label>
-            <br />
             <DatePicker
               selected={startDate}
+              onFocus={() => setIsDatepickerTouched(true)}
               locale="es"
               onChange={handleDateChange}
               showTimeSelect
               withPortal
               dateFormat="Pp"
               timeCaption="Hora"
-              className="form-control datepicker-admin"
+              className={`form-control datepicker-admin ${!isDatepickerTouched ? 'date-placeholder-hidden' : ''}`}
               placeholderText="Selecciona fecha y hora"
               minDate={new Date()}
               includeDates={includedDates}

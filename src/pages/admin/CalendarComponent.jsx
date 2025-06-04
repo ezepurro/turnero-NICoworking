@@ -85,7 +85,12 @@ const CalendarComponent = ({events = []}) => {
     return () => window.removeEventListener('resize', updateHeight);
   }, []);
 
-  const filteredEvents = events.filter(event => event.status === "paid");
+  const filteredEvents = events
+  .filter(event => event.status === "paid")
+  .map(event => ({
+    ...event,
+    title: event.extraName ? event.extraName : event.title,
+  }));
 
   return (
     <div className="container-fluid">
@@ -109,7 +114,7 @@ const CalendarComponent = ({events = []}) => {
               week: "Semana",
               day: "Día",
               agenda: "Agenda",
-              noEventsInRange: "No hay citas agendadas en este rango.",
+              noEventsInRange: "No hay citas agendadas en este rango",
             }}
             components={{
               agenda: {
