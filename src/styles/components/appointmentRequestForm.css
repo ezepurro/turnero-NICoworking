@@ -63,7 +63,14 @@
     .country-list {
         overflow-x: hidden;
     }
+
+
+    .date-placeholder-hidden {
+        color: transparent;
+    }
 }
+
+
 @media (min-width: 0px) {
     .appointment-form .react-datepicker {
         border: 0;

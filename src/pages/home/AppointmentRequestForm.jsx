@@ -19,15 +19,15 @@ import '../../styles/components/appointmentRequestForm.css';
 registerLocale('es', es);
 
 const AppointmentRequestForm = ({ type }) => {
-    const [preferenceId, setPreferenceId] = useState(null);
-    const [selectedOption, setSelectedOption] = useState('');
-    const [startDate, setStartDate] = useState(null);
-    const [isTouched, setIsTouched] = useState(false);
-    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-    const [excludedTimes, setExcludedTimes] = useState([]);
-    const [includedDates, setIncludedDates] = useState([]);
-    const [timeRange, setTimeRange] = useState({ start: null, end: null });
-
+    const [ preferenceId, setPreferenceId ] = useState(null);
+    const [ selectedOption, setSelectedOption ] = useState('');
+    const [ startDate, setStartDate ] = useState(null);
+    const [ isTouched, setIsTouched ] = useState(false);
+    const [ isButtonDisabled, setIsButtonDisabled ] = useState(false);
+    const [ excludedTimes, setExcludedTimes ] = useState([]);
+    const [ includedDates, setIncludedDates ] = useState([]);
+    const [ timeRange, setTimeRange ] = useState({ start: null, end: null });
+    const [ isDatepickerTouched, setIsDatepickerTouched ] = useState(false);
     const { getDates } = useDate();
     const { contact, onInputChange } = useForm({ contact: '', sessionZones: '', date: '' });
     const { addAppointment, getReservedTimes } = useAppointments();
@@ -46,6 +46,7 @@ const AppointmentRequestForm = ({ type }) => {
                 setStartDate(firstAvailableDate);
                 handleDateChange(firstAvailableDate); 
             }
+            setIsDatepickerTouched(false);
         }
         dataFetching();
     }, []);
@@ -210,7 +211,8 @@ const AppointmentRequestForm = ({ type }) => {
                         <label htmlFor="date-input">Fecha y hora</label>
                         <DatePicker
                             selected={startDate}
-                            className="form-control"
+                            onFocus={() => setIsDatepickerTouched(true)}
+                            className={`form-control ${!isDatepickerTouched ? 'date-placeholder-hidden' : ''}`}
                             onChange={handleDateChange}
                             dateFormat="Pp"
                             showTimeSelect

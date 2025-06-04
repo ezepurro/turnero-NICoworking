@@ -23,12 +23,12 @@ export const validateAppointmentForm = async (contact, startDate, selectedOption
     // }
 
     // Validación de que esté en el horario habilitado
-    const openingHour = 9;
-    const closingHour = 21;
-    const selectedHour = selected.getHours();
-    if (selectedHour < openingHour || selectedHour >= closingHour) {
-        return { valid: false, message: "La hora seleccionada está fuera del horario habilitado" };
-    }
+    // const openingHour = 9;
+    // const closingHour = 21;
+    // const selectedHour = selected.getHours();
+    // if (selectedHour < openingHour || selectedHour >= closingHour) {
+    //     return { valid: false, message: "La hora seleccionada está fuera del horario habilitado" };
+    // }
 
     // Validación del número de celular
     const phone = parsePhoneNumberFromString(contact.startsWith("+") ? contact : `+${contact}`);
