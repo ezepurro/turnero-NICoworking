@@ -3,7 +3,7 @@ import { useAppointments } from "../../hooks/useAppointments";
 import Swal from "sweetalert2";
 import useAuthStore from "../../store/useAuthStore";
 import AppointmentList from "./AppointmentList";
-import Navbar from "../../components/navbar";
+import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 const MyAppointments = () => {
