@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDate } from "../../hooks/useDate";
 import DatePicker from "react-datepicker";
-import "../../styles/components/DaySelectorComponent.css";
+import "../../styles/components/daySelectorComponent.css";
 
 const defaultStartTime = '2025-06-01T12:00:00.000Z';
 const defaultEndTime = '2025-06-01T23:00:00.000Z';
