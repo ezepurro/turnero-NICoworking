@@ -3,7 +3,7 @@ import { useAuthenticationStore } from '../hooks/useAuthenticationStore';
 import useAuthStore from '../store/useAuthStore';
 import AppointmentRequestModal from '../pages/home/AppointmentRequestModal';
 import Logo from './Logo';
-import '../styles/components/navbar.css';
+import '../styles/components/Navbar.css';
 import Cross from './icons/Cross';
 
 function Navbar() {
