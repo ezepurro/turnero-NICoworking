@@ -72,10 +72,16 @@ const AppointmentReScheduleForm = ({ show, handleClose, appointment, refreshData
       : 25;
 
     const { reservedTimes, startTime, endTime } = await getReservedTimes(date, sessionLength);
+    
+    const newStartTime = new Date(startTime);
+    newStartTime.setHours(newStartTime.getHours() - 3); // Ajuste de zona horaria a UTC-3
+    const newEndTime = new Date(endTime);
+    newEndTime.setHours(newEndTime.getHours() - 3); // Ajuste de zona horaria a UTC-3
+
     setExcludedTimes(reservedTimes);
     setTimeRange({
-      start: startTime ? new Date(startTime) : null,
-      end: endTime ? new Date(endTime) : null
+      start: newStartTime ? new Date(newStartTime) : null,
+      end: newEndTime ? new Date(newEndTime) : null
     });
   };
 
