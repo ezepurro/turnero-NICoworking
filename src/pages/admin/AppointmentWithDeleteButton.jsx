@@ -67,12 +67,12 @@ const AppointmentWithDeleteButton = ({ appointmentData, refreshData }) => {
         <div className="row">
             <div className="col-md-2 col-sm-12">
                 <p>
-                    <b>{appointmentData.extraName ? `${appointmentData.extraName}` : `${appointmentData.title}`}</b> -
+                    <b>{appointmentData.extraName ? `${appointmentData.extraName}` : `${appointmentData.title}`}</b> <br />
                     {formatContact(appointmentData.extraContact ? appointmentData.extraContact : appointmentData.contact)}
                 </p>
             </div>
             <div className="col-md-2 col-sm-12">
-                <p>{appointmentData.type}</p>
+                <p>{appointmentData.sessionZones !== 10 ? `${appointmentData.sessionZones} zonas` : 'Full-body'}</p>
             </div>
             <div className="col-md-2 col-sm-12">
                 <p>{convertDateToDDMMYY(appointmentData.isoDate)} | {convertDateToHHMM(appointmentData.isoDate)} HS</p> 

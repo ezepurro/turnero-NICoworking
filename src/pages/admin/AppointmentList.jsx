@@ -179,12 +179,12 @@ const AppointmentList = () => {
           {hasAppointments && (
             <div className="container">
               <div className="row">
-                <div className="col-md-2"><p>Cliente y número de contacto</p></div>
-                <div className="col-md-2"><p>Tipo de turno</p></div>
-                <div className="col-md-2"><p>Fecha y hora</p></div>
-                <div className="col-md-2"><p>Estado del turno</p></div>
-                <div className="col-md-2"><p>Gestionar turno</p></div>
-                <div className="col-md-2"><p>Eliminar turno</p></div>
+                <div className="col-md-2"><p><b>Cliente y contacto</b></p></div>
+                <div className="col-md-2"><p><b>Cantidad de zonas</b></p></div>
+                <div className="col-md-2"><p><b>Fecha y hora</b></p></div>
+                <div className="col-md-2"><p><b>Estado del turno</b></p></div>
+                <div className="col-md-2"><p><b>Gestionar turno</b></p></div>
+                <div className="col-md-2"><p><b>Eliminar turno</b></p></div>
                 <hr />
               </div>
             </div>
