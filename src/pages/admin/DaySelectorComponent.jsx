@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDate } from "../../hooks/useDate";
 import DatePicker from "react-datepicker";
 import "../../styles/components/daySelectorComponent.css";
@@ -6,13 +6,10 @@ import "../../styles/components/daySelectorComponent.css";
 const defaultStartTime = '2025-06-01T12:00:00.000Z';
 const defaultEndTime = '2025-06-01T23:00:00.000Z';
 
-const DaySelectorComponent = ({ refreshData }) => {
+const DaySelectorComponent = ({ refreshData, enabledDates = [] }) => {
 
-    const [startDate, setStartDate] = useState();
-    const [enabledDates, setEnabledDates] = useState([]);
-    const { addDate, getDates } = useDate();
-
-
+    const [ startDate, setStartDate ] = useState();
+    const { addDate } = useDate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -21,26 +18,14 @@ const DaySelectorComponent = ({ refreshData }) => {
             const formattedDate = date.toISOString();
             await addDate(formattedDate, defaultStartTime, defaultEndTime);
             refreshData();
-            fetchDates();
         }
     }
 
     const highlightDates = (date) => {
         return enabledDates.some(enabledDate =>
-            enabledDate.toDateString() === date.toDateString()
+            new Date(enabledDate.date).toDateString() === date.toDateString()
         ) ? "enabled-day" : "";
     };
-
-    const fetchDates = async () => {
-        const dates = await getDates();
-        const formattedDates = dates.map(date => new Date(date.date));
-        setEnabledDates(formattedDates);
-    };
-
-    useEffect(() => {
-        fetchDates();
-    }, [])
-
 
     return (
         <form className="day-selector" onSubmit={handleSubmit}>
@@ -56,7 +41,7 @@ const DaySelectorComponent = ({ refreshData }) => {
                 minDate={new Date()}
                 inline
                 dayClassName={highlightDates}
-                excludeDates={enabledDates}
+                excludeDates={enabledDates.map((d) => new Date(d.date))}
             />
             <br />
             <button type="submit" className="btn form-button">Habilitar fecha</button>

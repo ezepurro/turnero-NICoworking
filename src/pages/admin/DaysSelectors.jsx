@@ -31,8 +31,6 @@ const DaysSelectors = () => {
     fetchData();
   }, []);
 
-
-
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
   const itemsPerPage = 5;
@@ -60,7 +58,7 @@ const DaysSelectors = () => {
       <div className="container d-flex align-items-center" style={{ minHeight: "70vh" }}>
         <div className="row w-100">
           <div className="col-lg-6 col-md-12 mx-auto">
-            <DaySelectorComponent refreshData={fetchData} />
+            <DaySelectorComponent refreshData={fetchData} enabledDates={dates} />
           </div>
           <div className="col-lg-6 col-md-12">
             <div className="row">
