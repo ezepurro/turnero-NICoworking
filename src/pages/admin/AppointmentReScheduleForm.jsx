@@ -28,19 +28,33 @@ const AppointmentReScheduleForm = ({ show, handleClose, appointment, refreshData
     if (!show || !appointment) return;
 
     const initializeForm = async () => {
-      const validDates = (await getDates()).map(d => d.date);
+      let validDates = (await getDates()).map(d => d.date); // Array de strings: ["2025-06-13", "2025-06-11", ...]
+
+      // Ordenamos por fecha ascendente (más próxima primero)
+      validDates.sort((a, b) => new Date(a) - new Date(b));
       setIncludedDates(validDates);
 
-      const initialDate = new Date(appointment.start);
-      setStartDate(initialDate);
       setSelectedOption(appointment.sessionZones.toString());
-      setIsDatepickerTouched(false);
 
-      await handleDateChange(initialDate, appointment.sessionZones);
+      const appointmentDateStr = new Date(appointment.start).toISOString().split('T')[0];
+      const isValidAppointmentDate = validDates.includes(appointmentDateStr);
+
+      if (isValidAppointmentDate) {
+        const apptDate = new Date(appointment.start);
+        setStartDate(apptDate);
+        await handleDateChange(apptDate, appointment.sessionZones);
+      } else if (validDates.length > 0) {
+        const firstAvailableDate = new Date(validDates[0]);
+        setStartDate(firstAvailableDate);
+        await handleDateChange(firstAvailableDate, appointment.sessionZones);
+      }
+
+      setIsDatepickerTouched(false);
     };
 
     initializeForm();
   }, [show, appointment]);
+
 
   const convertToDateTimes = (minutesArray, baseDate) => {
     if (!Array.isArray(minutesArray)) return [];
@@ -106,6 +120,17 @@ const AppointmentReScheduleForm = ({ show, handleClose, appointment, refreshData
         icon: 'error',
         title: 'Error',
         text: 'Debe completar todos los campos',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
+
+    if (new Date(startDate).getHours() !== '00') {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Horario inválido',
         showConfirmButton: false,
         timer: 1500,
       });
@@ -192,7 +217,7 @@ const AppointmentReScheduleForm = ({ show, handleClose, appointment, refreshData
               timeIntervals={sessionDuration}
               minTime={createTimeFromBase(startDate, timeRange.start)}
               maxTime={createTimeFromBase(startDate, timeRange.end)}
-              className={`form-control`}
+              className={`form-control ${!isDatepickerTouched ? 'date-placeholder-hidden' : ''}`}
               disabled={!selectedOption}
               onKeyDown={(e) => e.preventDefault()}
               placeholderText="Selecciona una nueva fecha y hora"
