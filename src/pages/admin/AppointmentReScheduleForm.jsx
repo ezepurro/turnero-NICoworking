@@ -168,7 +168,7 @@ const AppointmentReScheduleForm = ({ show, handleClose, appointment, refreshData
 
   const sessionDuration = (parseInt(selectedOption) !== 10)
     ? parseInt(selectedOption) * 5
-    : 25;
+    : 30;
 
   return (
     <Modal show={show} onHide={handleCloseModal} centered className="re-schedule-form">

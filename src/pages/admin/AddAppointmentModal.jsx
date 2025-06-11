@@ -113,7 +113,7 @@ const AddAppointmentModal = ({ show, handleClose, handleSubmit, formData, setFor
 
   const sessionDuration = (parseInt(formData.sessionZones) !== 10)
     ? parseInt(formData.sessionZones) * 5
-    : 25;
+    : 30;
 
   return (
     <Modal show={show} onHide={handleCloseModal} className="add-appointment-modal" centered>

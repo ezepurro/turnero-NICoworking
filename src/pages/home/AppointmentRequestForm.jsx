@@ -165,7 +165,7 @@ const AppointmentRequestForm = ({ type }) => {
         setSelectedOption(event.target.value);
     };
 
-    const sessionDuration = (parseInt(selectedOption) !== 10) ? parseInt(selectedOption) * 5 : 25;
+    const sessionDuration = (parseInt(selectedOption) !== 10) ? parseInt(selectedOption) * 5 : 30;
 
     return (
         <div className='container'>
