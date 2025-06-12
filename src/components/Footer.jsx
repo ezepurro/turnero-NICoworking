@@ -27,7 +27,7 @@ const Footer = () => {
           <span>Beauty Bloom {currentYear} © Todos los derechos reservados</span>
           <div className='solidcat-signature'>
             <a href="https://solidcat.dev" target='_blank'>
-              <img src="solidcat-box2.svg" alt="SolidCatBrand" />
+              <img src="/solidcat-box2.svg" alt="SolidCatBrand" />
             </a>
           </div>
         </div>
